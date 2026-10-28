@@ -1,3 +1,74 @@
+// ---- Live Google Form / Sheet Auto-Sync (if LAB.sheetCsvUrl is configured) ----
+let _sheetSynced = null;
+function parseCSV(text){
+  const rows=[]; let row=[], cur='', inQ=false;
+  for(let i=0;i<text.length;i++){
+    const ch=text[i], nx=text[i+1];
+    if(inQ){
+      if(ch==='"' && nx==='"'){cur+='"'; i++;}
+      else if(ch==='"'){inQ=false;}
+      else cur+=ch;
+    } else {
+      if(ch==='"') inQ=true;
+      else if(ch===','){row.push(cur.trim()); cur='';}
+      else if(ch==='\n' || ch==='\r'){
+        if(ch==='\r' && nx==='\n') i++;
+        row.push(cur.trim()); if(row.some(Boolean)) rows.push(row);
+        row=[]; cur='';
+      } else cur+=ch;
+    }
+  }
+  if(cur || row.length){row.push(cur.trim()); if(row.some(Boolean)) rows.push(row);}
+  return rows;
+}
+function drivePhoto(u){
+  if(!u) return '';
+  const m=u.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)||u.match(/[?&]id=([A-Za-z0-9_-]{15,})/);
+  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w500` : u;
+}
+async function syncLiveSheet(){
+  if(_sheetSynced) return _sheetSynced;
+  if(!LAB.sheetCsvUrl) return (_sheetSynced=Promise.resolve());
+  _sheetSynced=(async()=>{
+    try{
+      const r=await fetch(LAB.sheetCsvUrl);
+      if(!r.ok) return;
+      const rows=parseCSV(await r.text());
+      if(rows.length<2) return;
+      const hdr=rows[0].map(h=>h.toLowerCase());
+      const col=sub=>hdr.findIndex(h=>h.includes(sub));
+      const cName=col('full name'), cStat=col('status in lab'), cPos=col('current position'),
+            cYear=col('graduation year'), cThes=col('thesis title'), cKw=col('research interests'),
+            cBio=col('short biography'), cMail=col('public email'), cGS=col('google scholar'),
+            cOrc=col('orcid'), cRG=col('researchgate'), cWeb=col('personal website'), cPic=col('profile photo');
+      rows.slice(1).forEach(r=>{
+        const nm=r[cName]; if(!nm) return;
+        const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+        let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
+        if(!p){
+          p={id:slug, name:nm, role:'PhD Scholar', group:'student', status:'active', photo:'', position:'PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur', email:'', bio:'', interests:['Seismology'], links:{scholar:'',researchgate:'',orcid:'',web:''}};
+          PEOPLE.push(p);
+        }
+        const st=r[cStat]||'', yr=r[cYear]||'';
+        if(/alumni/i.test(st)){p.status='alumni'; p.degree=/ms/i.test(st)?'MS':'PhD'; if(/^\d{4}$/.test(yr)){p.gradYear=Number(yr); p.role=`${p.degree} Graduate (${yr})`;} else p.role=`${p.degree} Graduate`;}
+        else if(/principal investigator/i.test(st)){p.group='pi'; p.status='active'; p.role='Principal Investigator';}
+        else if(st){p.status='active'; p.role=/ms/i.test(st)?'MS Scholar':(/postdoc/i.test(st)?'Postdoctoral Fellow':'PhD Scholar');}
+        if(r[cPos]) p.position=r[cPos];
+        if(r[cThes]) p.thesis=r[cThes];
+        if(r[cBio]) p.bio=r[cBio];
+        if(r[cKw]){p.interests=r[cKw].split(',').map(x=>x.trim()).filter(Boolean); p.area=p.interests.slice(0,3).join(', ');}
+        if(r[cMail]) p.email=r[cMail];
+        p.links=p.links||{};
+        if(r[cGS]) p.links.scholar=r[cGS];
+        if(r[cOrc]) p.links.orcid=/^\d{4}-/.test(r[cOrc])?'https://orcid.org/'+r[cOrc]:r[cOrc];
+        if(r[cRG]) p.links.researchgate=r[cRG];
+        if(r[cWeb]) p.links.web=r[cWeb];
+        if(r[cPic]) p.photo=drivePhoto(r[cPic]);
+      });
+    }catch(e){}
+  })();
+  return _sheetSynced;
+}
 const $=s=>document.querySelector(s);
 const byId=id=>PEOPLE.find(p=>p.id===id);
 const norm=s=>s.toLowerCase().replace(/prof\.|dr\.|[^a-z ]/g,'').replace(/\s+/g,' ').trim();
@@ -208,12 +279,14 @@ function layout(page){
   document.body.insertAdjacentHTML('afterbegin',`<header><nav><a class="brand" href="index.html">${LAB.name}</a><div class="links">${nav.map(n=>`<a href="${n[0]}" class="${n[0]===page?'on':''}">${n[1]}</a>`).join('')}</div></nav></header>`);
   document.body.insertAdjacentHTML('beforeend',`<footer>${LAB.name} · ${LAB.institution}<br>${LAB.email}</footer>`);
 }
-function home(){
+async function home(){
+  await syncLiveSheet();
   $('#themes').innerHTML=LAB.themes.map(t=>`<div class="card"><h3>${t.title}</h3><p>${t.text}</p></div>`).join('');
   $('#pis').innerHTML=PEOPLE.filter(p=>p.group==='pi').map(card).join('');
   $('#news').innerHTML=LAB.news.map(n=>`<li><strong>${n.date}</strong> – ${n.text}</li>`).join('');
 }
-function people(){
+async function people(){
+  await syncLiveSheet();
   let f='all';
   const row=p=>`<a class="row" href="person.html?id=${p.id}">${avatar(p)}<div><h3>${p.name}</h3><div class="pos">${p.position}</div><div class="org">${LAB.name}</div>
     <div class="tags">${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</div></div><span class="count" data-id="${p.id}"></span></a>`;
@@ -229,6 +302,7 @@ function people(){
   document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{f=b.dataset.f;draw()});$('#q').oninput=draw;draw();
 }
 async function pubs(){
+  await syncLiveSheet();
   const el=$('#pubs');el.innerHTML='Loading…';
   const all=merge([PUBLICATIONS,...PEOPLE.map(scholarCacheFor),...await Promise.all(PEOPLE.map(livePubs))]);
   el.innerHTML=`<p>${all.length} research outputs</p>`+groupByYearHTML(all);
@@ -417,6 +491,7 @@ function initNetworkInteractive(p, mine){
 }
 
 async function person(){
+  await syncLiveSheet();
   const p=byId(new URLSearchParams(location.search).get('id'));
   if(!p){$('#person').innerHTML='<p>Person not found. <a href="people.html">Back to people</a></p>';return}
   document.title=p.name+' – '+LAB.name;
