@@ -2,7 +2,7 @@
 const LAB = {
   name: "Broadband Seismology Lab",
   googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdfI0O4l3guIgTeRflh-GBpwBQFOuXrEA1G02-NyYPHcDXpIA/viewform",
-  sheetCsvUrl: "",
+  sheetCsvUrl: "https://docs.google.com/spreadsheets/d/e/2PACX-1vSMBW_Xyw3d2AZ0HN3b0_Ln7YAjgA01SduNPS1f8lqwYGL9HF-1ZvyGfGeApPlGaQ8OVqVFEC42eFXE/pub?output=csv",
   formWebAppUrl: "", // Paste Published Google Sheet CSV URL here for instant live form sync
   tagline: "Imaging Earth's interior and understanding earthquakes through broadband seismology",
   department: "Department of Geology and Geophysics",
