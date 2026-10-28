@@ -134,7 +134,17 @@ async function livePubs(p){
     }));
   }catch(e){return (p._cache=[])}
 }
-const typeOf=p=>p.type||(/abstract|conference|meeting/i.test(p.venue)?'Conference contribution':'Article');
+const KNOWN_JOURNALS=/journal|bulletin|tectonophysics|tectonics|geophysics,\s*geosystems|letters|reports|physics of the earth|physics and chemistry|soil dynamics|geomatics|seismica|precambrian|gondwana|solid earth|natural hazards|geologica acta|current science|eos|pure and applied|lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ieee|nature|science/i;
+function typeOf(p){
+  const t=(p.title||'').trim(), v=(p.venue||'').trim(), tv=t+' '+v;
+  if(/\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology/i.test(v)) return 'Thesis';
+  if(!v || /^preprint$/i.test(v) || /\b(preprint|arxiv|essoar|authorea|research\s*square|ssrn|eartharxiv)\b/i.test(tv)) return 'Preprint';
+  if(/\b(abstracts?|meeting|conference|general assembly|symposium|workshop|proceedings|session|egu\d{2}|agu\d{2}|epsc|iugg)\b|\?/i.test(v)) return 'Conference contribution';
+  if(/^a review of\b|\breview:\b|\breview article\b/i.test(t)) return 'Review article';
+  if(/\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards)\b/i.test(v)) return 'Chapter';
+  if(/^[A-Za-z][A-Za-z\s:,\-&]+,\s*\d+\s*[-–]\s*\d+\s*$/.test(v) && !KNOWN_JOURNALS.test(v)) return 'Chapter';
+  return p.type || 'Article';
+}
 function merge(lists){
   const byTitle=new Map();
   lists.flat().forEach(p=>{

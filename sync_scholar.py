@@ -26,6 +26,32 @@ def extract_scholar_users(js_text):
             users[pid] = m.group(1)
     return users
 
+KNOWN_JOURNALS = re.compile(
+    r"journal|bulletin|tectonophysics|tectonics|geophysics,\s*geosystems|letters|reports|"
+    r"physics of the earth|physics and chemistry|soil dynamics|geomatics|seismica|precambrian|"
+    r"gondwana|solid earth|natural hazards|geologica acta|current science|eos|pure and applied|"
+    r"lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ier|ieee|nature|science",
+    re.I
+)
+
+def classify_pub(title, venue):
+    t = (title or "").strip()
+    v = (venue or "").strip()
+    tv = f"{t} {v}"
+    if re.search(r"\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology", v, re.I):
+        return "Thesis"
+    if not v or re.search(r"\b(preprint|arxiv|essoar|authorea|research\s*square|ssrn|biorxiv|eartharxiv)\b", tv, re.I):
+        return "Preprint"
+    if re.search(r"\b(abstracts?|meeting|conference|general assembly|symposium|workshop|proceedings|session|egu\d{2}|agu\d{2}|epsc|iugg)\b|\?", v, re.I):
+        return "Conference contribution"
+    if re.search(r"^a review of\b|\breview:\b|\breview article\b", t, re.I):
+        return "Review article"
+    if re.search(r"\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards)\b", v, re.I):
+        return "Chapter"
+    if re.match(r"^[A-Za-z][A-Za-z\s:,\-&]+,\s*\d+\s*[-–]\s*\d+\s*$", v) and not KNOWN_JOURNALS.search(v):
+        return "Chapter"
+    return "Article"
+
 def strip_tags(s):
     return html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
 
@@ -82,10 +108,9 @@ def fetch_scholar_author(uid):
             year = int(y_m.group(1)) if y_m else 0
 
             a_list = [a.strip() for a in authors_str.split(",") if a.strip() and a.strip() != "..."]
-            is_conf = bool(re.search(r"abstract|meeting|conference|egu|agu|symposium|workshop|proceedings|session", venue_str + " " + title, re.I))
-            is_chap = bool(re.search(r"chapter|springer|elsevier book|ed\.|handbook", venue_str, re.I))
-            is_thesis = bool(re.search(r"thesis|dissertation|indian institute of technology", venue_str, re.I))
-            ptype = "Thesis" if is_thesis else ("Chapter" if is_chap else ("Conference contribution" if is_conf else "Article"))
+            ptype = classify_pub(title, venue_str)
+            if ptype == "Preprint" and not venue_str:
+                venue_str = "Preprint"
 
             pubs.append({
                 "year": year,

@@ -204,9 +204,9 @@ const SCHOLAR_CACHE = {
           "S Bose",
           "AK Gupta"
         ],
-        "venue": "",
+        "venue": "Preprint",
         "cites": 1,
-        "type": "Article",
+        "type": "Preprint",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DiAhEVwAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=DiAhEVwAAAAJ:CHSYGLWDkRkC",
         "gsRank": 11
       },
@@ -434,7 +434,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "XXVIII General Assembly of the International Union of Geodesy and Geophysics\u00a0\u2026",
         "cites": 6,
-        "type": "Article",
+        "type": "Conference contribution",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DiAhEVwAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=DiAhEVwAAAAJ:CaZNVDsoPx4C",
         "gsRank": 24
       },
@@ -449,7 +449,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "XXVIII General Assembly of the International Union of Geodesy and Geophysics\u00a0\u2026",
         "cites": 0,
-        "type": "Article",
+        "type": "Conference contribution",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DiAhEVwAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=DiAhEVwAAAAJ:OR75R8vi5nAC",
         "gsRank": 25
       },
@@ -737,7 +737,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "arXiv preprint arXiv:2101.06517",
         "cites": 9,
-        "type": "Article",
+        "type": "Preprint",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DiAhEVwAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=DiAhEVwAAAAJ:t6usbXjVLHcC",
         "gsRank": 41
       },
@@ -1222,7 +1222,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Tectonophysics 644, 1-21",
         "cites": 130,
-        "type": "Article",
+        "type": "Review article",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=DiAhEVwAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=DiAhEVwAAAAJ:jlhcAiayVhoC",
         "gsRank": 72
       },
@@ -1765,7 +1765,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "XXVIII General Assembly of the International Union of Geodesy and Geophysics\u00a0\u2026",
         "cites": 6,
-        "type": "Article",
+        "type": "Conference contribution",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=P-hfK8gAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=P-hfK8gAAAAJ:eQOLeE2rZwMC",
         "gsRank": 14
       },
@@ -1880,7 +1880,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Seismic Tomography: What Comes Next?",
         "cites": 0,
-        "type": "Article",
+        "type": "Conference contribution",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=P-hfK8gAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=P-hfK8gAAAAJ:2osOgNQ5qMEC",
         "gsRank": 20
       },
@@ -1934,7 +1934,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Kharagpur, 0",
         "cites": 0,
-        "type": "Article",
+        "type": "Thesis",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=P-hfK8gAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=P-hfK8gAAAAJ:hqOjcs7Dif8C",
         "gsRank": 23
       }
@@ -1965,7 +1965,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Himalayan Natural Hazards, 29-55",
         "cites": 0,
-        "type": "Article",
+        "type": "Chapter",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TPNNtLYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=TPNNtLYAAAAJ:uDGL6kOW6j0C",
         "gsRank": 0
       },
@@ -2082,9 +2082,9 @@ const SCHOLAR_CACHE = {
           "S Bose",
           "AK Gupta"
         ],
-        "venue": "",
+        "venue": "Preprint",
         "cites": 1,
-        "type": "Article",
+        "type": "Preprint",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=TPNNtLYAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=TPNNtLYAAAAJ:sJsF-0ZLhtgC",
         "gsRank": 7
       },
