@@ -1,6 +1,7 @@
 // EDIT THIS FILE to update the website. status: "active" | "alumni"
 const LAB = {
   name: "Broadband Seismology Lab",
+  googleFormUrl: "https://docs.google.com/forms/d/e/1FAIpQLSdfI0O4l3guIgTeRflh-GBpwBQFOuXrEA1G02-NyYPHcDXpIA/viewform",
   sheetCsvUrl: "",
   formWebAppUrl: "", // Paste Published Google Sheet CSV URL here for instant live form sync
   tagline: "Imaging Earth's interior and understanding earthquakes through broadband seismology",

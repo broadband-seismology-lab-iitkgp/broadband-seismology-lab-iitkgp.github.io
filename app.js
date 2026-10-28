@@ -65,10 +65,19 @@ async function syncLiveSheet(){
       if(rows.length<2) return;
       const hdr=rows[0].map(h=>h.toLowerCase());
       const col=sub=>hdr.findIndex(h=>h.includes(sub));
-      const cName=col('full name'), cStat=col('status in lab'), cPos=col('current position'),
-            cYear=col('graduation year'), cThes=col('thesis title'), cKw=col('research interests'),
-            cBio=col('short biography'), cMail=col('public email'), cGS=col('google scholar'),
-            cOrc=col('orcid'), cRG=col('researchgate'), cWeb=col('personal website'), cPic=col('profile photo');
+      const colAny=(...subs)=>hdr.findIndex(h=>subs.some(s=>h.includes(s)));
+      const cName=colAny('full name','name'), cStat=colAny('status','role','category','current or alumni'),
+            cPos=colAny('current position','position','designation','affiliation','current role'),
+            cYear=colAny('graduation year','year of graduation','passout','year'),
+            cThes=colAny('thesis','dissertation'),
+            cKw=colAny('research interest','area of research','keyword','research area','topic'),
+            cBio=colAny('biography','bio','overview','about'),
+            cMail=colAny('public email','email','e-mail'),
+            cGS=colAny('google scholar','scholar'),
+            cOrc=colAny('orcid'),
+            cRG=colAny('researchgate','research gate'),
+            cWeb=colAny('personal website','website','webpage','linkedin'),
+            cPic=colAny('photo','image','picture','headshot','avatar');
       rows.slice(1).forEach(r=>{
         const nm=r[cName]; if(!nm) return;
         const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
