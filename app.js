@@ -2,16 +2,29 @@ const $=s=>document.querySelector(s);
 const byId=id=>PEOPLE.find(p=>p.id===id);
 const norm=s=>s.toLowerCase().replace(/prof\.|dr\.|[^a-z ]/g,'').replace(/\s+/g,' ').trim();
 const byName=n=>{
-  const nn=norm(n);
-  return PEOPLE.find(p=>{
-    const pn=norm(p.name);
-    if(pn===nn)return true;
-    const pp=pn.split(' '), np=nn.split(' ');
-    if(pp.length>1 && np.length>1 && pp[pp.length-1]===np[np.length-1] && pp[0][0]===np[0][0]){
-      if(pp[0].length===1 || np[0].length===1 || pp[0]===np[0]) return true;
-    }
-    return false;
+  let nn=norm(n);
+  if(!nn) return null;
+  // Exact full-name match first
+  let exact=PEOPLE.find(p=>norm(p.name)===nn);
+  if(exact) return exact;
+  // Strip leading co-author initials Google Scholar sometimes glues on (e.g. "as sukanta sarkar" -> "sukanta sarkar")
+  const toks=nn.split(' ');
+  if(toks.length>=3 && toks[0].length<=2){
+    const tail=toks.slice(1).join(' ');
+    exact=PEOPLE.find(p=>norm(p.name)===tail);
+    if(exact) return exact;
+  }
+  // Safe initial + surname match ONLY when the surname is unique in the lab OR initials match uniquely
+  const np=nn.split(' ');
+  if(np.length<2) return null;
+  const nLast=np[np.length-1], nInits=np.slice(0,-1).map(w=>w[0]).join('');
+  const cands=PEOPLE.filter(p=>{
+    const pp=norm(p.name).split(' ');
+    if(pp.length<2 || pp[pp.length-1]!==nLast) return false;
+    const pInits=pp.slice(0,-1).map(w=>w[0]).join('');
+    return pInits===nInits || (nInits.length===1 && pInits[0]===nInits[0]);
   });
+  return cands.length===1 ? cands[0] : null;
 };
 const initials=n=>n.replace(/Prof\.|Dr\./g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2);
 const avatar=p=>`<div class="avatar"><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" style="width:100%;height:100%;border-radius:50%;object-fit:cover" onerror="this.remove()">${initials(p.name)}</div>`;
@@ -81,21 +94,18 @@ function groupByYearHTML(list){
   return years.map(y=>`<div class="year">${y}</div><ul class="pubs">${list.filter(p=>p.year===y).map(pubItem).join('')}</ul>`).join('');
 }
 
-// ---- Live publications from ORCID + OpenAlex Author Search (combined, up to 200 works per author profile!) ----
+// ---- Live publications strictly from verified ORCID or explicit OpenAlex ID (never blind name search!) ----
 async function livePubs(p){
   if(p._cache) return p._cache;
+  // If we already have complete Google Scholar cache for this person, no need to mix noisy OpenAlex works
+  if(typeof SCHOLAR_CACHE!=='undefined' && SCHOLAR_CACHE[p.id] && (SCHOLAR_CACHE[p.id].publications||[]).length>0){
+    return (p._cache=[]);
+  }
   const l=p.links||{};const m=(l.orcid||'').match(/\d{4}-\d{4}-\d{4}-\d{3}[\dX]/);
   try{
     const filters=[];
     if(m) filters.push('author.orcid:'+m[0]);
     if(p.openalex) filters.push('author.id:'+p.openalex);
-    if(p.autoSearch!==false){
-      const qName=p.name.replace(/Prof\.|Dr\./g,'').trim();
-      const a=await (await fetch('https://api.openalex.org/authors?search='+encodeURIComponent(qName)+'&per-page=15&select=id,display_name,affiliations,last_known_institutions,works_count')).json();
-      const instRegex = p.group==='pi' ? /Kharagpur|National Geophysical Research Institute/i : /Kharagpur|National Geophysical Research Institute|Dhanbad|North East Institute|Wadia/i;
-      const hits=(a.results||[]).filter(x=>instRegex.test(JSON.stringify([x.affiliations,x.last_known_institutions]))).sort((x,y)=>y.works_count-x.works_count);
-      hits.slice(0,5).forEach(h=>filters.push('author.id:'+h.id.split('/').pop()));
-    }
     if(!filters.length) return (p._cache=[]);
     const pages=await Promise.all([...new Set(filters)].map(flt=>
       fetch(`https://api.openalex.org/works?filter=${flt}&sort=publication_year:desc&per-page=200&select=title,publication_year,publication_date,doi,authorships,primary_location,biblio,type,cited_by_count,concepts`)

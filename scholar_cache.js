@@ -1414,7 +1414,7 @@ const SCHOLAR_CACHE = {
       }
     ]
   },
-  "aamir-salam-siddiqui": {
+  "mita-uthaman": {
     "scholarId": "P-hfK8gAAAAJ",
     "updated": "2026-10-28",
     "citations": 101,

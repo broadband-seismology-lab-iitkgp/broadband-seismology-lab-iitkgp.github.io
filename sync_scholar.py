@@ -19,9 +19,13 @@ HEADERS = {
 
 def extract_scholar_users(js_text):
     users = {}
-    for m in re.finditer(r'\{id:\s*"([^"]+)"[\s\S]*?links:\s*\{[^}]*?scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)"', js_text):
-        pid, uid = m.group(1), m.group(2)
-        users[pid] = uid
+    # Split by person entries `{id: "..."`
+    blocks = re.split(r'(?=\{id:\s*")', js_text)
+    for b in blocks:
+        m_id = re.search(r'\{id:\s*"([^"]+)"', b)
+        m_sc = re.search(r'scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)"', b)
+        if m_id and m_sc:
+            users[m_id.group(1)] = m_sc.group(1)
     return users
 
 def strip_tags(s):
@@ -118,6 +122,7 @@ def main():
             except Exception:
                 existing = {}
 
+    existing = {k: v for k, v in existing.items() if users.get(k) == v.get("scholarId")}
     for pid, uid in users.items():
         print(f"Fetching Google Scholar profile for {pid} ({uid})...")
         try:
