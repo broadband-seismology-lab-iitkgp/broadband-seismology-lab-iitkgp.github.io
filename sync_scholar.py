@@ -1,25 +1,107 @@
 #!/usr/bin/env python3
 """
+Zero-dependency Google Scholar Profile & Publication Sync Script.
+Uses only Python's standard library (urllib, html.parser, re, json) — no pip packages needed!
 Fetches exact Google Scholar metrics (All & Since 2021 Citations, h-index, i10-index)
-and full publication lists (all 90+ articles, conference papers, chapters, etc.)
-for every lab member in data.js who has a verified `links.scholar` URL (`user=...`),
-and writes them to `scholar_cache.js`.
+and all publications (paginating 0..100, 100..200) for every member in data.js with a `links.scholar` user ID.
 """
-import json, re, time
+import html, json, re, time, urllib.parse, urllib.request
 from pathlib import Path
-from scholarly import scholarly
 
 ROOT = Path(__file__).parent
 DATA_JS = ROOT / "data.js"
 CACHE_JS = ROOT / "scholar_cache.js"
 
+HEADERS = {
+    "User-Agent": "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36",
+    "Accept-Language": "en-US,en;q=0.9",
+}
+
 def extract_scholar_users(js_text):
     users = {}
-    # Find each person block with id and scholar link
-    for m in re.finditer(r'\{id:\s*"([^"]+)"[^\n]*?\n(?:[^\n]*?\n){0,8}?[^\n]*?scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)"', js_text):
+    for m in re.finditer(r'\{id:\s*"([^"]+)"[\s\S]*?links:\s*\{[^}]*?scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)"', js_text):
         pid, uid = m.group(1), m.group(2)
         users[pid] = uid
     return users
+
+def strip_tags(s):
+    return html.unescape(re.sub(r"<[^>]+>", "", s)).strip()
+
+def fetch_url(url):
+    req = urllib.request.Request(url, headers=HEADERS)
+    with urllib.request.urlopen(req, timeout=20) as resp:
+        return resp.read().decode("utf-8", errors="replace")
+
+def fetch_scholar_author(uid):
+    metrics = {}
+    pubs = []
+    for cstart in (0, 100, 200):
+        url = f"https://scholar.google.com/citations?hl=en&user={uid}&cstart={cstart}&pagesize=100&sortby=pubdate"
+        page = fetch_url(url)
+        if cstart == 0:
+            # Parse gsc_rsb_std cells: [citations_all, citations_5y, hindex_all, hindex_5y, i10_all, i10_5y]
+            cells = [int(x) for x in re.findall(r'class="gsc_rsb_std">(\d+)<', page) if x.isdigit()]
+            if len(cells) >= 6:
+                metrics = {
+                    "citations": cells[0],
+                    "citationsRecent": cells[1],
+                    "hindex": cells[2],
+                    "hindexRecent": cells[3],
+                    "i10index": cells[4],
+                    "i10indexRecent": cells[5],
+                }
+            elif len(cells) >= 3:
+                metrics = {"citations": cells[0], "hindex": cells[1], "i10index": cells[2]}
+
+        rows = re.findall(r'<tr class="gsc_a_tr">(.*?)</tr>', page, re.S)
+        if not rows:
+            break
+        added = 0
+        for row in rows:
+            if "gsc_a_e" in row:
+                continue
+            t_m = re.search(r'<a[^>]*class="gsc_a_at"[^>]*>(.*?)</a>', row, re.S)
+            href_m = re.search(r'<a[^>]*href="([^"]*)"[^>]*class="gsc_a_at"', row, re.S) or re.search(r'<a[^>]*class="gsc_a_at"[^>]*href="([^"]*)"', row, re.S)
+            if not t_m:
+                continue
+            title = strip_tags(t_m.group(1))
+            href = html.unescape(href_m.group(1)) if href_m else ""
+            gs_url = ("https://scholar.google.com" + href) if href.startswith("/") else href
+
+            grays = [strip_tags(g) for g in re.findall(r'<div class="gs_gray">(.*?)</div>', row, re.S)]
+            authors_str = grays[0] if len(grays) > 0 else ""
+            venue_str = grays[1] if len(grays) > 1 else ""
+            venue_str = re.sub(r",\s*(19|20)\d{2}\s*$", "", venue_str).strip()
+
+            c_m = re.search(r'class="gsc_a_ac[^"]*"[^>]*>(\d+)<', row)
+            cites = int(c_m.group(1)) if c_m else 0
+
+            y_m = re.search(r'class="gsc_a_h gsc_a_hc[^"]*"[^>]*>(\d{4})<', row) or re.search(r'class="gsc_a_y"[^>]*>.*?(\d{4}).*?</span>', row, re.S)
+            year = int(y_m.group(1)) if y_m else 0
+
+            a_list = [a.strip() for a in authors_str.split(",") if a.strip() and a.strip() != "..."]
+            is_conf = bool(re.search(r"abstract|meeting|conference|egu|agu|symposium|workshop|proceedings|session", venue_str + " " + title, re.I))
+            is_chap = bool(re.search(r"chapter|springer|elsevier book|ed\.|handbook", venue_str, re.I))
+            is_thesis = bool(re.search(r"thesis|dissertation|indian institute of technology", venue_str, re.I))
+            ptype = "Thesis" if is_thesis else ("Chapter" if is_chap else ("Conference contribution" if is_conf else "Article"))
+
+            pubs.append({
+                "year": year,
+                "date": str(year) if year else "",
+                "title": title,
+                "authors": a_list,
+                "venue": venue_str,
+                "cites": cites,
+                "type": ptype,
+                "url": gs_url
+            })
+            added += 1
+        if added < 100:
+            break
+        time.sleep(1.5)
+
+    pubs.sort(key=lambda x: (x.get("year") or 0, x.get("cites") or 0), reverse=True)
+    return metrics, pubs
 
 def main():
     text = DATA_JS.read_text(encoding="utf-8")
@@ -39,60 +121,23 @@ def main():
     for pid, uid in users.items():
         print(f"Fetching Google Scholar profile for {pid} ({uid})...")
         try:
-            author = scholarly.search_author_id(uid)
-            author = scholarly.fill(author, sections=["basics", "indices", "publications"])
-            pubs = []
-            for p in author.get("publications", []):
-                bib = p.get("bib", {})
-                title = bib.get("title", "").strip()
-                if not title:
-                    continue
-                year_raw = bib.get("pub_year") or bib.get("year")
-                try:
-                    year = int(year_raw)
-                except Exception:
-                    year = 0
-                venue = bib.get("citation") or bib.get("journal") or bib.get("venue") or bib.get("booktitle") or ""
-                authors_str = bib.get("author", "")
-                if " and " in authors_str:
-                    a_list = [x.strip() for x in authors_str.split(" and ") if x.strip()]
-                elif "," in authors_str:
-                    a_list = [x.strip() for x in authors_str.split(",") if x.strip()]
-                else:
-                    a_list = [authors_str] if authors_str else []
-                cites = p.get("num_citations", 0)
-                pub_id = p.get("author_pub_id", "")
-                gs_url = f"https://scholar.google.com/citations?view_op=view_citation&hl=en&user={uid}&citation_for_view={pub_id}" if pub_id else ""
-                is_conf = bool(re.search(r"abstract|meeting|conference|egu|agu|symposium|workshop|proceedings", venue, re.I))
-                pubs.append({
-                    "year": year,
-                    "date": str(year) if year else "",
-                    "title": title,
-                    "authors": a_list,
-                    "venue": venue,
-                    "cites": cites,
-                    "type": "Conference contribution" if is_conf else "Article",
-                    "url": gs_url
-                })
-            pubs.sort(key=lambda x: (x.get("year") or 0, x.get("cites") or 0), reverse=True)
+            metrics, pubs = fetch_scholar_author(uid)
+            if not pubs and not metrics:
+                print(f"  -> Warning: empty response (possible Google CAPTCHA) for {pid}")
+                continue
             existing[pid] = {
                 "scholarId": uid,
                 "updated": time.strftime("%Y-%m-%d"),
-                "citations": author.get("citedby", 0),
-                "citationsRecent": author.get("citedby5y", 0),
-                "hindex": author.get("hindex", 0),
-                "hindexRecent": author.get("hindex5y", 0),
-                "i10index": author.get("i10index", 0),
-                "i10indexRecent": author.get("i10index5y", 0),
+                **metrics,
                 "publications": pubs
             }
-            print(f"  -> {pid}: {len(pubs)} publications, {existing[pid]['citations']} citations")
+            print(f"  -> {pid}: {len(pubs)} publications, {metrics.get('citations', 0)} citations (h-index: {metrics.get('hindex', 0)})")
             time.sleep(2)
         except Exception as e:
-            print(f"  -> Warning: failed to fetch {pid} ({uid}): {e}")
+            print(f"  -> Error fetching {pid} ({uid}): {e}")
 
     CACHE_JS.write_text("const SCHOLAR_CACHE = " + json.dumps(existing, indent=2) + ";\n", encoding="utf-8")
-    print("Saved scholar_cache.js")
+    print("Successfully updated scholar_cache.js!")
 
 if __name__ == "__main__":
     main()
