@@ -297,14 +297,14 @@ async function livePubs(p){
     }));
   }catch(e){return (p._cache=[])}
 }
-const KNOWN_JOURNALS=/journal|bulletin|tectonophysics|tectonics|geophysics,\s*geosystems|letters|reports|physics of the earth|physics and chemistry|soil dynamics|geomatics|seismica|precambrian|gondwana|solid earth|natural hazards|geologica acta|current science|eos|pure and applied|lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ieee|nature|science/i;
+const KNOWN_JOURNALS=/journal|bulletin|tectonophysics|^tectonics\b|geophysics,\s*geosystems|letters|reports|physics of the earth|physics and chemistry|soil dynamics|geomatics|seismica|precambrian|gondwana|solid earth|^natural hazards|geologica acta|current science|eos|pure and applied|lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ieee|nature|science|all earth|acta geophysica|studia geophysica|curr\.\s*sci|deccan geographer/i;
 function typeOf(p){
   const t=(p.title||'').trim(), v=(p.venue||'').trim(), tv=t+' '+v;
-  if(/\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology/i.test(v)) return 'Thesis';
+  if(/\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology|^iit,\s*kharagpur/i.test(v)) return 'Thesis';
   if(!v || /^preprint$/i.test(v) || /\b(preprint|arxiv|essoar|authorea|research\s*square|ssrn|eartharxiv)\b/i.test(tv)) return 'Preprint';
   if(/\b(abstracts?|meeting|conference|general assembly|symposium|workshop|proceedings|session|egu\d{2}|agu\d{2}|epsc|iugg)\b|\?/i.test(v)) return 'Conference contribution';
   if(/^a review of\b|\breview:\b|\breview article\b/i.test(t)) return 'Review article';
-  if(/\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards)\b/i.test(v)) return 'Chapter';
+  if(/\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards|probe\s+for\s+subsurface|structural\s+geology\s+and\s+tectonics|remote\s+sensing\s+for\s+geophysicists)\b/i.test(v)) return 'Chapter';
   if(/^[A-Za-z][A-Za-z\s:,\-&]+,\s*\d+\s*[-–]\s*\d+\s*$/.test(v) && !KNOWN_JOURNALS.test(v)) return 'Chapter';
   return p.type || 'Article';
 }
@@ -396,8 +396,15 @@ async function people(){
 async function pubs(){
   await syncLiveSheet();
   const el=$('#pubs');el.innerHTML='Loading…';
-  const all=merge([PUBLICATIONS,...PEOPLE.map(scholarCacheFor),...await Promise.all(PEOPLE.map(livePubs))]);
-  el.innerHTML=`<p>${all.length} research outputs</p>`+groupByYearHTML(all);
+  const all=merge([...PEOPLE.map(scholarCacheFor),PUBLICATIONS,...await Promise.all(PEOPLE.map(livePubs))]);
+  const types=[...new Set(all.map(x=>x.type))];
+  let ft='All';
+  const draw=()=>{
+    const filtered=all.filter(x=>ft==='All'||x.type===ft);
+    el.innerHTML=`<div class="tabs">${['All',...types].map(t=>`<button class="${t===ft?'on':''}" data-ft="${t}">${t} (${t==='All'?all.length:all.filter(x=>x.type===t).length})</button>`).join('')}</div><p>${filtered.length} research outputs</p>`+groupByYearHTML(filtered);
+    el.querySelectorAll('[data-ft]').forEach(b=>b.onclick=()=>{ft=b.dataset.ft;draw();});
+  };
+  draw();
 }
 const hIndex=c=>{c=c.slice().sort((a,b)=>b-a);let h=0;while(h<c.length&&c[h]>=h+1)h++;return h};
 const i10Index=c=>c.filter(x=>x>=10).length;

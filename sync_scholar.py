@@ -27,10 +27,10 @@ def extract_scholar_users(js_text):
     return users
 
 KNOWN_JOURNALS = re.compile(
-    r"journal|bulletin|tectonophysics|tectonics|geophysics,\s*geosystems|letters|reports|"
+    r"journal|bulletin|tectonophysics|^tectonics\b|geophysics,\s*geosystems|letters|reports|"
     r"physics of the earth|physics and chemistry|soil dynamics|geomatics|seismica|precambrian|"
-    r"gondwana|solid earth|natural hazards|geologica acta|current science|eos|pure and applied|"
-    r"lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ier|ieee|nature|science",
+    r"gondwana|solid earth|^natural hazards|geologica acta|current science|eos|pure and applied|"
+    r"lithos|earth and planetary science|rev\.|reviews|annals|international|seismological|ier|ieee|nature|science|all earth|acta geophysica|studia geophysica|curr\.\s*sci|deccan geographer",
     re.I
 )
 
@@ -38,7 +38,7 @@ def classify_pub(title, venue):
     t = (title or "").strip()
     v = (venue or "").strip()
     tv = f"{t} {v}"
-    if re.search(r"\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology", v, re.I):
+    if re.search(r"\b(thesis|dissertation)\b|^kharagpur\b|indian institute of technology|^iit,\s*kharagpur", v, re.I):
         return "Thesis"
     if not v or re.search(r"\b(preprint|arxiv|essoar|authorea|research\s*square|ssrn|biorxiv|eartharxiv)\b", tv, re.I):
         return "Preprint"
@@ -46,7 +46,7 @@ def classify_pub(title, venue):
         return "Conference contribution"
     if re.search(r"^a review of\b|\breview:\b|\breview article\b", t, re.I):
         return "Review article"
-    if re.search(r"\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards)\b", v, re.I):
+    if re.search(r"\b(book|chapter|handbook|encyclopedia|springer\s+nature|agu\s+monograph|elsevier\s+book|special\s+publication|memoir|himalayan\s+natural\s+hazards|probe\s+for\s+subsurface|structural\s+geology\s+and\s+tectonics|remote\s+sensing\s+for\s+geophysicists)\b", v, re.I):
         return "Chapter"
     if re.match(r"^[A-Za-z][A-Za-z\s:,\-&]+,\s*\d+\s*[-–]\s*\d+\s*$", v) and not KNOWN_JOURNALS.search(v):
         return "Chapter"

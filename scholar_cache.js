@@ -3999,7 +3999,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Structural Geology and Tectonics, 155-169",
         "cites": 1,
-        "type": "Article",
+        "type": "Chapter",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:qUcmZB5y_30C",
         "gsRank": 1
       },
@@ -4243,7 +4243,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "Recent Developments in Using Seismic Waves as a Probe for Subsurface\u00a0\u2026",
         "cites": 4,
-        "type": "Article",
+        "type": "Chapter",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:KlAtU1dfN6UC",
         "gsRank": 17
       },
@@ -4437,7 +4437,7 @@ const SCHOLAR_CACHE = {
         ],
         "venue": "IIT, Kharagpur",
         "cites": 0,
-        "type": "Article",
+        "type": "Thesis",
         "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:WF5omc3nYNoC",
         "gsRank": 30
       },
