@@ -25,7 +25,7 @@ const PEOPLE = [
    photo: "", position: "Professor, Dept. of Geology and Geophysics, IIT Kharagpur", email: "chandrani@gg.iitkgp.ac.in",
    bio: "Professor in the Department of Geology and Geophysics at IIT Kharagpur specializing in earthquake seismology, seismic wave attenuation tomography, crustal and upper-mantle structure, and seismotectonics of the Himalaya, Tibet, and Indian shield.",
    interests: ["Seismology", "Seismic Wave Attenuation", "Seismotectonics", "Crustal Structure"],
-   links: {scholar: "https://scholar.google.com/citations?hl=en&user=KxRj9rEAAAAJ", researchgate: "https://www.researchgate.net/profile/Chandrani-Singh", orcid: "https://orcid.org/0000-0003-1943-6309", web: "https://www.iitkgp.ac.in/department/GG/faculty/gg-chandrani"}},
+   links: {scholar: "https://scholar.google.com/citations?hl=en&user=DiAhEVwAAAAJ", researchgate: "https://www.researchgate.net/profile/Chandrani-Singh", orcid: "https://orcid.org/0000-0003-1943-6309", web: "https://www.iitkgp.ac.in/department/GG/faculty/gg-chandrani"}},
   {id: "arun-singh", autoSearch: true, citations: 1918, hindex: 26, i10index: 50,
    name: "Prof. Arun Singh", role: "Principal Investigator", group: "pi", status: "active",
    photo: "", position: "Professor, Dept. of Geology and Geophysics, IIT Kharagpur", email: "arun@gg.iitkgp.ac.in",

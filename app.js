@@ -150,13 +150,27 @@ function merge(lists){
   return [...byTitle.values()].sort((a,b)=>b.year-a.year);
 }
 const manualFor=p=>PUBLICATIONS.filter(x=>x.authors.includes(p.id)||x.authors.some(a=>byName(a)===p));
+function scholarCacheFor(p){
+  const sc = (typeof SCHOLAR_CACHE!=='undefined' && SCHOLAR_CACHE[p.id]) || null;
+  if(sc){
+    if(sc.citations) p.citations = sc.citations;
+    if(sc.citationsRecent) p.citationsRecent = sc.citationsRecent;
+    if(sc.hindex) p.hindex = sc.hindex;
+    if(sc.hindexRecent) p.hindexRecent = sc.hindexRecent;
+    if(sc.i10index!=null) p.i10index = sc.i10index;
+    if(sc.i10indexRecent!=null) p.i10indexRecent = sc.i10indexRecent;
+    return sc.publications || [];
+  }
+  return [];
+}
 async function pubsFor(p){
+  const scPubs = scholarCacheFor(p);
   const direct = await livePubs(p);
-  if(p.group==='pi') return merge([manualFor(p), direct]);
-  // Also check PIs' fetched works for co-authored papers where student/alumnus name appears
-  const piWorks = (await Promise.all(PEOPLE.filter(x=>x.group==='pi').map(livePubs))).flat()
+  if(p.group==='pi') return merge([scPubs, manualFor(p), direct]);
+  // Also check PIs' fetched & Scholar works for co-authored papers where student/alumnus name appears
+  const piWorks = (await Promise.all(PEOPLE.filter(x=>x.group==='pi').map(async pi=>[...scholarCacheFor(pi), ...(await livePubs(pi))]))).flat()
     .filter(w=>(w.authors||[]).some(a=>byName(a)===p));
-  return merge([manualFor(p), direct, piWorks]);
+  return merge([scPubs, manualFor(p), direct, piWorks]);
 }
 
 function layout(page){

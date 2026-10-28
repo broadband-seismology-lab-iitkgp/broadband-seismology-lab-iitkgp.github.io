@@ -1,0 +1,40 @@
+name: Sync Google Scholar Publications & Metrics
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'data.js'
+      - 'sync_scholar.py'
+      - '.github/workflows/sync-scholar.yml'
+  schedule:
+    - cron: '0 3 * * 0' # Every Sunday at 03:00 UTC
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install scholarly
+        run: pip install scholarly
+
+      - name: Fetch Google Scholar publications and metrics
+        run: python3 sync_scholar.py
+
+      - name: Commit updated scholar_cache.js
+        run: |
+          git config user.name "Broadband Seismology Lab IITKGP"
+          git config user.email "shirishbose@gmail.com"
+          git add scholar_cache.js
+          git diff --staged --quiet || (git commit -m "Auto-sync Google Scholar publications and metrics" && git push)
