@@ -5,7 +5,7 @@ Uses only Python's standard library (urllib, html.parser, re, json) — no pip p
 Fetches exact Google Scholar metrics (All & Since 2021 Citations, h-index, i10-index)
 and all publications (paginating 0..100, 100..200) for every member in data.js with a `links.scholar` user ID.
 """
-import html, json, re, time, urllib.parse, urllib.request
+import csv, html, io, json, re, subprocess, time, urllib.parse, urllib.request
 from pathlib import Path
 
 ROOT = Path(__file__).parent
@@ -17,6 +17,17 @@ HEADERS = {
     "Accept-Language": "en-US,en;q=0.9",
 }
 
+def parse_scholar_id(s):
+    if not s:
+        return ""
+    s = s.strip()
+    m = re.search(r"user=([A-Za-z0-9_-]{8,16})", s)
+    if m:
+        return m.group(1)
+    if re.match(r"^[A-Za-z0-9_-]{11,13}$", s):
+        return s
+    return ""
+
 def extract_scholar_users(js_text):
     users = {}
     for chunk in js_text.split('{id: "')[1:]:
@@ -25,6 +36,52 @@ def extract_scholar_users(js_text):
         if m:
             users[pid] = m.group(1)
     return users
+
+def extract_sheet_scholar_users(js_text):
+    """Fetch live Google Sheet CSV (if configured in data.js) and extract any newly submitted Google Scholar IDs."""
+    m_url = re.search(r'sheetCsvUrl:\s*"([^"]+)"', js_text)
+    if not m_url:
+        return {}
+    csv_url = m_url.group(1)
+    sep = "&" if "?" in csv_url else "?"
+    try:
+        req = urllib.request.Request(f"{csv_url}{sep}_t={int(time.time())}", headers=HEADERS)
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            raw_csv = resp.read().decode("utf-8", errors="replace")
+    except Exception as e:
+        print(f"Warning: could not fetch Google Sheet CSV: {e}")
+        return {}
+
+    rows = list(csv.reader(io.StringIO(raw_csv)))
+    if len(rows) < 2:
+        return {}
+    hdr = [h.strip().lower() for h in rows[0]]
+    c_name = next((i for i, h in enumerate(hdr) if "name" in h), -1)
+    c_gs = next((i for i, h in enumerate(hdr) if "scholar" in h), -1)
+    if c_name < 0 or c_gs < 0:
+        return {}
+
+    # Build lookup of known member slugs from data.js
+    known_ids = [chunk.split('"', 1)[0] for chunk in js_text.split('{id: "')[1:]]
+    sheet_users = {}
+    for r in rows[1:]:
+        nm = (r[c_name] if c_name < len(r) else "").strip()
+        gs = (r[c_gs] if c_gs < len(r) else "").strip()
+        uid = parse_scholar_id(gs)
+        if not nm or not uid:
+            continue
+        slug = re.sub(r"[^a-z0-9]+", "-", re.sub(r"prof\.|dr\.", "", nm.lower()).strip()).strip("-")
+        matched = None
+        if slug in known_ids:
+            matched = slug
+        else:
+            first = slug.split("-")[0]
+            cands = [k for k in known_ids if k.split("-")[0] == first]
+            if len(cands) == 1:
+                matched = cands[0]
+        if matched:
+            sheet_users[matched] = uid
+    return sheet_users
 
 KNOWN_JOURNALS = re.compile(
     r"journal|bulletin|tectonophysics|^tectonics\b|geophysics,\s*geosystems|letters|reports|"
@@ -136,7 +193,11 @@ def fetch_scholar_author(uid):
 def main():
     text = DATA_JS.read_text(encoding="utf-8")
     users = extract_scholar_users(text)
-    print(f"Found {len(users)} members with Google Scholar IDs:", users)
+    sheet_users = extract_sheet_scholar_users(text)
+    if sheet_users:
+        print(f"Found Google Scholar IDs from live Google Sheet:", sheet_users)
+        users.update(sheet_users)
+    print(f"Total {len(users)} members with Google Scholar IDs:", users)
 
     existing = {}
     if CACHE_JS.exists():
@@ -174,13 +235,18 @@ def main():
 
     CACHE_JS.write_text("const SCHOLAR_CACHE = " + json.dumps(existing, indent=2) + ";\n", encoding="utf-8")
     v = str(int(time.time()))
-    for fn in ["index.html", "people.html", "person.html", "publications.html", "contact.html"]:
+    for fn in ["index.html", "people.html", "person.html", "publications.html", "contact.html", "join.html"]:
         hp = ROOT / fn
         if hp.exists():
             s = hp.read_text(encoding="utf-8")
-            s = re.sub(r'scholar_cache\.js(\?v=\d+)?', f'scholar_cache.js?v={v}', s)
+            for asset in ["style.css", "data.js", "scholar_cache.js", "app.js"]:
+                s = re.sub(re.escape(asset) + r"(\?v=\d+)?", f"{asset}?v={v}", s)
             hp.write_text(s, encoding="utf-8")
     print("Successfully updated scholar_cache.js and busted HTML cache!")
+    if "--push" in sys.argv:
+        subprocess.run(["git", "add", "-A"], cwd=ROOT, check=False)
+        subprocess.run(["git", "commit", "-m", "Sync Google Sheet & Google Scholar profiles"], cwd=ROOT, check=False)
+        subprocess.run(["git", "push", "origin", "main"], cwd=ROOT, check=False)
 
 if __name__ == "__main__":
     main()

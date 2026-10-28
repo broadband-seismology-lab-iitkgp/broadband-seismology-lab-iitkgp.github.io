@@ -4576,5 +4576,513 @@ const SCHOLAR_CACHE = {
         "gsRank": 38
       }
     ]
+  },
+  "rahul-biswas": {
+    "scholarId": "D2P6SbEAAAAJ",
+    "updated": "2026-10-29",
+    "citations": 359,
+    "citationsRecent": 260,
+    "hindex": 11,
+    "hindexRecent": 10,
+    "i10index": 13,
+    "i10indexRecent": 11,
+    "publications": [
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Environmental Effects on Broadband Seismic Noise: A Year\u2010Long Assessment from Maitri Station, Dronning Maud Land, East Antarctica",
+        "authors": [
+          "S Saha",
+          "R Biswas",
+          "P Kumar"
+        ],
+        "venue": "Seismological Research Letters 97 (3), 2107-2115",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:e_rmSamDkqQC",
+        "gsRank": 0
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Sequence of events that led to the South Lhonak lake outburst flood in Sikkim, India",
+        "authors": [
+          "LK Mohanty",
+          "P Gantayat",
+          "A Dixit",
+          "M Das Adhikari",
+          "R Biswas",
+          "VK Singh"
+        ],
+        "venue": "Scientific Reports 16 (1), 9741",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:S16KYo8Pm5AC",
+        "gsRank": 1
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Delineation of 3D crustal seismic structures beneath western Tibet and the Himalayan range using local earthquake tomography",
+        "authors": [
+          "AK Dey",
+          "N Jana",
+          "R Biswas"
+        ],
+        "venue": "Seismica 4 (1)",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:oNZyr7d5Mn4C",
+        "gsRank": 2
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Modelling of Moho depths and crustal composition in the Aravalli (Rajasthan) Craton, north-west India",
+        "authors": [
+          "R Prathigadapa",
+          "P Mandal",
+          "S Saha",
+          "R Biswas"
+        ],
+        "venue": "Acta Geophysica 73 (3), 2171-2180",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:kz9GbA2Ns4gC",
+        "gsRank": 3
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Mechanisms of seismic attenuation beneath Bhutan Himalaya",
+        "authors": [
+          "A Dutta",
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 357, 107279",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:VaXvl8Fpj5cC",
+        "gsRank": 4
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Site characterization and shallow shear velocity through HVSR measurements around the Hyderabad Metropolitan Region, India",
+        "authors": [
+          "K Sivaram",
+          "P Mandal",
+          "R Biswas",
+          "BNV Prasad",
+          "MS Dixith",
+          "S Madhusudhan"
+        ],
+        "venue": "Journal of the Geological Society of India 100 (7), 953-963",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:MLfJN-KU85MC",
+        "gsRank": 5
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Spatial variation of body wave attenuation in Garhwal-Kumaun Himalaya region, India",
+        "authors": [
+          "R Biswas",
+          "P Mandal",
+          "S Saha",
+          "R Prathigadapa",
+          "M Shekar",
+          "RV Raghavan"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 352, 107211",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:b1wdh0AR-JQC",
+        "gsRank": 6
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "The effect of 2020 Covid-19 pandemic lockdowns on seismic ambient noise recorded in Eastern Dharwar region, south-eastern India",
+        "authors": [
+          "S Saha",
+          "R Biswas",
+          "RV Raghavan",
+          "ANS Sharma",
+          "M Shekar",
+          "G Suresh"
+        ],
+        "venue": "Environmental Earth Sciences 83 (12), 379",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:tuHXwOkdijsC",
+        "gsRank": 7
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Crustal Structure delineation beneath Western Tibet using Local Earthquake Tomography",
+        "authors": [
+          "KA Dey",
+          "N Jana",
+          "R Biswas"
+        ],
+        "venue": "Japan Geoscience Union (JpGU)",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:LI9QrySNdTsC",
+        "gsRank": 8
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Evaluation of the Hyderabad network\u2019s broadband seismic stations for characterizing ambient noise in the Eastern Dharwar Craton, southern India: Satish Saha et al.",
+        "authors": [
+          "S Saha",
+          "R Biswas",
+          "P Mandal",
+          "PK Vengala",
+          "M Saidixith",
+          "BNV Prasad"
+        ],
+        "venue": "Journal of Earth System Science 133 (1), 24",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:uWiczbcajpAC",
+        "gsRank": 9
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Imaging of Different Crustal and Mantle Discontinuities Below the Hyderabad Region on the Eastern Dharwar Craton: P. Mandal et al.",
+        "authors": [
+          "P Mandal",
+          "S Gupta",
+          "K Sivaram",
+          "S Kumar",
+          "S Kumar",
+          "R Biswas"
+        ],
+        "venue": "Pure and Applied Geophysics 181 (1), 109-125",
+        "cites": 3,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:vDijr-p_gm4C",
+        "gsRank": 10
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Variations of intrinsic and scattering seismic attenuation with depth in western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Physics and Chemistry of the Earth, Parts A/B/C 131, 103454",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:yB1At4FlUx8C",
+        "gsRank": 11
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Modelling of Moment Tensors and Source Parameters of the 25 July 2021 Rare Lower Crustal Hyderabad (India) Earthquake of Mw      3.9",
+        "authors": [
+          "P Mandal",
+          "S Saha",
+          "S Kumar",
+          "S Gupta",
+          "R Biswas",
+          "S Kumar",
+          "K Sivaram"
+        ],
+        "venue": "Pure and Applied Geophysics 179 (3), 993-1010",
+        "cites": 11,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:evX43VCCuoAC",
+        "gsRank": 12
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Depth-wise attenuation mechanism of seismic waves in the Andaman region",
+        "authors": [
+          "A Dutta",
+          "R Biswas",
+          "C Singh",
+          "MR Kumar",
+          "N Jana",
+          "A Singh"
+        ],
+        "venue": "Soil Dynamics and Earthquake Engineering 151, 107000",
+        "cites": 7,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:2KloaMYe4IUC",
+        "gsRank": 13
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "An investigation of regional variations of coda wave attenuation in western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Journal of Seismology 24 (6), 1235-1254",
+        "cites": 17,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:NJ774b8OgUMC",
+        "gsRank": 14
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "Seismic attenuation structure across the Karakoram fault in western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Geophysical Journal International 223 (2), 1418-1431",
+        "cites": 10,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:tKAzc9rXhukC",
+        "gsRank": 15
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "Spatial variations of attenuation properties beneath western Tibet and its implications to seismotectonics and structural heterogeneity",
+        "authors": [
+          "R Biswas"
+        ],
+        "venue": "Indian Institute of Technology Kharagpur, India",
+        "cites": 0,
+        "type": "Thesis",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:7T2F9Uy0os0C",
+        "gsRank": 16
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "Attenuation of high frequency body waves in the crust of western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 298, 106323",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:_Ybze24A_UAC",
+        "gsRank": 17
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Spatial variations of coda wave attenuation in Andaman\u2013Nicobar subduction zone",
+        "authors": [
+          "C Singh",
+          "R Biswas",
+          "N Jaiswal",
+          "M Ravi Kumar"
+        ],
+        "venue": "Geophysical Journal International 217 (3), 1515-1523",
+        "cites": 16,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:VL0QpB8kHFEC",
+        "gsRank": 18
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Attenuation characteristics of P and S waves in the crust of western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "EGU General Assembly 2019",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:N5tVd3kTz84C",
+        "gsRank": 19
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Mantle deformation patterns and signatures of rift, beneath Eastern Ghats Mobile Belt",
+        "authors": [
+          "N Jana",
+          "A Singh",
+          "AK Tiwari",
+          "C Singh",
+          "R Biswas"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 289, 20-33",
+        "cites": 11,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:ye4kPcJQO24C",
+        "gsRank": 20
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Lateral variation of crustal attenuation properties from southern Tibet to eastern Nepal Himalaya",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Geophysical Journal International 217 (1), 257-270",
+        "cites": 20,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:WqliGbK-hY8C",
+        "gsRank": 21
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "Spatial Variation of Crustal Attenuation Properties in Western Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "Seismological Society of America 2018 Annual Meeting",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:k8Z6L05lTy4C",
+        "gsRank": 22
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Seismic noise analysis of broadband stations in the Eastern Ghat Mobile Belt of India using power spectral density",
+        "authors": [
+          "N Jana",
+          "C Singh",
+          "R Biswas",
+          "N Grewal",
+          "A Singh"
+        ],
+        "venue": "Geomatics, Natural Hazards and Risk 8 (2), 1622-1630",
+        "cites": 28,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:eMMeJKvmdy0C",
+        "gsRank": 23
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Crustal structure beneath India and Tibet: New constraints from inversion of receiver functions",
+        "authors": [
+          "A Singh",
+          "M Ravi Kumar",
+          "DD Mohanty",
+          "C Singh",
+          "R Biswas",
+          "D Srinagesh"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 122 (10), 7839-7859",
+        "cites": 54,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:HE397vMXCloC",
+        "gsRank": 24
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Relative role of intrinsic and scattering attenuation beneath the Andaman Islands, India and tectonic implications",
+        "authors": [
+          "C Singh",
+          "R Biswas",
+          "G Srijayanthi",
+          "MR Kumar"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 271, 19-28",
+        "cites": 15,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:olpn-zPbct0C",
+        "gsRank": 25
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Frequency and lapse time dependent seismic attenuation in eastern Himalaya and southern Tibet",
+        "authors": [
+          "S Singh",
+          "C Singh",
+          "R Biswas",
+          "A Singh"
+        ],
+        "venue": "Natural Hazards 85 (3), 1709-1722",
+        "cites": 14,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:5ugPr518TE4C",
+        "gsRank": 26
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Lateral variation of intrinsic and scattering attenuation in eastern Himalaya and southern Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "AGU Fall Meeting",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:bnK-pcrLprsC",
+        "gsRank": 27
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Lateral variation of coda wave attenuation of seismic wave in Nepal Himalaya and southern Tibet",
+        "authors": [
+          "R Biswas",
+          "C Singh"
+        ],
+        "venue": "ANNUAL GENERAL MEETING OF THE GEOLOGICAL SOCIETY OF INDIA, 93",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:JQOojiI6XY0C",
+        "gsRank": 28
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Attenuation characteristics in eastern Himalaya and southern Tibetan Plateau: An understanding of the physical state of the medium",
+        "authors": [
+          "S Singh",
+          "C Singh",
+          "R Biswas",
+          "S Mukhopadhyay",
+          "H Sahu"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 257, 48-56",
+        "cites": 31,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:kRWSkSYxWN8C",
+        "gsRank": 29
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Crustal structure and tectonics of Bangladesh: New constraints from inversion of receiver functions",
+        "authors": [
+          "A Singh",
+          "K Bhushan",
+          "C Singh",
+          "MS Steckler",
+          "SH Akhter",
+          "L Seeber",
+          "WY Kim"
+        ],
+        "venue": "Tectonophysics 680, 99-112",
+        "cites": 101,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=D2P6SbEAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=D2P6SbEAAAAJ:J-pR_7NvFogC",
+        "gsRank": 30
+      }
+    ]
   }
 };
