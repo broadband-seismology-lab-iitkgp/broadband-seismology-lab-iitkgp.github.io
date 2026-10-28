@@ -34,30 +34,64 @@ function editDist(a,b){
     dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
   return dp[m][n];
 }
-function findMemberFuzzy(nm, email){
+function extractUid(u, rx){const m=String(u||'').match(rx); return m?m[1]:'';}
+function findMemberSmart(obj){
+  const nm=obj.name||'';
   const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  // 1. Exact ID or exact normalized name
   let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
   if(p) return p;
-  if(email){
-    p=PEOPLE.find(x=>x.email && x.email.toLowerCase()===email.toLowerCase());
+  // 2. Match by Email Address
+  if(obj.email){
+    p=PEOPLE.find(x=>x.email && x.email.toLowerCase()===obj.email.toLowerCase());
     if(p) return p;
   }
+  // 3. Match by Google Scholar user ID (user=...)
+  const gsId=extractUid(obj.scholar, /user=([A-Za-z0-9_-]+)/);
+  if(gsId){
+    p=PEOPLE.find(x=>extractUid(x.links&&x.links.scholar, /user=([A-Za-z0-9_-]+)/)===gsId);
+    if(p) return p;
+  }
+  // 4. Match by ORCID iD (0000-0000-0000-0000)
+  const orcId=extractUid(obj.orcid, /(\d{4}-\d{4}-\d{4}-\d{3}[\dX])/);
+  if(orcId){
+    p=PEOPLE.find(x=>extractUid(x.links&&x.links.orcid, /(\d{4}-\d{4}-\d{4}-\d{3}[\dX])/)===orcId);
+    if(p) return p;
+  }
+  // 5. Match by ResearchGate profile slug
+  const rgId=extractUid(obj.researchgate, /profile\/([A-Za-z0-9_-]+)/);
+  if(rgId){
+    p=PEOPLE.find(x=>extractUid(x.links&&x.links.researchgate, /profile\/([A-Za-z0-9_-]+)/)===rgId);
+    if(p) return p;
+  }
+  // 6. Fuzzy name match (handles typos up to 2 letters, or matching surname + similar first name)
   const nn=norm(nm);
-  return PEOPLE.find(x=>editDist(norm(x.name), nn)<=2);
+  p=PEOPLE.find(x=>editDist(norm(x.name), nn)<=2);
+  if(p) return p;
+  const toks=nn.split(' ');
+  if(toks.length>=2){
+    const last=toks[toks.length-1];
+    const sameLast=PEOPLE.filter(x=>{const pt=norm(x.name).split(' '); return pt[pt.length-1]===last && editDist(pt[0], toks[0])<=2;});
+    if(sameLast.length===1) return sameLast[0];
+  }
+  // Never create a ghost profile from a typo: only return matched lab member
+  return null;
 }
 function applyProfileUpdate(obj){
-  const nm=obj.name; if(!nm) return;
-  const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  let p=findMemberFuzzy(nm, obj.email);
-  if(!p){
-    p={id:slug, name:nm, role:'PhD Scholar', group:'student', status:'active', photo:'', position:'PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur', email:'', bio:'', interests:['Seismology'], links:{scholar:'',researchgate:'',orcid:'',web:''}};
-    PEOPLE.push(p);
-  }
+  let p=findMemberSmart(obj);
+  if(!p) return; // Ignore unrecognized entries instead of creating duplicate ghost cards
   const st=obj.status||'', yr=obj.gradYear||'';
   if(/alumni/i.test(st)){p.status='alumni'; p.degree=/ms/i.test(st)?'MS':'PhD'; if(/^\d{4}$/.test(yr)){p.gradYear=Number(yr); p.role=`${p.degree} Graduate (${yr})`;} else p.role=`${p.degree} Graduate`;}
   else if(/principal investigator/i.test(st)){p.group='pi'; p.status='active'; p.role='Principal Investigator';}
   else if(st){p.status='active'; p.role=/ms/i.test(st)?'MS Scholar':(/postdoc/i.test(st)?'Postdoctoral Fellow':'PhD Scholar');}
-  if(obj.position) p.position=obj.position;
+  if(obj.position){
+    // If Current Affiliation is just "Indian Institute of Technology Kharagpur" for a student, keep "PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur"
+    if(p.group==='student' && p.status==='active' && /^indian institute of technology kharagpur$/i.test(obj.position.trim())){
+      p.position='PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur';
+    } else {
+      p.position=obj.position;
+    }
+  }
   if(obj.prevPositions) p.prevPositions=obj.prevPositions;
   if(obj.thesis) p.thesis=obj.thesis;
   if(obj.bio) p.bio=obj.bio;
@@ -72,7 +106,10 @@ function applyProfileUpdate(obj){
 }
 async function syncLiveSheet(){
   try{
+    // Clean any old typo entries like "shrish-bose" from browser localStorage
     const loc=JSON.parse(localStorage.getItem('LAB_PROFILE_UPDATES')||'{}');
+    delete loc['shrish-bose'];
+    localStorage.setItem('LAB_PROFILE_UPDATES', JSON.stringify(loc));
     Object.values(loc).forEach(applyProfileUpdate);
   }catch(e){}
   if(_sheetSynced) return _sheetSynced;
