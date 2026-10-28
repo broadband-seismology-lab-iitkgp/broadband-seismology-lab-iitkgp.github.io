@@ -1,7 +1,8 @@
 // EDIT THIS FILE to update the website. status: "active" | "alumni"
 const LAB = {
   name: "Broadband Seismology Lab",
-  sheetCsvUrl: "", // Paste Published Google Sheet CSV URL here for instant live form sync
+  sheetCsvUrl: "",
+  formWebAppUrl: "", // Paste Published Google Sheet CSV URL here for instant live form sync
   tagline: "Imaging Earth's interior and understanding earthquakes through broadband seismology",
   department: "Department of Geology and Geophysics",
   institution: "Indian Institute of Technology Kharagpur, India",

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Update Profile – Broadband Seismology Lab</title>
+  <link rel="stylesheet" href="style.css">
+  <style>
+    .form-card { background: var(--grey); border: 1px solid var(--border); border-radius: 10px; padding: 32px; max-width: 780px; margin: 24px auto; }
+    .f-row { margin-bottom: 18px; }
+    .f-row label { display: block; font-weight: 600; color: var(--navy); margin-bottom: 6px; font-size: 0.94rem; }
+    .f-row small { display: block; color: var(--muted); margin-bottom: 6px; font-size: 0.82rem; }
+    .f-row input, .f-row select, .f-row textarea {
+      width: 100%; padding: 10px 14px; border: 1px solid var(--border); border-radius: 6px;
+      font-family: var(--font-sans); font-size: 0.95rem; background: #fff;
+    }
+    .f-row textarea { min-height: 90px; resize: vertical; }
+    .f-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+    @media (max-width: 640px) { .f-grid { grid-template-columns: 1fr; } }
+    .dropzone {
+      border: 2px dashed var(--accent); border-radius: 10px; background: #fff; padding: 28px 20px;
+      text-align: center; cursor: pointer; transition: all 0.2s ease; display: flex; flex-direction: column; align-items: center; gap: 10px;
+    }
+    .dropzone.dragover { background: var(--accent-light); border-color: var(--navy); transform: scale(1.01); }
+    .dropzone img { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid var(--accent); display: none; }
+    .status-msg { margin-top: 16px; padding: 12px 16px; border-radius: 6px; font-weight: 600; display: none; }
+    .status-msg.ok { display: block; background: #e6f4ea; color: #137333; border: 1px solid #ceead6; }
+    .status-msg.err { display: block; background: #fce8e6; color: #c5221f; border: 1px solid #fad2cf; }
+  </style>
+</head>
+<body>
+<main>
+  <h2>Submit / Update Your Lab Profile</h2>
+  <p>Current students, alumni, and faculty of the <strong>Broadband Seismology Lab (IIT Kharagpur)</strong> can use this form to submit or update their profile details, links, and profile photo. Submitting again with the same name automatically updates your existing profile.</p>
+
+  <form id="profForm" class="form-card">
+    <div class="f-grid">
+      <div class="f-row">
+        <label>Full Name *</label>
+        <small>Select your name or type a new name if not listed</small>
+        <input id="f_name" list="memberNames" required placeholder="e.g., Shirish Bose">
+        <datalist id="memberNames"></datalist>
+      </div>
+      <div class="f-row">
+        <label>Status in Lab *</label>
+        <small>Current role or alumni status</small>
+        <select id="f_status" required>
+          <option value="Current PhD Scholar">Current PhD Scholar</option>
+          <option value="Current MS / MTech Student">Current MS / MTech Student</option>
+          <option value="Postdoctoral Fellow">Postdoctoral Fellow / Research Associate</option>
+          <option value="PhD Alumni (Graduated)">PhD Alumni (Graduated)</option>
+          <option value="MS Alumni (Graduated)">MS Alumni (Graduated)</option>
+          <option value="Principal Investigator (Faculty)">Principal Investigator (Faculty)</option>
+        </select>
+      </div>
+    </div>
+
+    <div class="f-grid">
+      <div class="f-row">
+        <label>Current Position &amp; Affiliation *</label>
+        <small>For Alumni: current post &amp; institute. For students: Dept. &amp; IIT KGP</small>
+        <input id="f_pos" required placeholder="e.g., Assistant Professor, IIT (ISM) Dhanbad">
+      </div>
+      <div class="f-row">
+        <label>Graduation Year (for Alumni)</label>
+        <small>Leave blank if currently enrolled</small>
+        <input id="f_year" type="number" min="2000" max="2035" placeholder="e.g., 2024">
+      </div>
+    </div>
+
+    <div class="f-row">
+      <label>Profile Photo — Drag &amp; Drop or Click to Upload</label>
+      <small>Drop any JPG/PNG photo here (it will be automatically cropped &amp; resized for your profile)</small>
+      <div class="dropzone" id="dropzone">
+        <img id="previewImg" alt="Preview">
+        <div id="dropText"><strong>Drag &amp; drop your photo here</strong><br>or click to choose an image file from your device</div>
+        <input type="file" id="f_file" accept="image/*" style="display:none">
+      </div>
+    </div>
+
+    <div class="f-row">
+      <label>Research Interests / Keywords *</label>
+      <small>Comma-separated topics</small>
+      <input id="f_kw" required placeholder="Seismology, Seismic Wave Attenuation, Receiver Functions, Crustal Structure">
+    </div>
+
+    <div class="f-row">
+      <label>PhD / MS Thesis Title (for Alumni or Senior Scholars)</label>
+      <input id="f_thesis" placeholder="e.g., Delineating Crustal Structure Beneath Bhutan Himalaya...">
+    </div>
+
+    <div class="f-row">
+      <label>Short Biography / Overview</label>
+      <small>2–4 sentences about your research focus and academic background</small>
+      <textarea id="f_bio" placeholder="Write a short overview of your research..."></textarea>
+    </div>
+
+    <div class="f-grid">
+      <div class="f-row">
+        <label>Public Email Address</label>
+        <input id="f_email" type="email" placeholder="yourname@gmail.com">
+      </div>
+      <div class="f-row">
+        <label>Google Scholar Profile URL</label>
+        <input id="f_scholar" type="url" placeholder="https://scholar.google.com/citations?user=...">
+      </div>
+    </div>
+
+    <div class="f-grid">
+      <div class="f-row">
+        <label>ORCID URL or ID</label>
+        <input id="f_orcid" placeholder="https://orcid.org/0000-0000-0000-0000">
+      </div>
+      <div class="f-row">
+        <label>ResearchGate Profile URL</label>
+        <input id="f_rg" type="url" placeholder="https://www.researchgate.net/profile/...">
+      </div>
+    </div>
+
+    <div class="f-row">
+      <label>Personal Website or LinkedIn URL (Optional)</label>
+      <input id="f_web" type="url" placeholder="https://sites.google.com/view/...">
+    </div>
+
+    <button type="submit" class="btn" id="subBtn" style="border:0;cursor:pointer;font-size:1rem">Submit / Update Profile</button>
+    <div id="statusMsg" class="status-msg"></div>
+  </form>
+</main>
+<script src="data.js"></script>
+<script src="scholar_cache.js"></script>
+<script src="app.js"></script>
+<script>
+layout('join.html');
+
+// Populate autocomplete list with existing lab members and auto-fill their current data when selected!
+const dl = document.getElementById('memberNames');
+PEOPLE.forEach(p => {
+  const opt = document.createElement('option');
+  opt.value = p.name;
+  dl.appendChild(opt);
+});
+
+let photoDataUrl = '';
+const dz = document.getElementById('dropzone');
+const fi = document.getElementById('f_file');
+const prev = document.getElementById('previewImg');
+
+dz.onclick = () => fi.click();
+dz.ondragover = (e) => { e.preventDefault(); dz.classList.add('dragover'); };
+dz.ondragleave = () => dz.classList.remove('dragover');
+dz.ondrop = (e) => {
+  e.preventDefault();
+  dz.classList.remove('dragover');
+  if (e.dataTransfer.files && e.dataTransfer.files[0]) handleImageFile(e.dataTransfer.files[0]);
+};
+fi.onchange = () => { if (fi.files && fi.files[0]) handleImageFile(fi.files[0]); };
+
+function handleImageFile(file) {
+  const reader = new FileReader();
+  reader.onload = (ev) => {
+    const img = new Image();
+    img.onload = () => {
+      // Center-crop square and resize to 320x320 JPEG for fast storage & instant profile loading
+      const S = 320;
+      const canvas = document.createElement('canvas');
+      canvas.width = S; canvas.height = S;
+      const ctx = canvas.getContext('2d');
+      const minSide = Math.min(img.width, img.height);
+      const sx = (img.width - minSide) / 2, sy = (img.height - minSide) / 2;
+      ctx.drawImage(img, sx, sy, minSide, minSide, 0, 0, S, S);
+      photoDataUrl = canvas.toDataURL('image/jpeg', 0.86);
+      prev.src = photoDataUrl;
+      prev.style.display = 'block';
+      document.getElementById('dropText').innerHTML = `<strong>${file.name}</strong> ready! (Click or drop another image to replace)`;
+    };
+    img.src = ev.target.result;
+  };
+  reader.readAsDataURL(file);
+}
+
+// Auto-fill existing fields when a member selects their name
+document.getElementById('f_name').oninput = (e) => {
+  const p = PEOPLE.find(x => norm(x.name) === norm(e.target.value));
+  if (!p) return;
+  document.getElementById('f_pos').value = p.position.includes('to be updated') ? '' : (p.position || '');
+  document.getElementById('f_year').value = p.gradYear || '';
+  document.getElementById('f_kw').value = (p.interests || []).join(', ');
+  document.getElementById('f_thesis').value = p.thesis || '';
+  document.getElementById('f_bio').value = p.bio || '';
+  document.getElementById('f_email').value = p.email || '';
+  document.getElementById('f_scholar').value = (p.links && p.links.scholar) || '';
+  document.getElementById('f_orcid').value = (p.links && p.links.orcid) || '';
+  document.getElementById('f_rg').value = (p.links && p.links.researchgate) || '';
+  document.getElementById('f_web').value = (p.links && p.links.web) || '';
+};
+
+document.getElementById('profForm').onsubmit = async (e) => {
+  e.preventDefault();
+  const btn = document.getElementById('subBtn');
+  const msg = document.getElementById('statusMsg');
+  const payload = {
+    name: document.getElementById('f_name').value.trim(),
+    status: document.getElementById('f_status').value,
+    position: document.getElementById('f_pos').value.trim(),
+    gradYear: document.getElementById('f_year').value.trim(),
+    interests: document.getElementById('f_kw').value.trim(),
+    thesis: document.getElementById('f_thesis').value.trim(),
+    bio: document.getElementById('f_bio').value.trim(),
+    email: document.getElementById('f_email').value.trim(),
+    scholar: document.getElementById('f_scholar').value.trim(),
+    orcid: document.getElementById('f_orcid').value.trim(),
+    researchgate: document.getElementById('f_rg').value.trim(),
+    web: document.getElementById('f_web').value.trim(),
+    photo: photoDataUrl
+  };
+
+  btn.disabled = true;
+  btn.textContent = 'Saving profile…';
+
+  // If Google Apps Script Web App endpoint is configured, POST directly so it updates the Google Sheet + Drive automatically!
+  if (LAB.formWebAppUrl) {
+    try {
+      await fetch(LAB.formWebAppUrl, {
+        method: 'POST',
+        mode: 'no-cors',
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify(payload)
+      });
+      msg.className = 'status-msg ok';
+      msg.innerHTML = 'Profile submitted & synced to the lab database! Refresh your profile page in a few seconds.';
+      btn.disabled = false;
+      btn.textContent = 'Submit / Update Profile';
+      return;
+    } catch (err) {}
+  }
+
+  // Fallback: download a ready-to-import JSON profile file AND save in browser preview immediately
+  const saved = JSON.parse(localStorage.getItem('LAB_PROFILE_UPDATES') || '{}');
+  const slug = payload.name.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  saved[slug] = payload;
+  localStorage.setItem('LAB_PROFILE_UPDATES', JSON.stringify(saved));
+
+  msg.className = 'status-msg ok';
+  msg.innerHTML = `Saved! <a href="person.html?id=${slug}">Click here to preview your updated profile immediately</a>.`;
+  btn.disabled = false;
+  btn.textContent = 'Submit / Update Profile';
+};
+</script>
+</body>
+</html>

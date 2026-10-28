@@ -26,7 +26,35 @@ function drivePhoto(u){
   const m=u.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)||u.match(/[?&]id=([A-Za-z0-9_-]{15,})/);
   return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w500` : u;
 }
+function applyProfileUpdate(obj){
+  const nm=obj.name; if(!nm) return;
+  const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
+  if(!p){
+    p={id:slug, name:nm, role:'PhD Scholar', group:'student', status:'active', photo:'', position:'PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur', email:'', bio:'', interests:['Seismology'], links:{scholar:'',researchgate:'',orcid:'',web:''}};
+    PEOPLE.push(p);
+  }
+  const st=obj.status||'', yr=obj.gradYear||'';
+  if(/alumni/i.test(st)){p.status='alumni'; p.degree=/ms/i.test(st)?'MS':'PhD'; if(/^\d{4}$/.test(yr)){p.gradYear=Number(yr); p.role=`${p.degree} Graduate (${yr})`;} else p.role=`${p.degree} Graduate`;}
+  else if(/principal investigator/i.test(st)){p.group='pi'; p.status='active'; p.role='Principal Investigator';}
+  else if(st){p.status='active'; p.role=/ms/i.test(st)?'MS Scholar':(/postdoc/i.test(st)?'Postdoctoral Fellow':'PhD Scholar');}
+  if(obj.position) p.position=obj.position;
+  if(obj.thesis) p.thesis=obj.thesis;
+  if(obj.bio) p.bio=obj.bio;
+  if(obj.interests){p.interests=obj.interests.split(',').map(x=>x.trim()).filter(Boolean); p.area=p.interests.slice(0,3).join(', ');}
+  if(obj.email) p.email=obj.email;
+  p.links=p.links||{};
+  if(obj.scholar) p.links.scholar=obj.scholar;
+  if(obj.orcid) p.links.orcid=/^\d{4}-/.test(obj.orcid)?'https://orcid.org/'+obj.orcid:obj.orcid;
+  if(obj.researchgate) p.links.researchgate=obj.researchgate;
+  if(obj.web) p.links.web=obj.web;
+  if(obj.photo) p.photo=drivePhoto(obj.photo);
+}
 async function syncLiveSheet(){
+  try{
+    const loc=JSON.parse(localStorage.getItem('LAB_PROFILE_UPDATES')||'{}');
+    Object.values(loc).forEach(applyProfileUpdate);
+  }catch(e){}
   if(_sheetSynced) return _sheetSynced;
   if(!LAB.sheetCsvUrl) return (_sheetSynced=Promise.resolve());
   _sheetSynced=(async()=>{
@@ -275,7 +303,7 @@ async function pubsFor(p){
 }
 
 function layout(page){
-  const nav=[['index.html','Home'],['people.html','People'],['publications.html','Research output'],['contact.html','Contact']];
+  const nav=[['index.html','Home'],['people.html','People'],['publications.html','Research output'],['join.html','Update profile'],['contact.html','Contact']];
   document.body.insertAdjacentHTML('afterbegin',`<header><nav><a class="brand" href="index.html">${LAB.name}</a><div class="links">${nav.map(n=>`<a href="${n[0]}" class="${n[0]===page?'on':''}">${n[1]}</a>`).join('')}</div></nav></header>`);
   document.body.insertAdjacentHTML('beforeend',`<footer>${LAB.name} · ${LAB.institution}<br>${LAB.email}</footer>`);
 }
