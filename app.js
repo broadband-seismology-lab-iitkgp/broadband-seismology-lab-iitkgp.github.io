@@ -97,10 +97,6 @@ function groupByYearHTML(list){
 // ---- Live publications strictly from verified ORCID or explicit OpenAlex ID (never blind name search!) ----
 async function livePubs(p){
   if(p._cache) return p._cache;
-  // If we already have complete Google Scholar cache for this person, no need to mix noisy OpenAlex works
-  if(typeof SCHOLAR_CACHE!=='undefined' && SCHOLAR_CACHE[p.id] && (SCHOLAR_CACHE[p.id].publications||[]).length>0){
-    return (p._cache=[]);
-  }
   const l=p.links||{};const m=(l.orcid||'').match(/\d{4}-\d{4}-\d{4}-\d{3}[\dX]/);
   try{
     const filters=[];
@@ -444,9 +440,39 @@ async function person(){
     $('#metrics').innerHTML=`<div><b>${mine.length}</b>Research outputs</div><div><b>${cites.length||hasScholarMetrics?total:'–'}</b>Citations</div><div><b>${cites.length||hasScholarMetrics?h:'–'}</b>h-index</div><div><b>${cites.length||hasScholarMetrics?i10:'–'}</b>i10-index</div><small>Source: ${hasScholarMetrics?'Google Scholar':'OpenAlex / ORCID'}</small>`;
   }
 
-  // fingerprint: aggregate concept weights over all works
-  const w={};mine.forEach(x=>(x.concepts||[]).forEach(c=>{if(c.score>0.3)w[c.display_name]=(w[c.display_name]||0)+c.score}));
-  const fp=Object.entries(w).sort((a,b)=>b[1]-a[1]).slice(0,20),mx=fp.length?fp[0][1]:1;
+  // fingerprint: aggregate OpenAlex concepts + domain-specific Earth & Seismology topic taxonomy across all publications
+  const TOPICS=[
+    ['Seismic Wave Attenuation', /attenuat|coda|\bqc\b|\bq0\b|pgq|lgq|quality factor/i],
+    ['Crustal Structure & Heterogeneity', /crust|moho|discontinuity|heterogene/i],
+    ['Himalayan Seismotectonics', /himalay|sikkim|bhutan|kumaun|garhwal|arunachal|nepal/i],
+    ['Tibetan Plateau Geodynamics', /tibet|lhasa|qiantang/i],
+    ['Seismic Tomography', /tomograph|inversion|velocity model|travel[- ]?time/i],
+    ['Seismic Anisotropy & Shear-Wave Splitting', /anisotrop|splitting|sks|birefringence|polarization/i],
+    ['Receiver Function Analysis', /receiver function|p-to-s|s-to-p|\brf\b/i],
+    ['Lithospheric & Mantle Deformation', /lithospher|mantle|asthenospher|slab|subduct|underthrust/i],
+    ['Ambient Seismic Noise & Surface Waves', /ambient noise|rayleigh|love wave|surface wave|microseism|hvsr/i],
+    ['Earthquake Source Parameters & Stress', /source parameter|focal mechanism|stress drop|moment tensor|b-value|fractal/i],
+    ['Seismic Hazard & Ground Motion', /hazard|ground motion|site response|early warning|peak ground/i],
+    ['Reservoir-Triggered & Induced Seismicity', /reservoir|koyna|warna|triggered|induced seismicity/i],
+    ['Indian Shield & Cratonic Basins', /craton|chhattisgarh|eastern ghats|dharwar|singhbhum|ghat|shield|gondwana|basin/i],
+    ['Fault Zone Architecture', /fault|shear zone|thrust|mbt|mct|dhubri|chungthang|kopili/i],
+    ['Body Waves (Pg, Lg, Sn, Pn)', /\bpg\b|\blg\b|\bsn\b|\bpn\b|body wave/i],
+    ['Deep Learning & Signal Processing', /deep learning|neural network|machine learning|signal|waveform|filter/i]
+  ];
+  const GENERIC=/^(geology|computer science|physics|geography|materials science|mathematics|engineering|chemistry|artificial intelligence)$/i;
+  const w={};
+  mine.forEach(x=>{
+    (x.concepts||[]).forEach(c=>{
+      if(c.score>0.35 && !GENERIC.test(c.display_name)){
+        w[c.display_name]=(w[c.display_name]||0)+c.score;
+      }
+    });
+    const txt=`${x.title||''} ${x.venue||''}`;
+    TOPICS.forEach(([label, rx])=>{
+      if(rx.test(txt)) w[label]=(w[label]||0)+1.2;
+    });
+  });
+  const fp=Object.entries(w).sort((a,b)=>b[1]-a[1]).slice(0,18),mx=fp.length?fp[0][1]:1;
   const types=[...new Set(mine.map(x=>x.type))];let ft='All';
   const tabs={
     overview:()=>`<h2>Overview</h2>${p.thesis?`<p><b>${p.degree} thesis (${p.gradYear}):</b> ${p.thesis}</p>`:`<p>${p.bio}</p>`}<p>${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</p>
