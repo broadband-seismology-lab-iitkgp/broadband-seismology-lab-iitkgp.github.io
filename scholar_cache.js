@@ -3964,5 +3964,617 @@ const SCHOLAR_CACHE = {
         "gsRank": 106
       }
     ]
+  },
+  "debasis-mohanty": {
+    "scholarId": "zZIxD2kAAAAJ",
+    "updated": "2026-10-28",
+    "citations": 274,
+    "citationsRecent": 230,
+    "hindex": 10,
+    "hindexRecent": 10,
+    "i10index": 11,
+    "i10indexRecent": 11,
+    "publications": [
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Heterogeneous mantle beneath the Indo-Burmese Wedge inferred from null splitting analysis: Tectonic implications",
+        "authors": [
+          "S Biswal",
+          "DD Mohanty"
+        ],
+        "venue": "Journal of Seismology 30 (5), 98",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:HDshCWvjkbEC",
+        "gsRank": 0
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Deformation Models Induced by Major Regional Scale Structures Beneath the Northeast India and the Contemporary Seismotectonics",
+        "authors": [
+          "DD Mohanty",
+          "RB Mohanty"
+        ],
+        "venue": "Structural Geology and Tectonics, 155-169",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:qUcmZB5y_30C",
+        "gsRank": 1
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Lithospheric deformation across Dhubri-Chungthang Fault Zone: New insights into Himalayan segmentation",
+        "authors": [
+          "AS Siddiqui",
+          "A Singh",
+          "C Singh",
+          "DD Mohanty",
+          "G Kumar",
+          "N Jana"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors, 107486",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:IWHjjKOFINEC",
+        "gsRank": 2
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Lithospheric deformation beneath the Sikkim Himalaya and tectonic implications: anisotropic contributions from crust and mantle",
+        "authors": [
+          "DD Mohanty"
+        ],
+        "venue": "Journal of seismology 29 (6), 1427-1447",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:7PzlFSSx8tAC",
+        "gsRank": 3
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Probing lithospheric deformation beneath the Sikkim Himalaya using shear wave splitting",
+        "authors": [
+          "A Salam Siddiqui",
+          "A Singh",
+          "C Singh",
+          "DD Mohanty",
+          "G Kumar",
+          "N Jana"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU25-9218",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:ZeXyd9-uunAC",
+        "gsRank": 4
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Lower mantle anisotropy beneath the Indo-Burmese Wedge through Shear Wave Splitting of Core-Refracted Phases",
+        "authors": [
+          "S Biswal",
+          "DD Mohanty"
+        ],
+        "venue": "EGU25",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:mB3voiENLucC",
+        "gsRank": 5
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Probing lithospheric deformation beneath the Sikkim Himalaya using shear wave splitting",
+        "authors": [
+          "AS Siddiqui",
+          "A Singh",
+          "C Singh",
+          "DD Mohanty",
+          "G Kumar",
+          "N Jana"
+        ],
+        "venue": "EGU25",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:QIV2ME_5wuYC",
+        "gsRank": 6
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Mineral exploration: Integrating remote sensing, GIS, AI, and seismic methods",
+        "authors": [
+          "S Behera",
+          "J Pattnaik",
+          "DD Mohanty"
+        ],
+        "venue": "Remote Sensing for Geophysicists, 460-471",
+        "cites": 3,
+        "type": "Chapter",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:4DMP91E08xMC",
+        "gsRank": 7
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Geostatistical Analysis for Magnitude Scale Conversion and Gutenberg-Richter Parameter Estimation: Insights from Regional Seismicity of Nubian-Eurasian Plate Boundary Region",
+        "authors": [
+          "P Adetokunbo",
+          "AA Eluyemi",
+          "E Jegede",
+          "S Aguda",
+          "T Omoseyin"
+        ],
+        "venue": "Journal of Geoscience and Environment Protection 13 (7), 230-248",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:dhFuZR0502QC",
+        "gsRank": 8
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Decoupled deformation between crust and mantle beneath Indo-Burmese Wedge: A new seismotectonic model",
+        "authors": [
+          "DD Mohanty",
+          "S Biswal",
+          "K Yoshizawa"
+        ],
+        "venue": "Earth and Planetary Science Letters 648, 119089",
+        "cites": 7,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:M3ejUd6NZC8C",
+        "gsRank": 9
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Structure and geodynamics beneath the Indian Ocean inferred from high-resolution multimode surface wave tomography",
+        "authors": [
+          "DD Mohanty",
+          "K Yoshizawa"
+        ],
+        "venue": "International Geological Congress (IGC), Busan, South Korea 37",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:qxL8FJ1GzNcC",
+        "gsRank": 10
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "High-resolution Tomographic Imaging of the Indo-Australian Plate with Multimode Surface Waves",
+        "authors": [
+          "DD Mohanty",
+          "K Yoshizawa"
+        ],
+        "venue": "Japan Geoscience Union Meeting, 2024",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:4TOpqqG69KYC",
+        "gsRank": 11
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Future prediction of existing glacial lake\u2019s size in the Himalaya by Markov model and glacial surface topography",
+        "authors": [
+          "L Mohanty",
+          "V Pateswary",
+          "S Maiti",
+          "DD Mohanty"
+        ],
+        "venue": "All Earth 35 (1), 329-343",
+        "cites": 15,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:_kc_bZDykSQC",
+        "gsRank": 12
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Seismic hazard estimation and medium-term earthquake precursor analysis of North East India: An assessment on large earthquake scenario",
+        "authors": [
+          "A Phukan",
+          "DD Mohanty"
+        ],
+        "venue": "All Earth 35 (1), 46-64",
+        "cites": 10,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:ULOm3_A8WrAC",
+        "gsRank": 13
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Seismic hazard evaluation of Nepal region: a particular emphasis on 2015 Gorkha earthquake scenario",
+        "authors": [
+          "A Saini",
+          "DD Mohanty",
+          "H Mittal"
+        ],
+        "venue": "Preprint",
+        "cites": 0,
+        "type": "Preprint",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:YOwf2qJgpHMC",
+        "gsRank": 14
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Source localized modelling to estimate the depth of anisotropy beneath eastern Himalaya using spatial coherency of shear-wave splitting parameters",
+        "authors": [
+          "DD Mohanty"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 336, 106987",
+        "cites": 7,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:Zph67rFs4hoC",
+        "gsRank": 15
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Coulomb stress transfer of the june 22nd, 1939 Accra earthquake (M= 6.5) Ghana-an implication for the gravity inferred lineaments",
+        "authors": [
+          "A Eluyemi",
+          "FO Adeoti",
+          "D Mohanty",
+          "AB Arogundade",
+          "D Awosika"
+        ],
+        "venue": "XXVIII General Assembly of the International Union of Geodesy and Geophysics\u00a0\u2026",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:L8Ckcad2t8MC",
+        "gsRank": 16
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Theory and practices involved in depth and source localization of anisotropy: Recent developments in subsurface investigation",
+        "authors": [
+          "DD Mohanty"
+        ],
+        "venue": "Recent Developments in Using Seismic Waves as a Probe for Subsurface\u00a0\u2026",
+        "cites": 4,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:KlAtU1dfN6UC",
+        "gsRank": 17
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Implications on source localization and central depth of anisotropy beneath the Sikkim Himalaya: an appraisal on lithospheric deformation",
+        "authors": [
+          "S Biswal",
+          "G Dey",
+          "DD Mohanty"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU22-9402",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:kNdYIx-mwKoC",
+        "gsRank": 18
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Board characteristics and risk disclosure quality by integrated reporters: Evidence from Indian Banks",
+        "authors": [
+          "R Matta",
+          "K Kochhar",
+          "AK Mohapatra",
+          "D Mohanty"
+        ],
+        "venue": "Prabandhan: Indian Journal of Management, 27-42",
+        "cites": 18,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:3fE2CSJIrl8C",
+        "gsRank": 19
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Possible depth and source localization of seismic anisotropy beneath Shillong Plateau and Himalayan foredeep region: An implication towards deformation mechanisms",
+        "authors": [
+          "DD Mohanty",
+          "S Biswal",
+          "M Phukan",
+          "Ayo"
+        ],
+        "venue": "Geological Journal, 1-12",
+        "cites": 6,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:5nxA0vEk-isC",
+        "gsRank": 20
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Shear wave birefringence and current configuration of active tectonics of Shillong plateau: an appraisal of Indian plate motion and regional structures",
+        "authors": [
+          "DD Mohanty",
+          "A Singh"
+        ],
+        "venue": "International Journal of Earth Sciences",
+        "cites": 12,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:0EnyYjriUFMC",
+        "gsRank": 21
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Evidence of heterogeneous and unstable anisotropic settings beneath the Northeast Indian lithosphere from characterization of null splitting measurements",
+        "authors": [
+          "DD Mohanty",
+          "P Mandol"
+        ],
+        "venue": "Acta Geophysica",
+        "cites": 10,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:UebtZRa9Y70C",
+        "gsRank": 22
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Implication of mantle dynamics beneath North-East India through the perspective of SKKS splitting analysis",
+        "authors": [
+          "P Mondal",
+          "D Mohanty",
+          "S Biswal",
+          "R Yadav"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU21-14437",
+        "cites": 1,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:Se3iqnhoufwC",
+        "gsRank": 23
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Mantle deformation and seismic anisotropy beneath Northeast India inferred from SKKS birefringence",
+        "authors": [
+          "P Mondal",
+          "DD Mohanty"
+        ],
+        "venue": "Studia Geophysica et Geodaetica 65 (1), 36-52",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:roLk4NBRz8UC",
+        "gsRank": 24
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Mantle dynamics and deformation patterns beneath Shillong Plateau inferred from Shear wave splitting: The role of major regional geological structures",
+        "authors": [
+          "DD Mohanty",
+          "P Mondal"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2019, S41D-0563",
+        "cites": 1,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:_FxGoFyzp5QC",
+        "gsRank": 25
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Disparate behaviour of deformation patterns beneath northeast Indian lithosphere inferred from shear wave splitting analysis",
+        "authors": [
+          "DD Mohanty",
+          "P Mondal"
+        ],
+        "venue": "Physics of Earth and Planetary Interiors",
+        "cites": 21,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:LkGwnXOMwfcC",
+        "gsRank": 26
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Crustal structure beneath India and Tibet: New constraints from inversion of receiver functions",
+        "authors": [
+          "A Singh",
+          "M Ravi Kumar",
+          "DD Mohanty",
+          "C Singh",
+          "R Biswas",
+          "D Srinagesh"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 122 (10), 7839-7859",
+        "cites": 54,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:eQOLeE2rZwMC",
+        "gsRank": 27
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Crustal Seismic Parameters of India and Tibet: A CRUST1.0 Analysis",
+        "authors": [
+          "DD Mohanty"
+        ],
+        "venue": "Geological Society of India, IIT Kharagpur",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:YsMSGLbcyi4C",
+        "gsRank": 28
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "P wave velocity structure below India and Tibet incorporating anisotropic delay time effects",
+        "authors": [
+          "DD Mohanty",
+          "A Singh",
+          "LJ O'Driscoll",
+          "M Ravi Kumar",
+          "D Srinagesh"
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems 17 (3), 725-738",
+        "cites": 19,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:Tyk-4Ss8FVUC",
+        "gsRank": 29
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Continental Scale Body Wave Tomography of India and Tibet: Time Corrections to Teleseismic Delays",
+        "authors": [
+          "D Mohanty"
+        ],
+        "venue": "IIT, Kharagpur",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:WF5omc3nYNoC",
+        "gsRank": 30
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Mantle deformation patterns beneath southern Tibet using splitting of direct-S waves",
+        "authors": [
+          "Debasis D. Mohanty",
+          "Tuna Eken",
+          "Arun Singh",
+          "Chandrani Singh",
+          "M. Ravi Kumar"
+        ],
+        "venue": "European Geoscience Union 2016 18, 2348",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:Y0pCki6q_DkC",
+        "gsRank": 31
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Significant seismic anisotropy beneath southern Tibet inferred from splitting of direct S-waves",
+        "authors": [
+          "A Singh",
+          "T Eken",
+          "DD Mohanty",
+          "D Saikia",
+          "C Singh",
+          "MR Kumar"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 250, 1-11",
+        "cites": 30,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:2osOgNQ5qMEC",
+        "gsRank": 32
+      },
+      {
+        "year": 2015,
+        "date": "2015",
+        "title": "Crustal contributions in teleseismic P-wave travel times and their effect on Tomographic models below India and Tibet",
+        "authors": [
+          "DD Mohanty"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2015, S23D-2774",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:zYLM7Y9cAGgC",
+        "gsRank": 33
+      },
+      {
+        "year": 2015,
+        "date": "2015",
+        "title": "Anisotropy Corrected Body Wave Tomography of India and Tibet Using SKS Splitting Parameters",
+        "authors": [
+          "DD Mohanty",
+          "A Singh",
+          "LJ O'Driscoll",
+          "MR Kumar",
+          "E Humphreys"
+        ],
+        "venue": "Asia Oceania Geosciences Society 10",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:IjCSPb-OGe4C",
+        "gsRank": 34
+      },
+      {
+        "year": 2015,
+        "date": "2015",
+        "title": "Lg attenuation tomographic models of Himalaya and southern Tibet",
+        "authors": [
+          "C Singh",
+          "P Mondal",
+          "S Singh",
+          "DD Mohanty",
+          "N Jaiswal",
+          "MR Kumar"
+        ],
+        "venue": "Tectonophysics 664, 176-181",
+        "cites": 38,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:qjMakFHDy7sC",
+        "gsRank": 35
+      },
+      {
+        "year": 2014,
+        "date": "2014",
+        "title": "The Dynamics of Changing Earth: An Evolution from  beginning to the Present Scenario",
+        "authors": [
+          "DD Mohanty",
+          "S Hemant",
+          "D Ajay",
+          "Singh and Gour"
+        ],
+        "venue": "International Research Journal of Earth Sciences 2 (8), 10-14",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:W7OEmFMy1HYC",
+        "gsRank": 36
+      },
+      {
+        "year": 0,
+        "date": "",
+        "title": "Statistical and Machine Learning Methods for Magnitude Scale Conversion and Gutenberg-Richter Analysis: Insights from Regional Seismicity of Morrocco",
+        "authors": [
+          "P Adetokunbo",
+          "A Eluyemi",
+          "E Jegede",
+          "S Aguda",
+          "T Omoseyin",
+          "D Mohanty"
+        ],
+        "venue": "Available at SSRN 5139022, 0",
+        "cites": 0,
+        "type": "Preprint",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:Wp0gIr-vW9MC",
+        "gsRank": 37
+      },
+      {
+        "year": 0,
+        "date": "",
+        "title": "P wave velocity structure below India and Tibet",
+        "authors": [
+          "DD Mohanty",
+          "A Singh",
+          "LJ O\u2019Driscoll",
+          "MR Kumar",
+          "D Srinagesh"
+        ],
+        "venue": "Preprint",
+        "cites": 0,
+        "type": "Preprint",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=zZIxD2kAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=zZIxD2kAAAAJ:ufrVoPGSRksC",
+        "gsRank": 38
+      }
+    ]
   }
 };
