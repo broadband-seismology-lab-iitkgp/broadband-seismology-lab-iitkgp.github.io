@@ -26,6 +26,14 @@ function drivePhoto(u){
   const m=u.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)||u.match(/[?&]id=([A-Za-z0-9_-]{15,})/);
   return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w500` : u;
 }
+function parseScholarId(s){
+  if(!s) return '';
+  const t=String(s).trim();
+  const m=t.match(/user=([A-Za-z0-9_-]{8,16})/);
+  if(m) return m[1];
+  if(/^[A-Za-z0-9_-]{11,13}$/.test(t)) return t;
+  return '';
+}
 function editDist(a,b){
   const m=a.length, n=b.length, dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
   for(let i=0;i<=m;i++) dp[i][0]=i;
@@ -46,10 +54,10 @@ function findMemberSmart(obj){
     p=PEOPLE.find(x=>x.email && x.email.toLowerCase()===obj.email.toLowerCase());
     if(p) return p;
   }
-  // 3. Match by Google Scholar user ID (user=...)
-  const gsId=extractUid(obj.scholar, /user=([A-Za-z0-9_-]+)/);
+  // 3. Match by Google Scholar user ID (accepts full URL or raw 12-char ID like TPNNtLYAAAAJ)
+  const gsId=parseScholarId(obj.scholar);
   if(gsId){
-    p=PEOPLE.find(x=>extractUid(x.links&&x.links.scholar, /user=([A-Za-z0-9_-]+)/)===gsId);
+    p=PEOPLE.find(x=>parseScholarId(x.links&&x.links.scholar)===gsId);
     if(p) return p;
   }
   // 4. Match by ORCID iD (0000-0000-0000-0000)
@@ -64,11 +72,18 @@ function findMemberSmart(obj){
     p=PEOPLE.find(x=>extractUid(x.links&&x.links.researchgate, /profile\/([A-Za-z0-9_-]+)/)===rgId);
     if(p) return p;
   }
-  // 6. Fuzzy name match (handles typos up to 2 letters, or matching surname + similar first name)
+  // 6. Fuzzy full-name or single first-name match (e.g., "shirish" or "shrish" -> "Shirish Bose")
   const nn=norm(nm);
+  if(!nn) return null;
   p=PEOPLE.find(x=>editDist(norm(x.name), nn)<=2);
   if(p) return p;
   const toks=nn.split(' ');
+  if(toks.length===1 && toks[0].length>=3){
+    const exactFirst=PEOPLE.filter(x=>norm(x.name).split(' ')[0]===toks[0]);
+    if(exactFirst.length===1) return exactFirst[0];
+    const fuzzyFirst=PEOPLE.filter(x=>editDist(norm(x.name).split(' ')[0], toks[0])<=1);
+    if(fuzzyFirst.length===1) return fuzzyFirst[0];
+  }
   if(toks.length>=2){
     const last=toks[toks.length-1];
     const sameLast=PEOPLE.filter(x=>{const pt=norm(x.name).split(' '); return pt[pt.length-1]===last && editDist(pt[0], toks[0])<=2;});
@@ -98,7 +113,10 @@ function applyProfileUpdate(obj){
   if(obj.interests){p.interests=obj.interests.split(',').map(x=>x.trim()).filter(Boolean); p.area=p.interests.slice(0,3).join(', ');}
   if(obj.email) p.email=obj.email;
   p.links=p.links||{};
-  if(obj.scholar) p.links.scholar=obj.scholar;
+  if(obj.scholar){
+    const gId=parseScholarId(obj.scholar);
+    p.links.scholar=gId && !/^https?:\/\//i.test(obj.scholar.trim()) ? `https://scholar.google.com/citations?user=${gId}&hl=en` : obj.scholar.trim();
+  }
   if(obj.orcid) p.links.orcid=/^\d{4}-/.test(obj.orcid)?'https://orcid.org/'+obj.orcid.trim():obj.orcid;
   if(obj.researchgate) p.links.researchgate=obj.researchgate;
   if(obj.web) p.links.web=obj.web;
