@@ -173,7 +173,14 @@ def main():
             print(f"  -> Error fetching {pid} ({uid}): {e}")
 
     CACHE_JS.write_text("const SCHOLAR_CACHE = " + json.dumps(existing, indent=2) + ";\n", encoding="utf-8")
-    print("Successfully updated scholar_cache.js!")
+    v = str(int(time.time()))
+    for fn in ["index.html", "people.html", "person.html", "publications.html", "contact.html"]:
+        hp = ROOT / fn
+        if hp.exists():
+            s = hp.read_text(encoding="utf-8")
+            s = re.sub(r'scholar_cache\.js(\?v=\d+)?', f'scholar_cache.js?v={v}', s)
+            hp.write_text(s, encoding="utf-8")
+    print("Successfully updated scholar_cache.js and busted HTML cache!")
 
 if __name__ == "__main__":
     main()

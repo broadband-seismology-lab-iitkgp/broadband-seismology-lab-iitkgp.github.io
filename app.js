@@ -230,7 +230,7 @@ function people(){
 }
 async function pubs(){
   const el=$('#pubs');el.innerHTML='Loading…';
-  const all=merge([PUBLICATIONS,...await Promise.all(PEOPLE.map(livePubs))]);
+  const all=merge([PUBLICATIONS,...PEOPLE.map(scholarCacheFor),...await Promise.all(PEOPLE.map(livePubs))]);
   el.innerHTML=`<p>${all.length} research outputs</p>`+groupByYearHTML(all);
 }
 const hIndex=c=>{c=c.slice().sort((a,b)=>b-a);let h=0;while(h<c.length&&c[h]>=h+1)h++;return h};
