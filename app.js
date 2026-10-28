@@ -81,7 +81,7 @@ function groupByYearHTML(list){
   return years.map(y=>`<div class="year">${y}</div><ul class="pubs">${list.filter(p=>p.year===y).map(pubItem).join('')}</ul>`).join('');
 }
 
-// ---- Live publications from ORCID + OpenAlex Author Search (combined!) ----
+// ---- Live publications from ORCID + OpenAlex Author Search (combined, up to 200 works per author profile!) ----
 async function livePubs(p){
   if(p._cache) return p._cache;
   const l=p.links||{};const m=(l.orcid||'').match(/\d{4}-\d{4}-\d{4}-\d{3}[\dX]/);
@@ -91,13 +91,14 @@ async function livePubs(p){
     if(p.openalex) filters.push('author.id:'+p.openalex);
     if(p.autoSearch!==false){
       const qName=p.name.replace(/Prof\.|Dr\./g,'').trim();
-      const a=await (await fetch('https://api.openalex.org/authors?search='+encodeURIComponent(qName)+'&per-page=10&select=id,display_name,affiliations,last_known_institutions,works_count')).json();
-      const hits=(a.results||[]).filter(x=>/Kharagpur/i.test(JSON.stringify([x.affiliations,x.last_known_institutions]))).sort((x,y)=>y.works_count-x.works_count);
-      hits.slice(0,3).forEach(h=>filters.push('author.id:'+h.id.split('/').pop()));
+      const a=await (await fetch('https://api.openalex.org/authors?search='+encodeURIComponent(qName)+'&per-page=15&select=id,display_name,affiliations,last_known_institutions,works_count')).json();
+      const instRegex = p.group==='pi' ? /Kharagpur|National Geophysical Research Institute/i : /Kharagpur|National Geophysical Research Institute|Dhanbad|North East Institute|Wadia/i;
+      const hits=(a.results||[]).filter(x=>instRegex.test(JSON.stringify([x.affiliations,x.last_known_institutions]))).sort((x,y)=>y.works_count-x.works_count);
+      hits.slice(0,5).forEach(h=>filters.push('author.id:'+h.id.split('/').pop()));
     }
     if(!filters.length) return (p._cache=[]);
     const pages=await Promise.all([...new Set(filters)].map(flt=>
-      fetch(`https://api.openalex.org/works?filter=${flt}&sort=publication_year:desc&per-page=100&select=title,publication_year,publication_date,doi,authorships,primary_location,biblio,type,cited_by_count,concepts`)
+      fetch(`https://api.openalex.org/works?filter=${flt}&sort=publication_year:desc&per-page=200&select=title,publication_year,publication_date,doi,authorships,primary_location,biblio,type,cited_by_count,concepts`)
         .then(r=>r.ok?r.json():{results:[]}).catch(()=>({results:[]}))
     ));
     const j={results:pages.flatMap(pg=>pg.results||[])};
@@ -149,7 +150,14 @@ function merge(lists){
   return [...byTitle.values()].sort((a,b)=>b.year-a.year);
 }
 const manualFor=p=>PUBLICATIONS.filter(x=>x.authors.includes(p.id)||x.authors.some(a=>byName(a)===p));
-async function pubsFor(p){return merge([manualFor(p),await livePubs(p)])}
+async function pubsFor(p){
+  const direct = await livePubs(p);
+  if(p.group==='pi') return merge([manualFor(p), direct]);
+  // Also check PIs' fetched works for co-authored papers where student/alumnus name appears
+  const piWorks = (await Promise.all(PEOPLE.filter(x=>x.group==='pi').map(livePubs))).flat()
+    .filter(w=>(w.authors||[]).some(a=>byName(a)===p));
+  return merge([manualFor(p), direct, piWorks]);
+}
 
 function layout(page){
   const nav=[['index.html','Home'],['people.html','People'],['publications.html','Research output'],['contact.html','Contact']];
