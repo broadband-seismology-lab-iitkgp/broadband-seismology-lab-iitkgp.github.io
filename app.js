@@ -208,7 +208,7 @@ const byName=n=>{
   return cands.length===1 ? cands[0] : null;
 };
 const initials=n=>n.replace(/Prof\.|Dr\./g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2);
-const avatar=p=>`<div class="avatar"><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" style="width:100%;height:100%;border-radius:inherit;object-fit:cover;object-position:center top" onerror="this.remove()">${initials(p.name)}</div>`;
+const avatar=p=>`<div class="avatar"><span>${initials(p.name)}</span><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>`;
 const card=p=>`<a class="card" href="person.html?id=${p.id}">${avatar(p)}<h3>${p.name}</h3><small>${p.role}</small><br><small>${p.position}</small></a>`;
 
 // Format author name in ANU citation style: "Surname, F. M."
