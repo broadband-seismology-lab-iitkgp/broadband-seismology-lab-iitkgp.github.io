@@ -2142,5 +2142,1827 @@ const SCHOLAR_CACHE = {
         "gsRank": 10
       }
     ]
+  },
+  "arun-singh": {
+    "scholarId": "dtjnHcsAAAAJ",
+    "updated": "2026-10-28",
+    "citations": 1919,
+    "citationsRecent": 1081,
+    "hindex": 26,
+    "hindexRecent": 20,
+    "i10index": 50,
+    "i10indexRecent": 41,
+    "publications": [
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Crustal heterogeneity and tectonic segmentation of the Sikkim Himalaya revealed by ambient noise tomography",
+        "authors": [
+          "M Uthaman",
+          "A Obermann",
+          "A Singh",
+          "C Singh",
+          "G Het\u00e9nyi",
+          "A Dutta",
+          "G Kumar"
+        ],
+        "venue": "Journal of Asian Earth Sciences, 107353",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:OP4eGU-M3BUC",
+        "gsRank": 0
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Nature and Geometry of the Indian Crust Beneath Himalaya",
+        "authors": [
+          "A Singh",
+          "C Singh",
+          "M Ravi Kumar",
+          "VM Tiwari",
+          "G Kumar",
+          "A Dutta",
+          "S Bose"
+        ],
+        "venue": "Himalayan Natural Hazards, 29-55",
+        "cites": 0,
+        "type": "Chapter",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:F9fV5C73w3QC",
+        "gsRank": 1
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Crustal Architecture of the Intra\u2010Cratonic Chhattisgarh Basin and Adjacent Eastern Ghats Mobile Belt: Insights Into Crustal Evolution in East\u2010Central India",
+        "authors": [
+          "Maitreyi",
+          "A Singh",
+          "C Singh"
+        ],
+        "venue": "Tectonics 45 (9), e2026TC009364",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:HeT0ZceujKMC",
+        "gsRank": 2
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Crustal architecture delineated from shear velocity and radial anisotropic pattern across the northeast India and eastern Tibetan Plateau: An implication of crustal material flow",
+        "authors": [
+          "AK Dubey",
+          "N Jana",
+          "C Singh",
+          "MR Kumar",
+          "A Singh",
+          "D Saikia",
+          "S Sarkar"
+        ],
+        "venue": "Journal of Earth System Science 135 (2), 68",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:KbBQZpvPDL4C",
+        "gsRank": 3
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Delineation of the paleo-craton edge and its implications for the mineralization potential of the sediment-hosted Zn-Pb deposits in the Aravalli-Delhi fold belt, NW India",
+        "authors": [
+          "A Sengupta",
+          "KL Pruseth",
+          "S Bose",
+          "A Singh",
+          "KKA Azeez"
+        ],
+        "venue": "Journal of Asian Earth Sciences, 107058",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:yMeIxYmEMEAC",
+        "gsRank": 4
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Crustal Structure of the Intra-cratonic Chhattisgarh Basin and the Adjacent Eastern Ghats Mobile Belt, East-Central India",
+        "authors": [
+          "M Maitreyi",
+          "A Singh",
+          "C Singh"
+        ],
+        "venue": "EGU26",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:yqoGN6RLRZoC",
+        "gsRank": 5
+      },
+      {
+        "year": 2026,
+        "date": "2026",
+        "title": "Lg Wave Attenuation across the Indo-Eurasian Collision Zone",
+        "authors": [
+          "S Bose",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "EGU26",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:r_AWSJRzSzQC",
+        "gsRank": 6
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Lithospheric deformation across Dhubri-Chungthang Fault Zone: New insights into Himalayan segmentation",
+        "authors": [
+          "AS Siddiqui",
+          "A Singh",
+          "C Singh",
+          "DD Mohanty",
+          "G Kumar",
+          "N Jana"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors, 107486",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:fFSKOagxvKUC",
+        "gsRank": 7
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Integrated HVSR analysis using ambient noise and earthquake for site characterization in north Chhattisgarh, India",
+        "authors": [
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2025, S31E-VR8981",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:LhH-TYMQEocC",
+        "gsRank": 8
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Regional Lg-wave attenuation tomography of Bhutan Himalaya: Implications for crustal deformation",
+        "authors": [
+          "S Sarkar",
+          "C Singh",
+          "A Dutta",
+          "S Bose",
+          "MR Kumar",
+          "A Singh"
+        ],
+        "venue": "Soil Dynamics and Earthquake Engineering 197, 109495",
+        "cites": 3,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:3htObqc8RwsC",
+        "gsRank": 9
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Orogenic segmentation across central and eastern Himalaya: Insights from source parameters derived from local earthquakes",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "A Dutta"
+        ],
+        "venue": "Journal of Asian Earth Sciences 287, 106567",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:yFnVuubrUp4C",
+        "gsRank": 10
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Discerning crustal deformation patterns beneath Sikkim Himalaya",
+        "authors": [
+          "C Singh",
+          "A Dutta",
+          "A Singh"
+        ],
+        "venue": "EGU25",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:OR75R8vi5nAC",
+        "gsRank": 11
+      },
+      {
+        "year": 2025,
+        "date": "2025",
+        "title": "Seismogenesis of earthquakes in the Dhubri-Chungthang fault zone, India",
+        "authors": [
+          "A Singh",
+          "S Bala",
+          "C Singh",
+          "PK Singh",
+          "AK Dubey",
+          "AK Tiwari"
+        ],
+        "venue": "EGU25",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:ODE9OILHJdcC",
+        "gsRank": 12
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Assessment of seismic station performance in north Chhattisgarh, India: a comprehensive ambient noise analysis",
+        "authors": [
+          "Maitreyi",
+          "C Singh",
+          "A Singh",
+          "M Uthaman",
+          "S Sarkar",
+          "G Kumar",
+          "A Dutta"
+        ],
+        "venue": "Geomatics, Natural Hazards and Risk 15 (1), 2404596",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:HtS1dXgVpQUC",
+        "gsRank": 13
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Source parameters from local earthquakes in Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2024 (3334), S41D-3334",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:OcBU2YAGkTUC",
+        "gsRank": 14
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Site characterization of Sikkim Himalaya using HVSR",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "Seismica 3 (2)",
+        "cites": 5,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:bKqednn6t2AC",
+        "gsRank": 15
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Deep low velocity layer in the sublithospheric mantle beneath India",
+        "authors": [
+          "MR Kumar",
+          "A Singh",
+          "D Saikia"
+        ],
+        "venue": "Geophysical Journal International 239 (1), 503-516",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:cWzG1nlazyYC",
+        "gsRank": 16
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Complex Multi\u2010Fault Dynamics in Sikkim Himalaya: New Insights From Local Earthquake Analysis",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "G Het\u00e9nyi",
+          "A Dutta",
+          "G Kumar",
+          "AK Dubey"
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems 25 (6), e2023GC011363",
+        "cites": 16,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:mNrWkgRL2YcC",
+        "gsRank": 17
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "Evidence for an imbricated lower crust and its role in accommodating crustal shortening in Sikkim Himalaya",
+        "authors": [
+          "A Singh",
+          "G Kumar",
+          "C Singh",
+          "MR Kumar",
+          "M Uthaman",
+          "R Vadlamani"
+        ],
+        "venue": "Tectonics 43 (6), e2023TC008044",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:4vMrXwiscB8C",
+        "gsRank": 18
+      },
+      {
+        "year": 2024,
+        "date": "2024",
+        "title": "2-D Sn wave attenuation tomography beneath the Eastern Himalaya",
+        "authors": [
+          "S Sarkar",
+          "C Singh",
+          "AK Tiwari",
+          "MR Kumar",
+          "AK Dubey",
+          "A Dutta",
+          "G Kumar"
+        ],
+        "venue": "Geophysical Journal International 237 (3), 1490-1504",
+        "cites": 6,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:IUKN3-7HHlwC",
+        "gsRank": 19
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Imaging the crustal architecture beneath the northern margin of the Chhattisgarh Basin: Constraints from inversion of receiver functions",
+        "authors": [
+          "K Kapuri",
+          "A Singh",
+          "C Singh",
+          "G Kumar",
+          "A Dutta",
+          "S Bose",
+          "AS Siddiqui"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2023, T07-06",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:a3BOlSfXSfwC",
+        "gsRank": 20
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Changing mantle deformation patterns in Sikkim Himalaya across Dhubri-Chungthang Fault Zone",
+        "authors": [
+          "AS Siddiqui",
+          "A Singh",
+          "C Singh",
+          "G Kumar",
+          "N Jana"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2023 (303), T43E-0303",
+        "cites": 1,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:HIFyuExEbWQC",
+        "gsRank": 21
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Shear wave velocity and radial anisotropy structure beneath Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "A Singh",
+          "C Singh",
+          "G Kumar",
+          "A Dutta",
+          "N Jana",
+          "AK Dubey"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2023 (392), S23C-0392",
+        "cites": 2,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:OTTXONDVkokC",
+        "gsRank": 22
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Alteration in the mantle transition zone structure beneath Sikkim and adjoining Himalaya in response to the Indian plate subduction",
+        "authors": [
+          "G Kumar",
+          "A Singh",
+          "AK Tiwari",
+          "C Singh",
+          "MR Kumar",
+          "D Saikia",
+          "M Uthaman"
+        ],
+        "venue": "Journal of Asian Earth Sciences 255, 105768",
+        "cites": 4,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:mlAyqtXpCwEC",
+        "gsRank": 23
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "b-value mapping in Sikkim and adjoining Himalayas",
+        "authors": [
+          "C Singh",
+          "A Singh",
+          "M Uthaman",
+          "A Dutta",
+          "G Kumar",
+          "AK Dubey"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU-5879",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:_5tno0g5mFcC",
+        "gsRank": 24
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Sn attenuation characteristics in the Bhutan Himalaya.",
+        "authors": [
+          "S Sarkar",
+          "C Singh",
+          "A Kant Tiwari",
+          "MR Kumar",
+          "AK Dubey",
+          "A Dutta",
+          "G Kumar"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU-7031",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:6ZxmRoH8BuwC",
+        "gsRank": 25
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Seismicity and active tectonics: New insights from Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "A Dutta",
+          "AK Dubey",
+          "G Kumar"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU-343",
+        "cites": 5,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:DUooU5lO8OsC",
+        "gsRank": 26
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Seismic constraints on the nature and geometry of the downwelling Indian crust beneath Sikkim Himalaya",
+        "authors": [
+          "A Singh",
+          "G Kumar",
+          "C Singh",
+          "MR Kumar",
+          "M Uthaman",
+          "D Saikia",
+          "AK Dubey"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU-2463",
+        "cites": 2,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:sNmaIFBj_lkC",
+        "gsRank": 27
+      },
+      {
+        "year": 2023,
+        "date": "2023",
+        "title": "Focal mechanisms and seismicity of local earthquakes beneath the Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "A Dutta",
+          "G Kumar",
+          "AK Dubey"
+        ],
+        "venue": "XXVIII General Assembly of the International Union of Geodesy and Geophysics\u00a0\u2026",
+        "cites": 6,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:DJbcl8HfkQkC",
+        "gsRank": 28
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "3-D shear wave velocity and radial anisotropy models of northeast India and eastern Tibetan Plateau",
+        "authors": [
+          "N Jana",
+          "AK Dubey",
+          "C Singh",
+          "R Kumar",
+          "A Singh",
+          "D Saikia",
+          "S Sarkar"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2022, S55C-0114",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:dBIO0h50nwkC",
+        "gsRank": 29
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "3D Imaging of the Upper Mantle Beneath the Arunachal Himalaya and Burmese Subduction Zones",
+        "authors": [
+          "AK Dubey",
+          "A Singh",
+          "MR Kumar",
+          "N Jana",
+          "S Sarkar",
+          "D Saikia",
+          "C Singh"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2022, S55C-0116",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:9c2xU6iGI7YC",
+        "gsRank": 30
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Mantle Transition Zone Structure beneath Sikkim and adjoining Himalaya",
+        "authors": [
+          "G Kumar",
+          "A Singh",
+          "AK Tiwari",
+          "C Singh",
+          "R Kumar",
+          "D Saikia",
+          "M Uthaman"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2022, S55C-0115",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:IRz6iEL74y4C",
+        "gsRank": 31
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Spatio-temporal Variation of Ambient Noise in the Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "N Jana",
+          "AK Dubey",
+          "S Sarkar",
+          "AK Tiwari"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2022, S25E-0211",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:WJVC3Jt7v1AC",
+        "gsRank": 32
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Variation in Anisotropy of Magnetic Susceptibility with Depth in the Upper 1 km of the Earth\u2019s Crust in Singhbhum Region (India)\u2014First Results",
+        "authors": [
+          "R Chakraborty",
+          "MA Mamtani",
+          "S Tripathi",
+          "A Singh",
+          "S Rakesh",
+          "K Chakrabarti"
+        ],
+        "venue": "Journal of the Geological Society of India 98 (12), 1665-1670",
+        "cites": 3,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:umqufdRvDiIC",
+        "gsRank": 33
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Lithospheric architecture below the Eastern Ghats Mobile Belt and adjoining Archean cratons: Imprints of India-Antarctica collision tectonics",
+        "authors": [
+          "N Jana",
+          "C Singh",
+          "A Singh",
+          "T Eken",
+          "AK Dubey",
+          "A Dutta",
+          "AK Gupta"
+        ],
+        "venue": "Gondwana Research 111, 209-222",
+        "cites": 16,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:XvxMoLDsR5gC",
+        "gsRank": 34
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Crustal anisotropy beneath southeastern Tibet inferred from directional dependence of receiver functions",
+        "authors": [
+          "AK Tiwari",
+          "A Singh",
+          "D Saikia",
+          "C Singh",
+          "T Eken"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 331, 106912",
+        "cites": 4,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:a9-T7VOCCH8C",
+        "gsRank": 35
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "2-D Sn attenuation tomography of Arunachal Himalaya",
+        "authors": [
+          "S Sarkar",
+          "C Singh",
+          "MR Kumar",
+          "A Kant Tiwari",
+          "AK Dubey",
+          "A Singh"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU22-4446",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:2VqYfGB8ITEC",
+        "gsRank": 36
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Shear wave birefringence and current configuration of active tectonics of Shillong plateau: an appraisal of Indian plate motion and regional structures",
+        "authors": [
+          "DD Mohanty",
+          "A Singh"
+        ],
+        "venue": "International Journal of Earth Sciences 111 (1), 269-286",
+        "cites": 12,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:8d8msizDQcsC",
+        "gsRank": 37
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Spatial and temporal variation of the ambient noise environment of the Sikkim Himalaya",
+        "authors": [
+          "M Uthaman",
+          "C Singh",
+          "A Singh",
+          "N Jana",
+          "AK Dubey",
+          "S Sarkar",
+          "AK Tiwari"
+        ],
+        "venue": "Scientific Reports 12 (1), 274",
+        "cites": 33,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:FAceZFleit8C",
+        "gsRank": 38
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Tomographic imaging of the plate geometry beneath the Arunachal Himalaya and Burmese subduction zones",
+        "authors": [
+          "Arun Kumar Dubey",
+          "Arun Singh*",
+          "M. Ravi Kumar",
+          "Niptika Jana",
+          "Sukanta Sarkar ..."
+        ],
+        "venue": "Geophysical Research Letters",
+        "cites": 22,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:HtEfBTGE9r8C",
+        "gsRank": 39
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Variation in rock fabric with depth in the upper 1 km of the earth\u2019s crust and its implications for mineralization \u2013 a study from the Singhbhum region (India)",
+        "authors": [
+          "DK Chakraborty R.",
+          "Mamtani M.A.*",
+          "Tripathi S.",
+          "Singh A.",
+          "Rakesh S ..."
+        ],
+        "venue": "\u00a9 European DRT (Deformation mechanisms, Rheology and Tectonics) Society",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:NXb4pA-qfm4C",
+        "gsRank": 40
+      },
+      {
+        "year": 2022,
+        "date": "2022",
+        "title": "Sn attenuation tomography of southeastern Tibet: new constraints on lithospheric mantle deformation",
+        "authors": [
+          "AK Tiwari",
+          "C Singh",
+          "E Sandvol",
+          "S Mukhopadhyay",
+          "A Singh",
+          "AK Gupta"
+        ],
+        "venue": "Geophysical Journal International",
+        "cites": 9,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:GtLg2Ama23sC",
+        "gsRank": 41
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Depth-wise attenuation mechanism of seismic waves in the Andaman region",
+        "authors": [
+          "A Dutta",
+          "R Biswas",
+          "C Singh",
+          "MR Kumar",
+          "N Jana",
+          "A Singh"
+        ],
+        "venue": "Soil Dynamics and Earthquake Engineering 151, 107000",
+        "cites": 7,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:bz8QjSJIRt4C",
+        "gsRank": 42
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Seismic anisotropy and mantle deformation beneath Eastern Ghats Mobile Belt using direct-S waves",
+        "authors": [
+          "N Jana",
+          "A Singh",
+          "AK Tiwari",
+          "T Eken",
+          "A Singh",
+          "C Singh",
+          "U Shankar"
+        ],
+        "venue": "Precambrian Research 360, 106215",
+        "cites": 8,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:LO7wyVUgiFcC",
+        "gsRank": 43
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Layered lithospheric anisotropy beneath southeastern Tibet using harmonic decomposition of receiver functions",
+        "authors": [
+          "A Kant Tiwari",
+          "A Singh",
+          "D Saikia",
+          "C Singh"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EGU21-14079",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:0izLItjtcgwC",
+        "gsRank": 44
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Source spectral studies using L g wave in western Tibet",
+        "authors": [
+          "S Sarkar",
+          "N Jaiswal",
+          "C Singh",
+          "AK Dubey",
+          "A Singh"
+        ],
+        "venue": "Journal of Seismology 25 (2), 625-638",
+        "cites": 8,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:rmuvC79q63oC",
+        "gsRank": 45
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Discerning Structure and Seismic Hazards in the Sikkim Himalayas",
+        "authors": [
+          "GK Mita Uthaman",
+          "Arun Singh",
+          "Chandrani Singh",
+          "Arun Dubey"
+        ],
+        "venue": "Eos, 102, https://doi.org/10.1029/2021EO156044",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:YohjEiUPhakC",
+        "gsRank": 46
+      },
+      {
+        "year": 2021,
+        "date": "2021",
+        "title": "Seismic imaging of the crust beneath Arunachal Himalaya",
+        "authors": [
+          "A Singh",
+          "D Saikia",
+          "MR Kumar"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth, e2020JB020616",
+        "cites": 32,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:_axFR9aDTf0C",
+        "gsRank": 47
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "3D tomographic imaging of the upper mantle beneath Eastern Ghats Mobile Belt, India: Imprints of a mantle plume",
+        "authors": [
+          "AK Dubey",
+          "A Singh",
+          "RK Mangalampally",
+          "C Singh",
+          "S Sarkar"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2020, S061-0006",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:QYdC8u9Cj1oC",
+        "gsRank": 48
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "Palaeoslab and plume signatures in the mantle transition zone beneath Eastern Himalaya and adjoining regions",
+        "authors": [
+          "D Saikia",
+          "MR Kumar",
+          "A Singh"
+        ],
+        "venue": "Geophysical Journal International 221 (1), 468-477",
+        "cites": 22,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:PVjk1bu6vJQC",
+        "gsRank": 49
+      },
+      {
+        "year": 2020,
+        "date": "2020",
+        "title": "Crustal structure of western Tibet revealed by Lg attenuation tomography",
+        "authors": [
+          "N Jaiswal",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "Tectonophysics 775, 228245",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:hCrLmN-GePgC",
+        "gsRank": 50
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Seismic imaging of the deep crustal structure beneath Eastern Ghats Mobile Belt (India): Crustal growth in the context of assembly of Rodinia and Gondwana supercontinents",
+        "authors": [
+          "A Singh",
+          "C Singh"
+        ],
+        "venue": "Precambrian Research 331, 105343",
+        "cites": 27,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:Y5dfb0dijaUC",
+        "gsRank": 51
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Sn attenuation tomography of southeastern Tibet: new constraints on lithospheric mantle deformation",
+        "authors": [
+          "A Kant Tiwari",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, 10002",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:9pM33mqn1YgC",
+        "gsRank": 52
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Mantle deformation patterns and signatures of rift, beneath Eastern Ghats Mobile Belt",
+        "authors": [
+          "N Jana",
+          "A Singh",
+          "AK Tiwari",
+          "C Singh",
+          "R Biswas"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 289, 20-33",
+        "cites": 11,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:AXPGKjj_ei8C",
+        "gsRank": 53
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Surface Wave Dispersion Analysis in the Eastern Ghats Mobile Belts and Adjacent Archean Cratons and its implications on Lithospheric Velocity Models.",
+        "authors": [
+          "N Jana",
+          "C Singh",
+          "A Singh"
+        ],
+        "venue": "Geophysical Research Abstracts 21",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:anf4URPfarAC",
+        "gsRank": 54
+      },
+      {
+        "year": 2019,
+        "date": "2019",
+        "title": "Direct S-wave derived seismic anisotropy beneath Eastern Ghats Mobile Belt and adjacent Archean cratons: Signature of collision and rifting.",
+        "authors": [
+          "A Singh",
+          "N Jana",
+          "AK Tiwari",
+          "T Eken",
+          "A Singh",
+          "C Singh"
+        ],
+        "venue": "Geophysical Research Abstracts 21",
+        "cites": 2,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:86PQX7AUzd4C",
+        "gsRank": 55
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "Upper mantle dynamics of Bangladesh by splitting analysis of core-mantle refracted SKS, PKS, and SKKS phases",
+        "authors": [
+          "AK Tiwari",
+          "K Bhushan",
+          "T Eken",
+          "A Singh"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 279, 21-32",
+        "cites": 8,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:BrmTIyaxlBUC",
+        "gsRank": 56
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "Vestiges of Precambrian subduction in the south Indian shield? - A Seismological Perspective",
+        "authors": [
+          "M. Ravi Kumar",
+          "Arun Singh",
+          "Y.J. Bhaskar Rao",
+          "G. Srijayanthi",
+          "D. Sarkar"
+        ],
+        "venue": "Tectonophysics",
+        "cites": 10,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:q3oQSFYPqjQC",
+        "gsRank": 57
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "New constraints on Upper Mantle Dynamics beneath Bangladesh from the Analyses of Core-mantle Refracted SKS and SKKS Waves",
+        "authors": [
+          "T Eken",
+          "A Kant Tiwari",
+          "K Bhushan",
+          "A Singh"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, 10328",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:kzcrU_BdoSEC",
+        "gsRank": 58
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "Density contrast across the Moho beneath the Indian shield: Implications for isostasy",
+        "authors": [
+          "H Paul",
+          "RK Mangalampally",
+          "VM Tiwari",
+          "A Singh",
+          "RK Chadha",
+          "S Davuluri"
+        ],
+        "venue": "Journal of Asian Earth Sciences 154, 67-81",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:eJXPG6dFmWUC",
+        "gsRank": 59
+      },
+      {
+        "year": 2018,
+        "date": "2018",
+        "title": "Mantle deformation in the Eastern Himalaya, Burmese arc and adjoining regions",
+        "authors": [
+          "D Saikia",
+          "MR Kumar",
+          "A Singh",
+          "SK Roy",
+          "P Solomon Raju",
+          "AC Lyngdoh"
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems",
+        "cites": 34,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:WA5NYHcadZ8C",
+        "gsRank": 60
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Upper Mantle Dynamics of Bangladesh by Splitting Analyzes of Core Refracted SKS and SKKS Waves",
+        "authors": [
+          "AK Tiwari",
+          "K Bhushan",
+          "T Eken",
+          "A Singh"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2017, S21C-0715",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:fEOibwPWpKIC",
+        "gsRank": 61
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Shear wave anisotropy in the Eastern Himalaya, Burmese arc and adjoining regions",
+        "authors": [
+          "RK Mangalampally",
+          "D Saikia",
+          "A Singh",
+          "S Roy",
+          "SR Panuganti",
+          "AC Lyngdoh"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2017, DI51D-02",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:D_sINldO8mEC",
+        "gsRank": 62
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Seismic noise analysis of broadband stations in the Eastern Ghat Mobile Belt of India using power spectral density",
+        "authors": [
+          "Niptika Jana",
+          "Chandrani Singh",
+          "Rahul Biswas",
+          "Nitin Grewal",
+          "Arun Singh"
+        ],
+        "venue": "Geomatics, Natural Hazards and Risk",
+        "cites": 28,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:XiSMed-E-HIC",
+        "gsRank": 63
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Crustal structure beneath India and Tibet: New constraints from inversion of receiver functions",
+        "authors": [
+          "Arun Singh",
+          "M. Ravi Kumar",
+          "Debasis D. Mohanty",
+          "Chandrani Singh",
+          "Rahul Biswas ..."
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth",
+        "cites": 54,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:p2g8aNsByqUC",
+        "gsRank": 64
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Seismic anisotropy inferred from direct S-wave-derived splitting measurements and its geodynamic implications beneath southeastern Tibetan Plateau",
+        "authors": [
+          "AK Tiwari",
+          "A Singh",
+          "T Eken",
+          "C Singh"
+        ],
+        "venue": "Solid Earth 8 (2), 435-452",
+        "cites": 13,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:u9iWguZQMMsC",
+        "gsRank": 65
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Seismic anisotropy inferred from direct S-waves derived splitting measurements and its geodynamic implications beneath southeastern Tibetan Plateau",
+        "authors": [
+          "T Eken",
+          "A Kant Tiwari",
+          "A Singh",
+          "C Singh"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, 10409",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:ZHo1McVdvXMC",
+        "gsRank": 66
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Anisotropy in the lowermost mantle beneath the Indian Ocean Geoid Low from ScS splitting measurements",
+        "authors": [
+          "B Padma Rao",
+          "M Ravi Kumar",
+          "A Singh"
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems",
+        "cites": 21,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:Wp0gIr-vW9MC",
+        "gsRank": 67
+      },
+      {
+        "year": 2017,
+        "date": "2017",
+        "title": "Frequency and lapse time dependent seismic attenuation in eastern Himalaya and southern Tibet",
+        "authors": [
+          "S Singh",
+          "C Singh",
+          "R Biswas",
+          "A Singh"
+        ],
+        "venue": "Natural Hazards 85 (3), 1709-1722",
+        "cites": 14,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:qxL8FJ1GzNcC",
+        "gsRank": 68
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Crustal structure and tectonics of Bangladesh: New constraints from inversion of receiver functions",
+        "authors": [
+          "A Singh",
+          "K Bhushan",
+          "C Singh",
+          "MS Steckler",
+          "SH Akhter",
+          "L Seeber",
+          "WY Kim"
+        ],
+        "venue": "Tectonophysics 680, 99-112",
+        "cites": 101,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:blknAaTinKkC",
+        "gsRank": 69
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Mantle deformation patterns beneath southern Tibet using splitting of direct-S waves",
+        "authors": [
+          "DD Mohanty",
+          "T Eken",
+          "A Singh",
+          "C Singh",
+          "MR Kumar"
+        ],
+        "venue": "EGU General Assembly Conference Abstracts, EPSC2016-2348",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:hC7cP41nSMkC",
+        "gsRank": 70
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "P wave velocity structure below India and Tibet incorporating anisotropic delay time effects",
+        "authors": [
+          "HE Mohanty",
+          "D.",
+          "Singh A.",
+          "ODriscoll",
+          "L.",
+          "Kumar",
+          "M. R.",
+          "Srinagesh",
+          "D."
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems",
+        "cites": 19,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:M3ejUd6NZC8C",
+        "gsRank": 71
+      },
+      {
+        "year": 2016,
+        "date": "2016",
+        "title": "Significant seismic anisotropy beneath southern Tibet inferred from splitting of direct S-waves",
+        "authors": [
+          "A Singh",
+          "T Eken",
+          "DD Mohanty",
+          "D Saikia",
+          "C Singh",
+          "MR Kumar"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 250, 1-11",
+        "cites": 30,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:4TOpqqG69KYC",
+        "gsRank": 72
+      },
+      {
+        "year": 2015,
+        "date": "2015",
+        "title": "Passive seismological imaging of the Narmada paleo-rift, central India",
+        "authors": [
+          "MR Kumar",
+          "A Singh",
+          "N Kumar",
+          "D Sarkar"
+        ],
+        "venue": "Precambrian Research 270, 155-164",
+        "cites": 24,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:_kc_bZDykSQC",
+        "gsRank": 73
+      },
+      {
+        "year": 2015,
+        "date": "2015",
+        "title": "A review of crust and upper mantle structure beneath the Indian subcontinent",
+        "authors": [
+          "A Singh",
+          "C Singh",
+          "BLN Kennett"
+        ],
+        "venue": "Tectonophysics 644, 1-21",
+        "cites": 130,
+        "type": "Review article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:YOwf2qJgpHMC",
+        "gsRank": 74
+      },
+      {
+        "year": 2014,
+        "date": "2014",
+        "title": "Continental scale body wave tomography of India: Evidence for attrition and preservation of lithospheric roots",
+        "authors": [
+          "A Singh",
+          "JP Mercier",
+          "M Ravi Kumar",
+          "D Srinagesh",
+          "RK Chadha"
+        ],
+        "venue": "Geochemistry, Geophysics, Geosystems 15 (3), 658-675",
+        "cites": 55,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:LkGwnXOMwfcC",
+        "gsRank": 75
+      },
+      {
+        "year": 2013,
+        "date": "2013",
+        "title": "Two distinct shear wave splitting directions in the northwestern Deccan volcanic province",
+        "authors": [
+          "K Madhusudhan Rao",
+          "M Ravi Kumar",
+          "A Singh",
+          "BK Rastogi"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 118 (10), 5487-5499",
+        "cites": 32,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:UebtZRa9Y70C",
+        "gsRank": 76
+      },
+      {
+        "year": 2013,
+        "date": "2013",
+        "title": "Low shear velocities in the sub\u2010lithospheric mantle beneath the Indian shield?",
+        "authors": [
+          "MR Kumar",
+          "D Saikia",
+          "A Singh",
+          "D Srinagesh",
+          "PR Baidya",
+          "RS Dattatrayam"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 118 (3), 1142-1155",
+        "cites": 18,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:Se3iqnhoufwC",
+        "gsRank": 77
+      },
+      {
+        "year": 2013,
+        "date": "2013",
+        "title": "Near\u2010surface shear velocities in diverse geological segments of India",
+        "authors": [
+          "A Singh",
+          "MR Kumar",
+          "D Srinagesh"
+        ],
+        "venue": "Bulletin of the Seismological Society of America 103 (1), 317-327",
+        "cites": 6,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:roLk4NBRz8UC",
+        "gsRank": 78
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Structure and Tectonics of the Andaman Subduction Zone from Modeling of Seismological and Gravity Data",
+        "authors": [
+          "PR Nemalikanti",
+          "N Rao",
+          "P Hazarika",
+          "VM Tiwari",
+          "R Mangalampally"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2012, T53A-2677",
+        "cites": 1,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:pyW8ca7W8N0C",
+        "gsRank": 79
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Continental Scale Body Wave Tomography of India: Evidence for Attrition and Preservation of Lithospheric Roots",
+        "authors": [
+          "R Mangalampally",
+          "A Singh",
+          "J Mercier",
+          "S Davuluri",
+          "RK Chadha"
+        ],
+        "venue": "AGU Fall Meeting Abstracts 2012, S41A-2370",
+        "cites": 0,
+        "type": "Conference contribution",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:D03iK_w7-QYC",
+        "gsRank": 80
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Seismic signatures of an altered crust and a normal transition zone structure beneath the Godavari rift",
+        "authors": [
+          "A Singh",
+          "MR Kumar",
+          "N Kumar",
+          "D Saikia",
+          "PS Raju",
+          "D Srinagesh",
+          "NP Rao"
+        ],
+        "venue": "Precambrian Research 220, 1-8",
+        "cites": 24,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:8k81kl-MbHgC",
+        "gsRank": 81
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Seismic anisotropy beneath the eastern Dharwar craton",
+        "authors": [
+          "SK Roy",
+          "D Srinagesh",
+          "D Saikia",
+          "A Singh",
+          "MR Kumar"
+        ],
+        "venue": "Lithosphere 4 (4), 259-268",
+        "cites": 33,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:5nxA0vEk-isC",
+        "gsRank": 82
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "The ISLANDS network in the Andaman\u2013Nicobar subduction zone",
+        "authors": [
+          "G Srijayanthi",
+          "MR Kumar",
+          "T Sirisha",
+          "K Sushini",
+          "GS Prasad",
+          "PS Raju"
+        ],
+        "venue": "Seismological Research Letters 83 (4), 686-696",
+        "cites": 21,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:MXK_kJrjxJIC",
+        "gsRank": 83
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Seismic attenuation characteristics along the Hi\u2010CLIMB profile in Tibet from Lg Q inversion",
+        "authors": [
+          "C Singh",
+          "M Shekar",
+          "A Singh",
+          "RK Chadha"
+        ],
+        "venue": "Bulletin of the Seismological Society of America 102 (2), 783-789",
+        "cites": 27,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:4hFrxpcac9AC",
+        "gsRank": 84
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Tectonic implications of the September 2011 Sikkim earthquake and its aftershocks",
+        "authors": [
+          "MR Kumar",
+          "P Hazarika",
+          "GS Prasad",
+          "A Singh",
+          "S Saha"
+        ],
+        "venue": "Current Science, 788-792",
+        "cites": 80,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:hqOjcs7Dif8C",
+        "gsRank": 85
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "Frequency-dependent body wave attenuation characteristics in the Kumaun Himalaya",
+        "authors": [
+          "C Singh",
+          "A Singh",
+          "VKS Bharathi",
+          "AR Bansal",
+          "RK Chadha"
+        ],
+        "venue": "Tectonophysics 524, 37-42",
+        "cites": 56,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:Y0pCki6q_DkC",
+        "gsRank": 86
+      },
+      {
+        "year": 2012,
+        "date": "2012",
+        "title": "\u6839\u636e Lg \u6ce2 Q \u503c\u53cd\u6f14\u5f97\u5230\u7684 Hi-CLIMB \u9879\u76ee\u897f\u85cf\u5256\u9762\u5730\u9707\u8870\u51cf\u7279\u5f81",
+        "authors": [
+          "\u5f20\u5c27\uff0c \u5f90\u6c81"
+        ],
+        "venue": "\u4e16\u754c\u5730\u9707\u8bd1\u4e1b, 12-19",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:SeFeTyx0c_EC",
+        "gsRank": 87
+      },
+      {
+        "year": 2011,
+        "date": "2011",
+        "title": "Lg attenuation characteristics across the Indian Shield",
+        "authors": [
+          "C Singh",
+          "A Singh",
+          "S Mukhopadhyay",
+          "M Shekar",
+          "RK Chadha"
+        ],
+        "venue": "Bulletin of the Seismological Society of America 101 (5), 2561-2567",
+        "cites": 21,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:qjMakFHDy7sC",
+        "gsRank": 88
+      },
+      {
+        "year": 2011,
+        "date": "2011",
+        "title": "Structure and tectonics of the Andaman subduction zone from modeling of seismological and gravity data",
+        "authors": [
+          "NP Rao",
+          "CN Rao",
+          "P Hazarika",
+          "VM Tiwari",
+          "MR Kumar",
+          "A Singh"
+        ],
+        "venue": "New frontiers in tectonic research, 249-268",
+        "cites": 33,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:W7OEmFMy1HYC",
+        "gsRank": 89
+      },
+      {
+        "year": 2011,
+        "date": "2011",
+        "title": "Natural Hazards in relation to Landslides",
+        "authors": [
+          "US Singh",
+          "A.",
+          "De",
+          "Rase",
+          "D.M.",
+          "De"
+        ],
+        "venue": "The International Journal of Meteorology 36 (358), 51-55",
+        "cites": 1,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:3fE2CSJIrl8C",
+        "gsRank": 90
+      },
+      {
+        "year": 2010,
+        "date": "2010",
+        "title": "Seismic anisotropy of the Indian tectonic plate: Deciphering continental scale mantle deformation patterns",
+        "authors": [
+          "MR Kumar",
+          "A Singh"
+        ],
+        "venue": "Current Science, 1751-1761",
+        "cites": 19,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:mVmsd5A6BfQC",
+        "gsRank": 91
+      },
+      {
+        "year": 2010,
+        "date": "2010",
+        "title": "Seismic structure of the underthrusting Indian crust in Sikkim Himalaya",
+        "authors": [
+          "A Singh",
+          "MR Kumar",
+          "PS Raju"
+        ],
+        "venue": "Tectonics 29 (6)",
+        "cites": 72,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:Tyk-4Ss8FVUC",
+        "gsRank": 92
+      },
+      {
+        "year": 2010,
+        "date": "2010",
+        "title": "Seismic anisotropy beneath the Indian continent from splitting of direct S waves",
+        "authors": [
+          "D Saikia",
+          "M Ravi Kumar",
+          "A Singh",
+          "G Mohan",
+          "RS Dattatrayam"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 115 (B12)",
+        "cites": 47,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:zYLM7Y9cAGgC",
+        "gsRank": 93
+      },
+      {
+        "year": 2010,
+        "date": "2010",
+        "title": "Shear wave anisotropy of the Godavari rift in the south Indian shield: Rift signature or APM related strain?",
+        "authors": [
+          "N Kumar",
+          "MR Kumar",
+          "A Singh",
+          "PS Raju",
+          "NP Rao"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 181 (3-4), 82-87",
+        "cites": 29,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:UeHWp8X0CEIC",
+        "gsRank": 94
+      },
+      {
+        "year": 2009,
+        "date": "2009",
+        "title": "Fractal and b-value mapping in Eastern Himalaya and Southern Tibet",
+        "authors": [
+          "C Singh",
+          "A Singh",
+          "RK Chadha"
+        ],
+        "venue": "Bulletin of the Seismological Society of America 99 (6), 3529-3533",
+        "cites": 51,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:2osOgNQ5qMEC",
+        "gsRank": 95
+      },
+      {
+        "year": 2009,
+        "date": "2009",
+        "title": "Seismic signatures of detached lithospheric fragments in the mantle beneath eastern Himalaya and southern Tibet",
+        "authors": [
+          "A Singh",
+          "MR Kumar"
+        ],
+        "venue": "Earth and Planetary Science Letters 288 (1-2), 279-290",
+        "cites": 41,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:eQOLeE2rZwMC",
+        "gsRank": 96
+      },
+      {
+        "year": 2008,
+        "date": "2008",
+        "title": "Evidence for plate motion related strain in the Indian shield from shear wave splitting measurements",
+        "authors": [
+          "MR Kumar",
+          "A Singh"
+        ],
+        "venue": "Journal of Geophysical Research: Solid Earth 113 (B8)",
+        "cites": 71,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:YsMSGLbcyi4C",
+        "gsRank": 97
+      },
+      {
+        "year": 2008,
+        "date": "2008",
+        "title": "Lithosphere of the Dharwar craton by joint inversion of P and S receiver functions",
+        "authors": [
+          "S Kiselev",
+          "L Vinnik",
+          "S Oreshin",
+          "S Gupta",
+          "SS Rai",
+          "A Singh",
+          "MR Kumar"
+        ],
+        "venue": "Geophysical Journal International 173 (3), 1106-1118",
+        "cites": 125,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:u-x6o8ySG0sC",
+        "gsRank": 98
+      },
+      {
+        "year": 2007,
+        "date": "2007",
+        "title": "Upper mantle beneath foothills of the western Himalaya: subducted lithospheric slab or a keel of the Indian shield?",
+        "authors": [
+          "L Vinnik",
+          "A Singh",
+          "S Kiselev",
+          "MR Kumar"
+        ],
+        "venue": "Geophysical Journal International 171 (3), 1162-1171",
+        "cites": 58,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:u5HHmVD_uO8C",
+        "gsRank": 99
+      },
+      {
+        "year": 2007,
+        "date": "2007",
+        "title": "Mantle deformation in Sikkim and adjoining Himalaya: Evidences for a complex flow pattern",
+        "authors": [
+          "A Singh",
+          "MR Kumar",
+          "PS Raju"
+        ],
+        "venue": "Physics of the Earth and Planetary Interiors 164 (3-4), 232-241",
+        "cites": 64,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:d1gkVwhDpl0C",
+        "gsRank": 100
+      },
+      {
+        "year": 2007,
+        "date": "2007",
+        "title": "The 14 February 2006 Sikkim earthquake of magnitude 5.3",
+        "authors": [
+          "PS Raju",
+          "NP Rao",
+          "A Singh",
+          "MR Kumar"
+        ],
+        "venue": "Current Science, 848-850",
+        "cites": 20,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:IjCSPb-OGe4C",
+        "gsRank": 101
+      },
+      {
+        "year": 2006,
+        "date": "2006",
+        "title": "Shear wave anisotropy of the northeast Indian lithosphere",
+        "authors": [
+          "A Singh",
+          "MR Kumar",
+          "PS Raju",
+          "DS Ramesh"
+        ],
+        "venue": "Geophysical Research Letters 33 (16)",
+        "cites": 72,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:9yKSN-GCB0IC",
+        "gsRank": 102
+      },
+      {
+        "year": 2005,
+        "date": "2005",
+        "title": "Earthquake at Koyna-Response",
+        "authors": [
+          "H Gupta",
+          "P Mandal",
+          "HVS Satyanarayana",
+          "D Shashidhar",
+          "B Sairam"
+        ],
+        "venue": "CURRENT SCIENCE 89 (11), 1786-1787",
+        "cites": 0,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:HoB7MX3m0LUC",
+        "gsRank": 103
+      },
+      {
+        "year": 2005,
+        "date": "2005",
+        "title": "An earthquake of M* 5 may occur at Koyna",
+        "authors": [
+          "HK Gupta",
+          "P Mandal",
+          "HVS Satyanarayana",
+          "D Shashidhar",
+          "B Sairam"
+        ],
+        "venue": "Curr. Sci 89, 747-748",
+        "cites": 11,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:ufrVoPGSRksC",
+        "gsRank": 104
+      },
+      {
+        "year": 2005,
+        "date": "2005",
+        "title": "Heat and cold waves affecting India during recent decades",
+        "authors": [
+          "US De",
+          "A Singh",
+          "SN Pandey"
+        ],
+        "venue": "International Journal of Meteorology 30 (303), 323-331",
+        "cites": 18,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:WF5omc3nYNoC",
+        "gsRank": 105
+      },
+      {
+        "year": 2003,
+        "date": "2003",
+        "title": "Natural disasters in pre-monsoon months",
+        "authors": [
+          "SN Singh",
+          "A.",
+          "De",
+          "U.S.",
+          "Pandey"
+        ],
+        "venue": "The Deccan Geographer 41 (2), 91-98",
+        "cites": 2,
+        "type": "Article",
+        "url": "https://scholar.google.com/citations?view_op=view_citation&hl=en&user=dtjnHcsAAAAJ&cstart=100&pagesize=100&sortby=pubdate&citation_for_view=dtjnHcsAAAAJ:KlAtU1dfN6UC",
+        "gsRank": 106
+      }
+    ]
   }
 };
