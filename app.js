@@ -172,11 +172,25 @@ function scholarCacheFor(p){
 async function pubsFor(p){
   const scPubs = scholarCacheFor(p);
   const direct = await livePubs(p);
-  if(p.group==='pi') return merge([scPubs, manualFor(p), direct]);
-  // Also check PIs' fetched & Scholar works for co-authored papers where student/alumnus name appears
+  // If this person has a synced Google Scholar profile, show their EXACT Google Scholar list!
+  // Only enrich those exact papers with OpenAlex concepts/institutions (for Fingerprint & Network), without adding non-Scholar items.
+  if(scPubs.length > 0){
+    const oaByTitle = new Map(direct.map(w=>[norm(w.title), w]));
+    return scPubs.map(sp=>{
+      const oa = oaByTitle.get(norm(sp.title));
+      return {
+        ...sp,
+        type: typeOf(sp),
+        concepts: (oa && oa.concepts) || sp.concepts || [],
+        rawAuthorships: (oa && oa.rawAuthorships) || sp.rawAuthorships || []
+      };
+    });
+  }
+  if(p.group==='pi') return merge([manualFor(p), direct]);
+  // Fallback ONLY for members who haven't synced Google Scholar yet: use manual + ORCID + PI co-authored works
   const piWorks = (await Promise.all(PEOPLE.filter(x=>x.group==='pi').map(async pi=>[...scholarCacheFor(pi), ...(await livePubs(pi))]))).flat()
     .filter(w=>(w.authors||[]).some(a=>byName(a)===p));
-  return merge([scPubs, manualFor(p), direct, piWorks]);
+  return merge([manualFor(p), direct, piWorks]);
 }
 
 function layout(page){

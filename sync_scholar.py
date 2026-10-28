@@ -102,7 +102,10 @@ def fetch_scholar_author(uid):
             break
         time.sleep(1.5)
 
-    pubs.sort(key=lambda x: (x.get("year") or 0, x.get("cites") or 0), reverse=True)
+    # Keep Google Scholar exact sortby=pubdate order (only sort by year desc while preserving original table rank)
+    for idx, item in enumerate(pubs):
+        item["gsRank"] = idx
+    pubs.sort(key=lambda x: (-(x.get("year") or 0), x.get("gsRank", 0)))
     return metrics, pubs
 
 def main():
