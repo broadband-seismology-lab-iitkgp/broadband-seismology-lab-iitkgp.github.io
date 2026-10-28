@@ -24,7 +24,7 @@ function parseCSV(text){
 function drivePhoto(u){
   if(!u) return '';
   const m=u.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)||u.match(/[?&]id=([A-Za-z0-9_-]{15,})/);
-  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w500` : u;
+  return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w800` : u;
 }
 function parseScholarId(s){
   if(!s) return '';
@@ -208,7 +208,7 @@ const byName=n=>{
   return cands.length===1 ? cands[0] : null;
 };
 const initials=n=>n.replace(/Prof\.|Dr\./g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2);
-const avatar=p=>`<div class="avatar"><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" style="width:100%;height:100%;border-radius:50%;object-fit:cover" onerror="this.remove()">${initials(p.name)}</div>`;
+const avatar=p=>`<div class="avatar"><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" style="width:100%;height:100%;border-radius:inherit;object-fit:cover;object-position:center top" onerror="this.remove()">${initials(p.name)}</div>`;
 const card=p=>`<a class="card" href="person.html?id=${p.id}">${avatar(p)}<h3>${p.name}</h3><small>${p.role}</small><br><small>${p.position}</small></a>`;
 
 // Format author name in ANU citation style: "Surname, F. M."
@@ -638,23 +638,54 @@ async function person(){
   const total=p.citations!=null?p.citations:cites.reduce((a,b)=>a+b,0);
   const h=p.hindex!=null?p.hindex:hIndex(cites);
   const i10=p.i10index!=null?p.i10index:i10Index(cites);
+  const totalRec=p.citationsRecent!=null?p.citationsRecent:citesRecent.reduce((a,b)=>a+b,0);
+  const hRec=p.hindexRecent!=null?p.hindexRecent:hIndex(citesRecent);
+  const i10Rec=p.i10indexRecent!=null?p.i10indexRecent:i10Index(citesRecent);
   const hasScholarMetrics = p.citations!=null || p.hindex!=null || p.i10index!=null;
 
-  if(p.citationsRecent!=null || p.hindexRecent!=null){
-    $('#metrics').innerHTML=`
+  // Build ANU-style "Research activity per year" bar plot
+  const validYears=mine.map(x=>Number(x.year)).filter(y=>y>=1970 && y<=2030);
+  let yearPlotHTML='';
+  if(validYears.length){
+    const rawMin=Math.min(...validYears), maxY=Math.max(...validYears);
+    const minY=Math.min(rawMin, maxY-4);
+    const yrCounts=[];
+    for(let y=minY;y<=maxY;y++){
+      yrCounts.push({y, c:mine.filter(x=>Number(x.year)===y).length});
+    }
+    const maxC=Math.max(1, ...yrCounts.map(o=>o.c));
+    yearPlotHTML=`
+      <div class="yr-activity">
+        <div class="yr-chart-row">
+          <span class="yr-bound">${minY}</span>
+          <div class="yr-bars">
+            ${yrCounts.map(o=>{
+              const hPct=o.c>0 ? Math.max(16, Math.round((o.c/maxC)*100)) : 4;
+              return `<div class="yr-col" title="${o.y}: ${o.c} research output${o.c===1?'':'s'}">
+                <div class="yr-bar ${o.c===0?'yr-zero':''}" style="height:${hPct}%"></div>
+              </div>`;
+            }).join('')}
+          </div>
+          <span class="yr-bound">${maxY}</span>
+        </div>
+        <div class="yr-caption">Research activity per year</div>
+      </div>`;
+  }
+
+  $('#metrics').innerHTML=`
+    <div class="metrics-top">
       <div class="m-count"><b>${mine.length}</b>Research outputs</div>
       <table class="gs-table">
         <thead><tr><th></th><th>All</th><th>Since 2021</th></tr></thead>
         <tbody>
-          <tr><td>Citations</td><td><b>${total}</b></td><td><b>${p.citationsRecent!=null?p.citationsRecent:citesRecent.reduce((a,b)=>a+b,0)}</b></td></tr>
-          <tr><td>h-index</td><td><b>${h}</b></td><td><b>${p.hindexRecent!=null?p.hindexRecent:hIndex(citesRecent)}</b></td></tr>
-          <tr><td>i10-index</td><td><b>${i10}</b></td><td><b>${p.i10indexRecent!=null?p.i10indexRecent:i10Index(citesRecent)}</b></td></tr>
+          <tr><td>Citations</td><td><b>${total}</b></td><td><b>${totalRec}</b></td></tr>
+          <tr><td>h-index</td><td><b>${h}</b></td><td><b>${hRec}</b></td></tr>
+          <tr><td>i10-index</td><td><b>${i10}</b></td><td><b>${i10Rec}</b></td></tr>
         </tbody>
       </table>
-      <small>Metrics: ${hasScholarMetrics?(l.scholar?`<a href="${l.scholar}" target="_blank" rel="noopener">Google Scholar ↗</a>`:'Google Scholar'):'OpenAlex / ORCID'}</small>`;
-  } else {
-    $('#metrics').innerHTML=`<div><b>${mine.length}</b>Research outputs</div><div><b>${cites.length||hasScholarMetrics?total:'–'}</b>Citations</div><div><b>${cites.length||hasScholarMetrics?h:'–'}</b>h-index</div><div><b>${cites.length||hasScholarMetrics?i10:'–'}</b>i10-index</div><small>Source: ${hasScholarMetrics?'Google Scholar':'OpenAlex / ORCID'}</small>`;
-  }
+    </div>
+    ${yearPlotHTML}
+    <small class="metrics-src">Metrics: ${hasScholarMetrics?(l.scholar?`<a href="${l.scholar}" target="_blank" rel="noopener">Google Scholar ↗</a>`:'Google Scholar'):'OpenAlex / ORCID'}</small>`;
 
   // fingerprint: aggregate OpenAlex concepts + domain-specific Earth & Seismology topic taxonomy across all publications
   const TOPICS=[
@@ -706,5 +737,6 @@ async function person(){
     location.hash=t;
   };
   document.querySelectorAll('.ptabs button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+  document.querySelectorAll('.yr-col').forEach(b=>b.onclick=()=>show('output'));
   show(['overview','output','network','finger'].includes(location.hash.slice(1))?location.hash.slice(1):'overview');
 }

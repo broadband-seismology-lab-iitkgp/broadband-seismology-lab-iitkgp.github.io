@@ -124,19 +124,20 @@ h2 {
 .card small { color: var(--muted); }
 
 .avatar {
-  width: 96px;
-  height: 96px;
-  border-radius: 50%;
+  width: 140px;
+  height: 175px;
+  border-radius: 6px;
   background: linear-gradient(135deg, #d7e8f7, #b9d6f2);
   object-fit: cover;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.85rem;
+  font-size: 2.2rem;
   font-weight: 700;
   color: var(--navy);
   border: 2px solid #fff;
-  box-shadow: 0 2px 8px rgba(10, 37, 64, 0.12);
+  box-shadow: 0 3px 12px rgba(10, 37, 64, 0.14);
+  overflow: hidden;
 }
 
 .tag {
@@ -200,7 +201,7 @@ h2 {
 }
 .row:hover { background: var(--grey); }
 .row h3 { margin: 0 0 3px; color: var(--accent); font-size: 1.12rem; }
-.row .avatar { width: 72px; height: 72px; font-size: 1.4rem; flex: none; overflow: hidden; }
+.row .avatar { width: 84px; height: 106px; border-radius: 6px; font-size: 1.5rem; flex: none; overflow: hidden; }
 .row .pos { font-weight: 600; color: var(--navy); font-size: 0.94rem; }
 .row .org, .org { color: var(--muted); font-size: 0.88rem; }
 .row > div { flex: 1; }
@@ -216,7 +217,7 @@ h2 {
   border-bottom: 1px solid var(--border);
   padding-bottom: 26px;
 }
-.phead .avatar { width: 148px; height: 148px; font-size: 2.8rem; overflow: hidden; flex: none; }
+.phead .avatar { width: 215px; height: 270px; border-radius: 6px; font-size: 3.4rem; overflow: hidden; flex: none; }
 .phead > div:nth-child(2) { flex: 1; min-width: 260px; }
 .phead h1 { margin: 0 0 4px; color: var(--navy); font-size: 2rem; }
 .ptitle { font-size: 1.12rem; font-weight: 600; margin: 4px 0 6px; color: var(--blue); }
@@ -245,29 +246,108 @@ h2 {
 
 .metrics {
   display: flex;
-  gap: 18px;
+  flex-direction: column;
+  gap: 12px;
   background: var(--grey);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 16px 22px;
-  align-items: center;
-  flex-wrap: wrap;
+  padding: 16px 20px;
+  min-width: 310px;
 }
-.metrics div { text-align: center; font-size: 0.8rem; color: var(--muted); }
-.metrics b { display: block; font-size: 1.75rem; color: var(--navy); }
-.metrics .m-count { padding-right: 14px; border-right: 1px solid var(--border); }
+.metrics-top {
+  display: flex;
+  gap: 16px;
+  align-items: center;
+  justify-content: space-between;
+}
+.metrics .m-count {
+  text-align: center;
+  font-size: 0.8rem;
+  color: var(--muted);
+  padding-right: 14px;
+  border-right: 1px solid var(--border);
+  min-width: 90px;
+}
+.metrics .m-count b {
+  display: block;
+  font-size: 1.9rem;
+  color: var(--navy);
+  line-height: 1.15;
+}
 .gs-table {
   border-collapse: collapse;
-  font-size: 0.83rem;
+  font-size: 0.82rem;
   background: #fff;
   border: 1px solid var(--border);
   border-radius: 6px;
   overflow: hidden;
+  flex: 1;
 }
-.gs-table th, .gs-table td { padding: 5px 13px; text-align: right; border-bottom: 1px solid var(--border); }
+.gs-table th, .gs-table td { padding: 4px 11px; text-align: right; border-bottom: 1px solid var(--border); }
 .gs-table th { background: #edf4fb; color: var(--navy); font-weight: 600; }
 .gs-table th:first-child, .gs-table td:first-child { text-align: left; color: var(--muted); font-weight: 500; }
-.gs-table b { font-size: 0.98rem !important; display: inline !important; color: var(--navy); }
+.gs-table b { font-size: 0.95rem !important; display: inline !important; color: var(--navy); }
+
+/* ANU-style "Research activity per year" bar plot */
+.yr-activity {
+  border-top: 1px solid var(--border);
+  padding-top: 10px;
+  margin-top: 2px;
+}
+.yr-chart-row {
+  display: flex;
+  align-items: flex-end;
+  gap: 8px;
+}
+.yr-bound {
+  font-size: 0.76rem;
+  font-weight: 600;
+  color: var(--muted);
+  line-height: 1;
+  padding-bottom: 2px;
+}
+.yr-bars {
+  flex: 1;
+  height: 52px;
+  display: flex;
+  align-items: flex-end;
+  gap: 3px;
+  border-bottom: 1px solid #c6d8ec;
+  padding: 0 2px;
+}
+.yr-col {
+  flex: 1;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  cursor: pointer;
+}
+.yr-bar {
+  width: 100%;
+  min-width: 4px;
+  background: linear-gradient(180deg, var(--accent) 0%, var(--blue) 100%);
+  border-radius: 2px 2px 0 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+}
+.yr-bar.yr-zero {
+  background: #d3e2f2;
+}
+.yr-col:hover .yr-bar {
+  background: var(--navy);
+}
+.yr-caption {
+  text-align: center;
+  font-size: 0.78rem;
+  color: var(--muted);
+  margin-top: 5px;
+  font-weight: 500;
+}
+.metrics-src {
+  text-align: right;
+  font-size: 0.75rem;
+  color: var(--muted);
+  display: block;
+}
 
 /* Profile Sub-navigation Tabs */
 .ptabs { margin: 22px 0; border-bottom: 2px solid var(--border); }
