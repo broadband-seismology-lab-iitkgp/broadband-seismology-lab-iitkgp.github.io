@@ -31,7 +31,7 @@ const PEOPLE = [
    photo: "", position: "Professor, Dept. of Geology and Geophysics, IIT Kharagpur", email: "arun@gg.iitkgp.ac.in",
    bio: "Professor in the Department of Geology and Geophysics at IIT Kharagpur specializing in earthquake seismology, seismic tomography, receiver functions, seismic anisotropy, and lithospheric mantle deformation.",
    interests: ["Earthquake Seismology", "Seismic Tomography", "Seismic Anisotropy", "Mantle Deformation"],
-   links: {scholar: "", researchgate: "https://www.researchgate.net/profile/Arun-Singh-17", orcid: "", web: "https://www.iitkgp.ac.in/department/GG/faculty/gg-arun"}},
+   links: {scholar: "https://scholar.google.com/citations?user=dtjnHcsAAAAJ&hl=en&oi=ao", researchgate: "https://www.researchgate.net/profile/Arun-Singh-17", orcid: "", web: "https://www.iitkgp.ac.in/department/GG/faculty/gg-arun"}},
   {id: "aamir-salam-siddiqui", citations: 3, citationsRecent: 3, hindex: 1, hindexRecent: 1, i10index: 0, i10indexRecent: 0,
    name: "Aamir Salam Siddiqui", role: "PhD Scholar", group: "student", status: "active",
    photo: "", position: "PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur", email: "",

@@ -148,8 +148,13 @@ def main():
             except Exception:
                 existing = {}
 
+    import sys
+    force_all = "--all" in sys.argv
     existing = {k: v for k, v in existing.items() if users.get(k) == v.get("scholarId")}
     for pid, uid in users.items():
+        if not force_all and pid in existing and len(existing[pid].get("publications", [])) > 0:
+            print(f"Skipping {pid} ({uid}) — already synced ({len(existing[pid]['publications'])} pubs). Pass --all to refresh.")
+            continue
         print(f"Fetching Google Scholar profile for {pid} ({uid})...")
         try:
             metrics, pubs = fetch_scholar_author(uid)
