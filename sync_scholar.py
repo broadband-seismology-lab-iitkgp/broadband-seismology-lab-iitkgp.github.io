@@ -19,13 +19,11 @@ HEADERS = {
 
 def extract_scholar_users(js_text):
     users = {}
-    # Split by person entries `{id: "..."`
-    blocks = re.split(r'(?=\{id:\s*")', js_text)
-    for b in blocks:
-        m_id = re.search(r'\{id:\s*"([^"]+)"', b)
-        m_sc = re.search(r'scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)"', b)
-        if m_id and m_sc:
-            users[m_id.group(1)] = m_sc.group(1)
+    for chunk in js_text.split('{id: "')[1:]:
+        pid = chunk.split('"', 1)[0]
+        m = re.search(r'scholar:\s*"https://scholar\.google\.com/citations\?[^"]*?user=([A-Za-z0-9_-]+)', chunk)
+        if m:
+            users[pid] = m.group(1)
     return users
 
 def strip_tags(s):
