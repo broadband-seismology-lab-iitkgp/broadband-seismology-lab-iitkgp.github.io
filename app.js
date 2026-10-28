@@ -26,10 +26,29 @@ function drivePhoto(u){
   const m=u.match(/\/file\/d\/([A-Za-z0-9_-]{15,})/)||u.match(/[?&]id=([A-Za-z0-9_-]{15,})/);
   return m ? `https://drive.google.com/thumbnail?id=${m[1]}&sz=w500` : u;
 }
+function editDist(a,b){
+  const m=a.length, n=b.length, dp=Array.from({length:m+1},()=>Array(n+1).fill(0));
+  for(let i=0;i<=m;i++) dp[i][0]=i;
+  for(let j=0;j<=n;j++) dp[0][j]=j;
+  for(let i=1;i<=m;i++) for(let j=1;j<=n;j++)
+    dp[i][j]=a[i-1]===b[j-1]?dp[i-1][j-1]:1+Math.min(dp[i-1][j],dp[i][j-1],dp[i-1][j-1]);
+  return dp[m][n];
+}
+function findMemberFuzzy(nm, email){
+  const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
+  let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
+  if(p) return p;
+  if(email){
+    p=PEOPLE.find(x=>x.email && x.email.toLowerCase()===email.toLowerCase());
+    if(p) return p;
+  }
+  const nn=norm(nm);
+  return PEOPLE.find(x=>editDist(norm(x.name), nn)<=2);
+}
 function applyProfileUpdate(obj){
   const nm=obj.name; if(!nm) return;
   const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-  let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
+  let p=findMemberFuzzy(nm, obj.email);
   if(!p){
     p={id:slug, name:nm, role:'PhD Scholar', group:'student', status:'active', photo:'', position:'PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur', email:'', bio:'', interests:['Seismology'], links:{scholar:'',researchgate:'',orcid:'',web:''}};
     PEOPLE.push(p);
@@ -39,13 +58,14 @@ function applyProfileUpdate(obj){
   else if(/principal investigator/i.test(st)){p.group='pi'; p.status='active'; p.role='Principal Investigator';}
   else if(st){p.status='active'; p.role=/ms/i.test(st)?'MS Scholar':(/postdoc/i.test(st)?'Postdoctoral Fellow':'PhD Scholar');}
   if(obj.position) p.position=obj.position;
+  if(obj.prevPositions) p.prevPositions=obj.prevPositions;
   if(obj.thesis) p.thesis=obj.thesis;
   if(obj.bio) p.bio=obj.bio;
   if(obj.interests){p.interests=obj.interests.split(',').map(x=>x.trim()).filter(Boolean); p.area=p.interests.slice(0,3).join(', ');}
   if(obj.email) p.email=obj.email;
   p.links=p.links||{};
   if(obj.scholar) p.links.scholar=obj.scholar;
-  if(obj.orcid) p.links.orcid=/^\d{4}-/.test(obj.orcid)?'https://orcid.org/'+obj.orcid:obj.orcid;
+  if(obj.orcid) p.links.orcid=/^\d{4}-/.test(obj.orcid)?'https://orcid.org/'+obj.orcid.trim():obj.orcid;
   if(obj.researchgate) p.links.researchgate=obj.researchgate;
   if(obj.web) p.links.web=obj.web;
   if(obj.photo) p.photo=drivePhoto(obj.photo);
@@ -59,48 +79,46 @@ async function syncLiveSheet(){
   if(!LAB.sheetCsvUrl) return (_sheetSynced=Promise.resolve());
   _sheetSynced=(async()=>{
     try{
-      const r=await fetch(LAB.sheetCsvUrl);
+      const r=await fetch(LAB.sheetCsvUrl + (LAB.sheetCsvUrl.includes('?')?'&':'?') + '_t=' + Date.now());
       if(!r.ok) return;
       const rows=parseCSV(await r.text());
       if(rows.length<2) return;
       const hdr=rows[0].map(h=>h.toLowerCase());
-      const col=sub=>hdr.findIndex(h=>h.includes(sub));
+      const colExact=s=>hdr.findIndex(h=>h.trim()===s);
       const colAny=(...subs)=>hdr.findIndex(h=>subs.some(s=>h.includes(s)));
-      const cName=colAny('full name','name'), cStat=colAny('status','role','category','current or alumni'),
-            cPos=colAny('current position','position','designation','affiliation','current role'),
-            cYear=colAny('graduation year','year of graduation','passout','year'),
-            cThes=colAny('thesis','dissertation'),
-            cKw=colAny('research interest','area of research','keyword','research area','topic'),
-            cBio=colAny('biography','bio','overview','about'),
-            cMail=colAny('public email','email','e-mail'),
+      const cName=colAny('full name','name'),
+            cMail=colAny('email address','public email','email'),
+            cThes=colAny('phd thesis title','thesis title','thesis'),
+            cPos=colAny('current affiliation','current position','position'),
+            cPrev=colAny('previous affiliations','past jobs','previous'),
             cGS=colAny('google scholar','scholar'),
             cOrc=colAny('orcid'),
             cRG=colAny('researchgate','research gate'),
-            cWeb=colAny('personal website','website','webpage','linkedin'),
-            cPic=colAny('photo','image','picture','headshot','avatar');
-      rows.slice(1).forEach(r=>{
-        const nm=r[cName]; if(!nm) return;
-        const slug=nm.toLowerCase().replace(/prof\.|dr\./g,'').trim().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
-        let p=byId(slug)||PEOPLE.find(x=>norm(x.name)===norm(nm));
-        if(!p){
-          p={id:slug, name:nm, role:'PhD Scholar', group:'student', status:'active', photo:'', position:'PhD Scholar, Dept. of Geology and Geophysics, IIT Kharagpur', email:'', bio:'', interests:['Seismology'], links:{scholar:'',researchgate:'',orcid:'',web:''}};
-          PEOPLE.push(p);
-        }
-        const st=r[cStat]||'', yr=r[cYear]||'';
-        if(/alumni/i.test(st)){p.status='alumni'; p.degree=/ms/i.test(st)?'MS':'PhD'; if(/^\d{4}$/.test(yr)){p.gradYear=Number(yr); p.role=`${p.degree} Graduate (${yr})`;} else p.role=`${p.degree} Graduate`;}
-        else if(/principal investigator/i.test(st)){p.group='pi'; p.status='active'; p.role='Principal Investigator';}
-        else if(st){p.status='active'; p.role=/ms/i.test(st)?'MS Scholar':(/postdoc/i.test(st)?'Postdoctoral Fellow':'PhD Scholar');}
-        if(r[cPos]) p.position=r[cPos];
-        if(r[cThes]) p.thesis=r[cThes];
-        if(r[cBio]) p.bio=r[cBio];
-        if(r[cKw]){p.interests=r[cKw].split(',').map(x=>x.trim()).filter(Boolean); p.area=p.interests.slice(0,3).join(', ');}
-        if(r[cMail]) p.email=r[cMail];
-        p.links=p.links||{};
-        if(r[cGS]) p.links.scholar=r[cGS];
-        if(r[cOrc]) p.links.orcid=/^\d{4}-/.test(r[cOrc])?'https://orcid.org/'+r[cOrc]:r[cOrc];
-        if(r[cRG]) p.links.researchgate=r[cRG];
-        if(r[cWeb]) p.links.web=r[cWeb];
-        if(r[cPic]) p.photo=drivePhoto(r[cPic]);
+            cWeb=colAny('personal website','website'),
+            cBio=colExact('brief overview')>=0?colExact('brief overview'):colAny('brief overview','short biography','biography'),
+            cKw=colAny('topics of research interest','research interests','topics','interest'),
+            cPic=colAny('upload profile image','profile photo','photo','image'),
+            cStat=colAny('status in lab','status','role'),
+            cYear=colAny('graduation year','passout');
+      rows.slice(1).forEach(row=>{
+        const get=idx=>idx>=0?(row[idx]||'').trim():'';
+        const nm=get(cName); if(!nm) return;
+        applyProfileUpdate({
+          name:nm,
+          email:get(cMail),
+          thesis:get(cThes),
+          position:get(cPos),
+          prevPositions:get(cPrev),
+          scholar:get(cGS),
+          orcid:get(cOrc),
+          researchgate:get(cRG),
+          web:get(cWeb),
+          bio:get(cBio),
+          interests:get(cKw),
+          photo:get(cPic),
+          status:get(cStat),
+          gradYear:get(cYear)
+        });
       });
     }catch(e){}
   })();
@@ -611,7 +629,7 @@ async function person(){
   const fp=Object.entries(w).sort((a,b)=>b[1]-a[1]).slice(0,18),mx=fp.length?fp[0][1]:1;
   const types=[...new Set(mine.map(x=>x.type))];let ft='All';
   const tabs={
-    overview:()=>`<h2>Overview</h2>${p.thesis?`<p><b>${p.degree} thesis (${p.gradYear}):</b> ${p.thesis}</p>`:`<p>${p.bio}</p>`}<p>${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</p>
+    overview:()=>`<h2>Overview</h2>${p.thesis?`<p><b>${p.degree||'PhD'} Thesis${p.gradYear?' ('+p.gradYear+')':''}:</b> ${p.thesis}</p>`:""}${p.bio && (!p.thesis || !p.bio.startsWith('Thesis:'))?`<p>${p.bio}</p>`:""}${p.prevPositions?`<p><b>Previous Affiliations / Past Jobs:</b> ${p.prevPositions}</p>`:""}<p>${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</p>
       <h2>Recent research output</h2><ul class="pubs">${mine.slice(0,3).map(pubItem).join('')||'<li>No publications listed.</li>'}</ul>`,
     output:()=>`<h2>Research output</h2><div class="tabs">${['All',...types].map(t=>`<button class="${t===ft?'on':''}" data-ft="${t}">${t} (${t==='All'?mine.length:mine.filter(x=>x.type===t).length})</button>`).join('')}</div>
       ${groupByYearHTML(mine.filter(x=>ft==='All'||x.type===ft))}`,
