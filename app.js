@@ -350,6 +350,10 @@ const manualFor=p=>PUBLICATIONS.filter(x=>x.authors.includes(p.id)||x.authors.so
 function scholarCacheFor(p){
   const sc = (typeof SCHOLAR_CACHE!=='undefined' && SCHOLAR_CACHE[p.id]) || null;
   if(sc){
+    if(sc.scholarId){
+      p.links = p.links || {};
+      if(!p.links.scholar) p.links.scholar = `https://scholar.google.com/citations?hl=en&user=${sc.scholarId}`;
+    }
     if(sc.citations) p.citations = sc.citations;
     if(sc.citationsRecent) p.citationsRecent = sc.citationsRecent;
     if(sc.hindex) p.hindex = sc.hindex;
@@ -611,6 +615,7 @@ async function person(){
   await syncLiveSheet();
   const p=byId(new URLSearchParams(location.search).get('id'));
   if(!p){$('#person').innerHTML='<p>Person not found. <a href="people.html">Back to people</a></p>';return}
+  scholarCacheFor(p);
   document.title=p.name+' – '+LAB.name;
   const l=p.links||{};const L={scholar:'Google Scholar',researchgate:'ResearchGate',orcid:'ORCID',web:'Website'};
   const cleanNm=p.name.replace(/Prof\.|Dr\./g,'').trim();
