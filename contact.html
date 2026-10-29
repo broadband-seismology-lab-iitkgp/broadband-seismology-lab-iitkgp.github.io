@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Contact – Broadband Seismology Lab</title>
-  <link rel="stylesheet" href="style.css?v=1793276797">
+  <link rel="stylesheet" href="style.css?v=1793277237">
   <style>
     .contact-grid {
       display: grid;
@@ -71,13 +71,12 @@
   <h2>Principal Investigators</h2>
   <div class="contact-grid" id="pi-contacts"></div>
 </main>
-<script src="data.js?v=1793276797"></script>
-<script src="scholar_cache.js?v=1793276797"></script>
-<script src="app.js?v=1793276797"></script>
+<script src="data.js?v=1793277237"></script>
+<script src="scholar_cache.js?v=1793277237"></script>
+<script src="app.js?v=1793277237"></script>
 <script>
   layout('contact.html');
-  (async()=>{
-    await syncLiveSheet();
+  const renderContacts = () => {
     const phones = {
       'chandrani-singh': '+91-3222-283390',
       'arun-singh': '+91-3222-283364'
@@ -103,7 +102,10 @@
         </div>
       </div>`;
     }).join('');
-  })();
+  };
+  applyCachedSheetSync();
+  renderContacts();
+  syncLiveSheet(renderContacts);
 </script>
 </body>
 </html>

@@ -157,114 +157,133 @@ function applyProfileUpdate(obj){
   if(obj.web) p.links.web=obj.web;
   if(obj.photo) p.photo=drivePhoto(obj.photo);
 }
-async function syncLiveSheet(){
+function applyCsvText(rawText){
+  if(!rawText) return;
+  const rows=parseCSV(rawText);
+  if(rows.length<2) return;
+  const hdr=rows[0].map(h=>h.toLowerCase());
+  const colExact=s=>hdr.findIndex(h=>h.trim()===s);
+  const colAny=(...subs)=>hdr.findIndex(h=>subs.some(s=>h.includes(s)));
+  const cName=colAny('full name','name'),
+        cInstMail=colAny('institutional email','institute email','official email','work email'),
+        cPersMail=colAny('personal email','alternate email','gmail'),
+        cMail=colExact('email address')>=0?colExact('email address'):colAny('email address','public email','email'),
+        cThes=colAny('phd thesis title','thesis title','thesis'),
+        cPos=colAny('current affiliation','current position','position'),
+        cPosFrom=colAny('current affiliation — year from','current affiliation - year from','current from'),
+        cPosTo=colAny('current affiliation — year to','current affiliation - year to','current to'),
+        cPrev=colExact('previous affiliations or past jobs')>=0?colExact('previous affiliations or past jobs'):colAny('previous affiliation (if any)','previous affiliations','previous affiliation','past jobs'),
+        cP1=colAny('previous affiliation 1 —','previous affiliation 1 -','previous affiliation 1'),
+        cP1From=colAny('affiliation 1 — year from','affiliation 1 - year from','affiliation 1 from'),
+        cP1To=colAny('affiliation 1 — year to','affiliation 1 - year to','affiliation 1 to'),
+        cP2=colAny('previous affiliation 2 —','previous affiliation 2 -','previous affiliation 2'),
+        cP2From=colAny('affiliation 2 — year from','affiliation 2 - year from','affiliation 2 from'),
+        cP2To=colAny('affiliation 2 — year to','affiliation 2 - year to','affiliation 2 to'),
+        cP3=colAny('previous affiliation 3 —','previous affiliation 3 -','previous affiliation 3'),
+        cP3From=colAny('affiliation 3 — year from','affiliation 3 - year from','affiliation 3 from'),
+        cP3To=colAny('affiliation 3 — year to','affiliation 3 - year to','affiliation 3 to'),
+        cGS=colAny('google scholar','scholar'),
+        cOrc=colAny('orcid'),
+        cRG=colAny('researchgate','research gate'),
+        cWeb=colAny('personal website','website'),
+        cBio=colExact('brief overview')>=0?colExact('brief overview'):colAny('brief overview','short biography','biography'),
+        cKw=colAny('research domains','research topics','topics of research interest','research interests','topics','interest'),
+        cPic=colAny('upload profile image','profile photo','photo','image'),
+        cStat=colAny('status in lab','status','role'),
+        cYear=colAny('graduation year','passout');
+  rows.slice(1).forEach(row=>{
+    const get=idx=>idx>=0?(row[idx]||'').trim():'';
+    const nm=get(cName); if(!nm) return;
+    const fmtAff=(txt, fr, to)=>{
+      if(!txt) return '';
+      if(fr && to) return `${txt} (${fr} – ${to})`;
+      if(fr) return `${txt} (${fr})`;
+      return txt;
+    };
+    const prevList=[
+      fmtAff(get(cP1), get(cP1From), get(cP1To)),
+      fmtAff(get(cP2), get(cP2From), get(cP2To)),
+      fmtAff(get(cP3), get(cP3From), get(cP3To))
+    ].filter(Boolean);
+    const rawPrev=get(cPrev);
+    if(rawPrev && !prevList.includes(rawPrev)){
+      rawPrev.split(/\n|;/).map(s=>s.trim()).filter(Boolean).forEach(s=>prevList.push(s));
+    }
+    const curPos = fmtAff(get(cPos), get(cPosFrom), get(cPosTo));
+    applyProfileUpdate({
+      name:nm,
+      email:get(cMail),
+      instEmail:get(cInstMail),
+      personalEmail:get(cPersMail),
+      thesis:get(cThes),
+      position:curPos,
+      prevPositions:rawPrev,
+      prevList:prevList,
+      scholar:get(cGS),
+      orcid:get(cOrc),
+      researchgate:get(cRG),
+      web:get(cWeb),
+      bio:get(cBio),
+      interests:get(cKw),
+      photo:get(cPic),
+      status:get(cStat),
+      gradYear:get(cYear)
+    });
+  });
+}
+function applyCachedSheetSync(){
   try{
-    // Clean any old typo entries like "shrish-bose" from browser localStorage
     const loc=JSON.parse(localStorage.getItem('LAB_PROFILE_UPDATES')||'{}');
     delete loc['shrish-bose'];
     localStorage.setItem('LAB_PROFILE_UPDATES', JSON.stringify(loc));
     Object.values(loc).forEach(applyProfileUpdate);
+    const cachedCsv=localStorage.getItem('LAB_SHEET_CSV_CACHE');
+    if(cachedCsv) applyCsvText(cachedCsv);
   }catch(e){}
-  if(_sheetSynced) return _sheetSynced;
-  if(!LAB.sheetCsvUrl) return (_sheetSynced=Promise.resolve());
-  _sheetSynced=(async()=>{
-    try{
-      const r=await fetch(LAB.sheetCsvUrl + (LAB.sheetCsvUrl.includes('?')?'&':'?') + '_t=' + Date.now());
-      if(!r.ok) return;
-      const rows=parseCSV(await r.text());
-      if(rows.length<2) return;
-      const hdr=rows[0].map(h=>h.toLowerCase());
-      const colExact=s=>hdr.findIndex(h=>h.trim()===s);
-      const colAny=(...subs)=>hdr.findIndex(h=>subs.some(s=>h.includes(s)));
-      const cName=colAny('full name','name'),
-            cInstMail=colAny('institutional email','institute email','official email','work email'),
-            cPersMail=colAny('personal email','alternate email','gmail'),
-            cMail=colExact('email address')>=0?colExact('email address'):colAny('email address','public email','email'),
-            cThes=colAny('phd thesis title','thesis title','thesis'),
-            cPos=colAny('current affiliation','current position','position'),
-            cPosFrom=colAny('current affiliation — year from','current affiliation - year from','current from'),
-            cPosTo=colAny('current affiliation — year to','current affiliation - year to','current to'),
-            cPrev=colExact('previous affiliations or past jobs')>=0?colExact('previous affiliations or past jobs'):colAny('previous affiliation (if any)','previous affiliations','previous affiliation','past jobs'),
-            cP1=colAny('previous affiliation 1 —','previous affiliation 1 -','previous affiliation 1'),
-            cP1From=colAny('affiliation 1 — year from','affiliation 1 - year from','affiliation 1 from'),
-            cP1To=colAny('affiliation 1 — year to','affiliation 1 - year to','affiliation 1 to'),
-            cP2=colAny('previous affiliation 2 —','previous affiliation 2 -','previous affiliation 2'),
-            cP2From=colAny('affiliation 2 — year from','affiliation 2 - year from','affiliation 2 from'),
-            cP2To=colAny('affiliation 2 — year to','affiliation 2 - year to','affiliation 2 to'),
-            cP3=colAny('previous affiliation 3 —','previous affiliation 3 -','previous affiliation 3'),
-            cP3From=colAny('affiliation 3 — year from','affiliation 3 - year from','affiliation 3 from'),
-            cP3To=colAny('affiliation 3 — year to','affiliation 3 - year to','affiliation 3 to'),
-            cGS=colAny('google scholar','scholar'),
-            cOrc=colAny('orcid'),
-            cRG=colAny('researchgate','research gate'),
-            cWeb=colAny('personal website','website'),
-            cBio=colExact('brief overview')>=0?colExact('brief overview'):colAny('brief overview','short biography','biography'),
-            cKw=colAny('research domains','research topics','topics of research interest','research interests','topics','interest'),
-            cPic=colAny('upload profile image','profile photo','photo','image'),
-            cStat=colAny('status in lab','status','role'),
-            cYear=colAny('graduation year','passout');
-      rows.slice(1).forEach(row=>{
-        const get=idx=>idx>=0?(row[idx]||'').trim():'';
-        const nm=get(cName); if(!nm) return;
-        const fmtAff=(txt, fr, to)=>{
-          if(!txt) return '';
-          if(fr && to) return `${txt} (${fr} – ${to})`;
-          if(fr) return `${txt} (${fr})`;
-          return txt;
-        };
-        const prevList=[
-          fmtAff(get(cP1), get(cP1From), get(cP1To)),
-          fmtAff(get(cP2), get(cP2From), get(cP2To)),
-          fmtAff(get(cP3), get(cP3From), get(cP3To))
-        ].filter(Boolean);
-        const rawPrev=get(cPrev);
-        if(rawPrev && !prevList.includes(rawPrev)){
-          rawPrev.split(/\n|;/).map(s=>s.trim()).filter(Boolean).forEach(s=>prevList.push(s));
+}
+async function syncLiveSheet(onChanged){
+  applyCachedSheetSync();
+  if(!LAB.sheetCsvUrl) return;
+  if(!_sheetSynced){
+    _sheetSynced=(async()=>{
+      try{
+        const r=await fetch(LAB.sheetCsvUrl + (LAB.sheetCsvUrl.includes('?')?'&':'?') + '_t=' + Date.now());
+        if(!r.ok) return false;
+        const txt=await r.text();
+        const prev=localStorage.getItem('LAB_SHEET_CSV_CACHE')||'';
+        if(txt && txt!==prev){
+          localStorage.setItem('LAB_SHEET_CSV_CACHE', txt);
+          applyCsvText(txt);
+          return true;
         }
-        const curPos = fmtAff(get(cPos), get(cPosFrom), get(cPosTo));
-        applyProfileUpdate({
-          name:nm,
-          email:get(cMail),
-          instEmail:get(cInstMail),
-          personalEmail:get(cPersMail),
-          thesis:get(cThes),
-          position:curPos,
-          prevPositions:rawPrev,
-          prevList:prevList,
-          scholar:get(cGS),
-          orcid:get(cOrc),
-          researchgate:get(cRG),
-          web:get(cWeb),
-          bio:get(cBio),
-          interests:get(cKw),
-          photo:get(cPic),
-          status:get(cStat),
-          gradYear:get(cYear)
-        });
-      });
-    }catch(e){}
-  })();
-  return _sheetSynced;
+      }catch(e){}
+      return false;
+    })();
+  }
+  const changed=await _sheetSynced;
+  if(changed && typeof onChanged==='function') onChanged();
 }
 const $=s=>document.querySelector(s);
 const byId=id=>PEOPLE.find(p=>p.id===id);
 const norm=s=>s.toLowerCase().replace(/prof\.|dr\.|[^a-z ]/g,'').replace(/\s+/g,' ').trim();
+const _byNameCache=new Map();
 const byName=n=>{
   let nn=norm(n);
   if(!nn) return null;
+  if(_byNameCache.has(nn)) return _byNameCache.get(nn);
   // Exact full-name match first
   let exact=PEOPLE.find(p=>norm(p.name)===nn);
-  if(exact) return exact;
+  if(exact){_byNameCache.set(nn,exact); return exact;}
   // Strip leading co-author initials Google Scholar sometimes glues on (e.g. "as sukanta sarkar" -> "sukanta sarkar")
   const toks=nn.split(' ');
   if(toks.length>=3 && toks[0].length<=2){
     const tail=toks.slice(1).join(' ');
     exact=PEOPLE.find(p=>norm(p.name)===tail);
-    if(exact) return exact;
+    if(exact){_byNameCache.set(nn,exact); return exact;}
   }
   // Safe initial + surname match ONLY when the surname is unique in the lab OR initials match uniquely
   const np=nn.split(' ');
-  if(np.length<2) return null;
+  if(np.length<2){_byNameCache.set(nn,null); return null;}
   const nLast=np[np.length-1], nInits=np.slice(0,-1).map(w=>w[0]).join('');
   const cands=PEOPLE.filter(p=>{
     const pp=norm(p.name).split(' ');
@@ -272,7 +291,9 @@ const byName=n=>{
     const pInits=pp.slice(0,-1).map(w=>w[0]).join('');
     return pInits===nInits || (nInits.length===1 && pInits[0]===nInits[0]);
   });
-  return cands.length===1 ? cands[0] : null;
+  const res=cands.length===1 ? cands[0] : null;
+  _byNameCache.set(nn,res);
+  return res;
 };
 const initials=n=>n.replace(/Prof\.|Dr\./g,'').trim().split(/\s+/).map(w=>w[0]).join('').slice(0,2);
 const avatar=p=>`<div class="avatar"><span>${initials(p.name)}</span><img src="${p.photo||'photos/'+p.id+'.jpg'}" alt="${p.name}" onload="if(this.previousElementSibling)this.previousElementSibling.style.display='none'" onerror="this.remove()"></div>`;
@@ -431,28 +452,23 @@ function scholarCacheFor(p){
   }
   return [];
 }
-async function pubsFor(p){
+let _allSyncedPool=null;
+function getAllSyncedPool(){
+  if(_allSyncedPool) return _allSyncedPool;
+  _allSyncedPool=merge([...PEOPLE.map(scholarCacheFor), PUBLICATIONS]);
+  return _allSyncedPool;
+}
+function pubsForSync(p){
+  if(p._syncPubs) return p._syncPubs;
   const scPubs = scholarCacheFor(p);
-  const direct = await livePubs(p);
-  // If this person has a synced Google Scholar profile, show their EXACT Google Scholar list!
-  // Only enrich those exact papers with OpenAlex concepts/institutions (for Fingerprint & Network), without adding non-Scholar items.
   if(scPubs.length > 0){
-    const oaByTitle = new Map(direct.map(w=>[norm(w.title), w]));
-    return scPubs.map(sp=>{
-      const oa = oaByTitle.get(norm(sp.title));
-      return {
-        ...sp,
-        type: typeOf(sp),
-        concepts: (oa && oa.concepts) || sp.concepts || [],
-        rawAuthorships: (oa && oa.rawAuthorships) || sp.rawAuthorships || []
-      };
-    });
+    return (p._syncPubs = scPubs.map(sp=>({...sp, type:typeOf(sp)})));
   }
-  if(p.group==='pi') return merge([manualFor(p), direct]);
-  // Fallback ONLY for members who haven't synced Google Scholar yet: use manual + ORCID + PI co-authored works
-  const piWorks = (await Promise.all(PEOPLE.filter(x=>x.group==='pi').map(async pi=>[...scholarCacheFor(pi), ...(await livePubs(pi))]))).flat()
-    .filter(w=>(w.authors||[]).some(a=>byName(a)===p));
-  return merge([manualFor(p), direct, piWorks]);
+  const pool = getAllSyncedPool();
+  return (p._syncPubs = pool.filter(w=>(w.authors||[]).some(a=>a===p.id || byName(a)===p)));
+}
+async function pubsFor(p){
+  return pubsForSync(p);
 }
 
 function layout(page){
@@ -460,17 +476,23 @@ function layout(page){
   document.body.insertAdjacentHTML('afterbegin',`<header><nav><a class="brand" href="index.html">${LAB.name}</a><div class="links">${nav.map(n=>`<a href="${n[0]}" class="${n[0]===page?'on':''}">${n[1]}</a>`).join('')}</div></nav></header>`);
   document.body.insertAdjacentHTML('beforeend',`<footer>${LAB.name} · ${LAB.institution}<br><a href="mailto:chandrani@gg.iitkgp.ac.in" style="color:#c5d7ea">chandrani@gg.iitkgp.ac.in</a> · <a href="mailto:arun@gg.iitkgp.ac.in" style="color:#c5d7ea">arun@gg.iitkgp.ac.in</a></footer>`);
 }
-async function home(){
-  await syncLiveSheet();
-  $('#themes').innerHTML=LAB.themes.map(t=>`<div class="card"><h3>${t.title}</h3><p>${t.text}</p></div>`).join('');
-  $('#pis').innerHTML=PEOPLE.filter(p=>p.group==='pi').map(card).join('');
-  $('#news').innerHTML=LAB.news.map(n=>`<li><strong>${n.date}</strong> – ${n.text}</li>`).join('');
+function home(){
+  const render=()=>{
+    $('#themes').innerHTML=LAB.themes.map(t=>`<div class="card"><h3>${t.title}</h3><p>${t.text}</p></div>`).join('');
+    $('#pis').innerHTML=PEOPLE.filter(p=>p.group==='pi').map(card).join('');
+    $('#news').innerHTML=LAB.news.map(n=>`<li><strong>${n.date}</strong> – ${n.text}</li>`).join('');
+  };
+  applyCachedSheetSync();
+  render();
+  syncLiveSheet(render);
 }
-async function people(){
-  await syncLiveSheet();
+function people(){
   let f='all';
-  const row=p=>`<a class="row" href="person.html?id=${p.id}">${avatar(p)}<div><h3>${p.name}</h3><div class="pos">${p.position}</div><div class="org">${LAB.name}</div>
-    <div class="tags">${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</div></div><span class="count" data-id="${p.id}"></span></a>`;
+  const row=p=>{
+    const n=pubsForSync(p).length;
+    return `<a class="row" href="person.html?id=${p.id}">${avatar(p)}<div><h3>${p.name}</h3><div class="pos">${p.position}</div><div class="org">${LAB.name}</div>
+      <div class="tags">${(p.interests||[]).map(i=>`<span class="tag">${i}</span>`).join('')}</div></div><span class="count" data-id="${p.id}"><b>${n}</b><br>research outputs</span></a>`;
+  };
   const draw=()=>{
     const q=$('#q').value.toLowerCase();
     const list=PEOPLE.filter(p=>(f==='all'||(f==='pi'&&p.group==='pi')||(f==='active'&&p.group==='student'&&p.status==='active')||(f==='alumni'&&p.status==='alumni'))
@@ -478,14 +500,17 @@ async function people(){
     $('#total').textContent=list.length+' persons';
     $('#list').innerHTML=list.map(row).join('')||'<p>No results.</p>';
     document.querySelectorAll('.tabs button').forEach(b=>b.classList.toggle('on',b.dataset.f===f));
-    list.forEach(async p=>{const n=(await pubsFor(p)).length;const e=document.querySelector(`.count[data-id="${p.id}"]`);if(e)e.innerHTML=`<b>${n}</b><br>research outputs`});
   };
-  document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{f=b.dataset.f;draw()});$('#q').oninput=draw;draw();
+  applyCachedSheetSync();
+  document.querySelectorAll('.tabs button').forEach(b=>b.onclick=()=>{f=b.dataset.f;draw()});
+  $('#q').oninput=draw;
+  draw();
+  syncLiveSheet(draw);
 }
-async function pubs(){
-  await syncLiveSheet();
-  const el=$('#pubs');el.innerHTML='Loading…';
-  const all=merge([...PEOPLE.map(scholarCacheFor),PUBLICATIONS,...await Promise.all(PEOPLE.map(livePubs))]);
+function pubs(){
+  applyCachedSheetSync();
+  const el=$('#pubs');
+  const all=getAllSyncedPool();
   const types=[...new Set(all.map(x=>x.type))];
   let ft='All';
   const draw=()=>{
@@ -678,37 +703,36 @@ function initNetworkInteractive(p, mine){
   drawMode('authors');
 }
 
-async function person(){
-  await syncLiveSheet();
-  const p=byId(new URLSearchParams(location.search).get('id'));
-  if(!p){$('#person').innerHTML='<p>Person not found. <a href="people.html">Back to people</a></p>';return}
-  scholarCacheFor(p);
-  document.title=p.name+' – '+LAB.name;
-  const l=p.links||{};const L={scholar:'Google Scholar',researchgate:'ResearchGate',orcid:'ORCID',web:'Website'};
-  const cleanNm=p.name.replace(/Prof\.|Dr\./g,'').trim();
-  const nm=encodeURIComponent(cleanNm);
-  const fb={
-    scholar:`https://scholar.google.com/citations?view_op=search_authors&mauthors=${encodeURIComponent(cleanNm+' IIT Kharagpur')}`,
-    researchgate:`https://www.google.com/search?q=${encodeURIComponent('site:researchgate.net/profile "'+cleanNm+'" "Kharagpur"')}`
-  };
-  const links=Object.entries(L).filter(e=>l[e[0]]||fb[e[0]]).map(e=>l[e[0]]?`<a class="ext ext-verified" href="${l[e[0]]}" target="_blank" rel="noopener">${e[1]} ↗</a>`:`<a class="ext" href="${fb[e[0]]}" target="_blank" rel="noopener">Search ${e[1]} ↗</a>`).join('');
-  const emailLines=[];
-  if(p.instEmail) emailLines.push(`<b>Institutional Email:</b> <a href="mailto:${p.instEmail}">${p.instEmail}</a>`);
-  if(p.personalEmail && p.personalEmail!==p.instEmail) emailLines.push(`<b>Personal Email:</b> <a href="mailto:${p.personalEmail}">${p.personalEmail}</a>`);
-  if(!emailLines.length && p.email) emailLines.push(`<b>Email:</b> <a href="mailto:${p.email}">${p.email}</a>`);
-  $('#person').innerHTML=`<div class="phead">${avatar(p)}<div><h1>${p.name}</h1>${p.status==='alumni'?'<span class="badge">Alumni</span>':''}
-    <p class="ptitle">${p.title||p.role}</p><p class="pline">${p.area||'Seismology'}</p><p class="pline">${LAB.department||''}</p><p class="pline">${LAB.institution}</p>
-    ${p.status==='alumni'||(p.position&&!/^PhD Scholar, Dept\. of Geology/i.test(p.position))?`<p class="pline"><b>Current affiliation:</b> ${p.position}</p>`:''}
-    ${l.orcid?`<p class="pline"><a href="${l.orcid}" target="_blank">${l.orcid}</a></p>`:''}${emailLines.length?`<p class="pline">${emailLines.join('<br>')}</p>`:''}
-    <div class="exts">${links}</div></div><div class="metrics" id="metrics"></div></div>
-   <div class="ptabs">
-     <button data-t="overview">Overview</button>
-     <button data-t="output">Research output</button>
-     <button data-t="network">Network</button>
-     <button data-t="finger">Fingerprint</button>
-   </div>
-   <div id="tab"></div>`;
-  const mine=await pubsFor(p);
+function person(){
+  const render=()=>{
+    const p=byId(new URLSearchParams(location.search).get('id'));
+    if(!p){$('#person').innerHTML='<p>Person not found. <a href="people.html">Back to people</a></p>';return}
+    scholarCacheFor(p);
+    document.title=p.name+' – '+LAB.name;
+    const l=p.links||{};const L={scholar:'Google Scholar',researchgate:'ResearchGate',orcid:'ORCID',web:'Website'};
+    const cleanNm=p.name.replace(/Prof\.|Dr\./g,'').trim();
+    const fb={
+      scholar:`https://scholar.google.com/citations?view_op=search_authors&mauthors=${encodeURIComponent(cleanNm+' IIT Kharagpur')}`,
+      researchgate:`https://www.google.com/search?q=${encodeURIComponent('site:researchgate.net/profile "'+cleanNm+'" "Kharagpur"')}`
+    };
+    const links=Object.entries(L).filter(e=>l[e[0]]||fb[e[0]]).map(e=>l[e[0]]?`<a class="ext ext-verified" href="${l[e[0]]}" target="_blank" rel="noopener">${e[1]} ↗</a>`:`<a class="ext" href="${fb[e[0]]}" target="_blank" rel="noopener">Search ${e[1]} ↗</a>`).join('');
+    const emailLines=[];
+    if(p.instEmail) emailLines.push(`<b>Institutional Email:</b> <a href="mailto:${p.instEmail}">${p.instEmail}</a>`);
+    if(p.personalEmail && p.personalEmail!==p.instEmail) emailLines.push(`<b>Personal Email:</b> <a href="mailto:${p.personalEmail}">${p.personalEmail}</a>`);
+    if(!emailLines.length && p.email) emailLines.push(`<b>Email:</b> <a href="mailto:${p.email}">${p.email}</a>`);
+    $('#person').innerHTML=`<div class="phead">${avatar(p)}<div><h1>${p.name}</h1>${p.status==='alumni'?'<span class="badge">Alumni</span>':''}
+      <p class="ptitle">${p.title||p.role}</p><p class="pline">${p.area||'Seismology'}</p><p class="pline">${LAB.department||''}</p><p class="pline">${LAB.institution}</p>
+      ${p.status==='alumni'||(p.position&&!/^PhD Scholar, Dept\. of Geology/i.test(p.position))?`<p class="pline"><b>Current affiliation:</b> ${p.position}</p>`:''}
+      ${l.orcid?`<p class="pline"><a href="${l.orcid}" target="_blank">${l.orcid}</a></p>`:''}${emailLines.length?`<p class="pline">${emailLines.join('<br>')}</p>`:''}
+      <div class="exts">${links}</div></div><div class="metrics" id="metrics"></div></div>
+     <div class="ptabs">
+       <button data-t="overview">Overview</button>
+       <button data-t="output">Research output</button>
+       <button data-t="network">Network</button>
+       <button data-t="finger">Fingerprint</button>
+     </div>
+     <div id="tab"></div>`;
+    const mine=pubsForSync(p);
   const cites=mine.filter(x=>x.cites!=null).map(x=>x.cites);
   const citesRecent=mine.filter(x=>x.cites!=null && x.year>=2021).map(x=>x.cites);
   const total=p.citations!=null?p.citations:cites.reduce((a,b)=>a+b,0);
@@ -815,7 +839,11 @@ async function person(){
     if(t==='network') initNetworkInteractive(p, mine);
     location.hash=t;
   };
-  document.querySelectorAll('.ptabs button').forEach(b=>b.onclick=()=>show(b.dataset.t));
-  document.querySelectorAll('.yr-col').forEach(b=>b.onclick=()=>show('output'));
-  show(['overview','output','network','finger'].includes(location.hash.slice(1))?location.hash.slice(1):'overview');
+    document.querySelectorAll('.ptabs button').forEach(b=>b.onclick=()=>show(b.dataset.t));
+    document.querySelectorAll('.yr-col').forEach(b=>b.onclick=()=>show('output'));
+    show(['overview','output','network','finger'].includes(location.hash.slice(1))?location.hash.slice(1):'overview');
+  };
+  applyCachedSheetSync();
+  render();
+  syncLiveSheet(render);
 }
