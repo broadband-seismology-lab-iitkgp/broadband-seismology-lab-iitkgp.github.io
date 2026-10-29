@@ -184,7 +184,7 @@ async function syncLiveSheet(){
             cPos=colAny('current affiliation','current position','position'),
             cPosFrom=colAny('current affiliation — year from','current affiliation - year from','current from'),
             cPosTo=colAny('current affiliation — year to','current affiliation - year to','current to'),
-            cPrev=colExact('previous affiliations or past jobs')>=0?colExact('previous affiliations or past jobs'):colAny('previous affiliations','past jobs'),
+            cPrev=colExact('previous affiliations or past jobs')>=0?colExact('previous affiliations or past jobs'):colAny('previous affiliation (if any)','previous affiliations','previous affiliation','past jobs'),
             cP1=colAny('previous affiliation 1 —','previous affiliation 1 -','previous affiliation 1'),
             cP1From=colAny('affiliation 1 — year from','affiliation 1 - year from','affiliation 1 from'),
             cP1To=colAny('affiliation 1 — year to','affiliation 1 - year to','affiliation 1 to'),
