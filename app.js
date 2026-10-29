@@ -161,38 +161,47 @@ function applyCsvText(rawText){
   if(!rawText) return;
   const rows=parseCSV(rawText);
   if(rows.length<2) return;
-  const hdr=rows[0].map(h=>h.toLowerCase());
-  const colExact=s=>hdr.findIndex(h=>h.trim()===s);
-  const colAny=(...subs)=>hdr.findIndex(h=>subs.some(s=>h.includes(s)));
-  const cName=colAny('full name','name'),
-        cInstMail=colAny('institutional email','institute email','official email','work email'),
-        cPersMail=colAny('personal email','alternate email','gmail'),
-        cMail=colExact('email address')>=0?colExact('email address'):colAny('email address','public email','email'),
-        cThes=colAny('phd thesis title','thesis title','thesis'),
-        cPos=colAny('current affiliation','current position','position'),
-        cPosFrom=colAny('current affiliation — year from','current affiliation - year from','current from'),
-        cPosTo=colAny('current affiliation — year to','current affiliation - year to','current to'),
-        cPrev=colExact('previous affiliations or past jobs')>=0?colExact('previous affiliations or past jobs'):colAny('previous affiliation (if any)','previous affiliations','previous affiliation','past jobs'),
-        cP1=colAny('previous affiliation 1 —','previous affiliation 1 -','previous affiliation 1'),
-        cP1From=colAny('affiliation 1 — year from','affiliation 1 - year from','affiliation 1 from'),
-        cP1To=colAny('affiliation 1 — year to','affiliation 1 - year to','affiliation 1 to'),
-        cP2=colAny('previous affiliation 2 —','previous affiliation 2 -','previous affiliation 2'),
-        cP2From=colAny('affiliation 2 — year from','affiliation 2 - year from','affiliation 2 from'),
-        cP2To=colAny('affiliation 2 — year to','affiliation 2 - year to','affiliation 2 to'),
-        cP3=colAny('previous affiliation 3 —','previous affiliation 3 -','previous affiliation 3'),
-        cP3From=colAny('affiliation 3 — year from','affiliation 3 - year from','affiliation 3 from'),
-        cP3To=colAny('affiliation 3 — year to','affiliation 3 - year to','affiliation 3 to'),
-        cGS=colAny('google scholar','scholar'),
-        cOrc=colAny('orcid'),
-        cRG=colAny('researchgate','research gate'),
-        cWeb=colAny('personal website','website'),
-        cBio=colExact('brief overview')>=0?colExact('brief overview'):colAny('brief overview','short biography','biography'),
-        cKw=colAny('research domains','research topics','topics of research interest','research interests','topics','interest'),
-        cPic=colAny('upload profile image','profile photo','photo','image'),
-        cStat=colAny('status in lab','status','role'),
-        cYear=colAny('graduation year','passout');
+  const hdr=rows[0].map(h=>h.toLowerCase().trim());
+  // Because Google Forms appends new columns with the same header names when form items are updated,
+  // check ALL matching columns in each row and return the latest non-empty value!
+  const colsExact=s=>hdr.map((h,i)=>h===s?i:-1).filter(i=>i>=0);
+  const colsAny=(...subs)=>hdr.map((h,i)=>subs.some(s=>h.includes(s))?i:-1).filter(i=>i>=0);
+  const cName=colsAny('full name','name'),
+        cInstMail=colsAny('institutional email','institute email','official email','work email'),
+        cPersMail=colsAny('personal email','alternate email','gmail'),
+        cMail=[...colsExact('email address'), ...colsAny('email address','public email','email')],
+        cThes=colsAny('phd thesis title','thesis title','thesis'),
+        cPos=colsExact('current affiliation').length?colsExact('current affiliation'):colsAny('current affiliation','current position','position'),
+        cPosFrom=colsAny('current affiliation — year from','current affiliation - year from','current from'),
+        cPosTo=colsAny('current affiliation — year to','current affiliation - year to','current to'),
+        cPrev=[...colsExact('previous affiliation (if any)'), ...colsExact('previous affiliations or past jobs'), ...colsAny('previous affiliation (if any)','previous affiliations','previous affiliation','past jobs')],
+        cP1=colsAny('previous affiliation 1 —','previous affiliation 1 -','previous affiliation 1'),
+        cP1From=colsAny('affiliation 1 — year from','affiliation 1 - year from','affiliation 1 from'),
+        cP1To=colsAny('affiliation 1 — year to','affiliation 1 - year to','affiliation 1 to'),
+        cP2=colsAny('previous affiliation 2 —','previous affiliation 2 -','previous affiliation 2'),
+        cP2From=colsAny('affiliation 2 — year from','affiliation 2 - year from','affiliation 2 from'),
+        cP2To=colsAny('affiliation 2 — year to','affiliation 2 - year to','affiliation 2 to'),
+        cP3=colsAny('previous affiliation 3 —','previous affiliation 3 -','previous affiliation 3'),
+        cP3From=colsAny('affiliation 3 — year from','affiliation 3 - year from','affiliation 3 from'),
+        cP3To=colsAny('affiliation 3 — year to','affiliation 3 - year to','affiliation 3 to'),
+        cGS=colsAny('google scholar','scholar'),
+        cOrc=colsAny('orcid'),
+        cRG=colsAny('researchgate','research gate'),
+        cWeb=colsAny('personal website','website'),
+        cBio=[...colsExact('brief overview'), ...colsAny('brief overview','short biography','biography')],
+        cKw=colsAny('research domains','research topics','topics of research interest','research interests','topics','interest'),
+        cPic=colsAny('upload profile image','profile photo','photo','image'),
+        cStat=colsAny('status in lab','status','role'),
+        cYear=colsAny('graduation year','passout');
   rows.slice(1).forEach(row=>{
-    const get=idx=>idx>=0?(row[idx]||'').trim():'';
+    const get=indices=>{
+      let val='';
+      for(const idx of indices){
+        const v=(row[idx]||'').trim();
+        if(v) val=v;
+      }
+      return val;
+    };
     const nm=get(cName); if(!nm) return;
     const fmtAff=(txt, fr, to)=>{
       if(!txt) return '';

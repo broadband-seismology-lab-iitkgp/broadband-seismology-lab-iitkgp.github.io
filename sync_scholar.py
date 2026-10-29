@@ -56,17 +56,23 @@ def extract_sheet_scholar_users(js_text):
     if len(rows) < 2:
         return {}
     hdr = [h.strip().lower() for h in rows[0]]
-    c_name = next((i for i, h in enumerate(hdr) if "name" in h), -1)
-    c_gs = next((i for i, h in enumerate(hdr) if "scholar" in h), -1)
-    if c_name < 0 or c_gs < 0:
+    c_names = [i for i, h in enumerate(hdr) if "name" in h]
+    c_gss = [i for i, h in enumerate(hdr) if "scholar" in h]
+    if not c_names or not c_gss:
         return {}
 
     # Build lookup of known member slugs from data.js
     known_ids = [chunk.split('"', 1)[0] for chunk in js_text.split('{id: "')[1:]]
     sheet_users = {}
     for r in rows[1:]:
-        nm = (r[c_name] if c_name < len(r) else "").strip()
-        gs = (r[c_gs] if c_gs < len(r) else "").strip()
+        nm = ""
+        for idx in c_names:
+            if idx < len(r) and r[idx].strip():
+                nm = r[idx].strip()
+        gs = ""
+        for idx in c_gss:
+            if idx < len(r) and r[idx].strip():
+                gs = r[idx].strip()
         uid = parse_scholar_id(gs)
         if not nm or not uid:
             continue
