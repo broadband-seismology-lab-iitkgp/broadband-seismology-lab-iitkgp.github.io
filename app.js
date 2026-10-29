@@ -389,9 +389,9 @@ async function pubsFor(p){
 }
 
 function layout(page){
-  const nav=[['index.html','Home'],['people.html','People'],['publications.html','Research output'],['join.html','Update profile'],['contact.html','Contact']];
+  const nav=[['index.html','Home'],['people.html','People'],['publications.html','Research output'],['contact.html','Contact']];
   document.body.insertAdjacentHTML('afterbegin',`<header><nav><a class="brand" href="index.html">${LAB.name}</a><div class="links">${nav.map(n=>`<a href="${n[0]}" class="${n[0]===page?'on':''}">${n[1]}</a>`).join('')}</div></nav></header>`);
-  document.body.insertAdjacentHTML('beforeend',`<footer>${LAB.name} · ${LAB.institution}<br>${LAB.email}</footer>`);
+  document.body.insertAdjacentHTML('beforeend',`<footer>${LAB.name} · ${LAB.institution}<br><a href="mailto:chandrani@gg.iitkgp.ac.in" style="color:#c5d7ea">chandrani@gg.iitkgp.ac.in</a> · <a href="mailto:arun@gg.iitkgp.ac.in" style="color:#c5d7ea">arun@gg.iitkgp.ac.in</a></footer>`);
 }
 async function home(){
   await syncLiveSheet();

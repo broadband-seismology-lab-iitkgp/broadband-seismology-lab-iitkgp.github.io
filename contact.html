@@ -1,3 +1,109 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Contact</title><link rel="stylesheet" href="style.css?v=1793256339"></head><body>
-<main><h2>Contact</h2><p id="c"></p></main>
-<script src="data.js?v=1793256339"></script><script src="scholar_cache.js?v=1793256339"></script><script src="app.js?v=1793256339"></script><script>layout('contact.html');$('#c').innerHTML=LAB.address+'<br><a href="mailto:'+LAB.email+'">'+LAB.email+'</a>'</script></body></html>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Contact – Broadband Seismology Lab</title>
+  <link rel="stylesheet" href="style.css?v=1793256737">
+  <style>
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 24px;
+      margin-top: 18px;
+    }
+    .contact-card {
+      background: var(--grey);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 24px;
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+    }
+    .contact-card .avatar {
+      width: 110px;
+      height: 138px;
+      flex: none;
+      font-size: 1.8rem;
+    }
+    .contact-card h3 {
+      margin: 0 0 4px;
+      font-size: 1.2rem;
+      color: var(--navy);
+    }
+    .contact-card h3 a {
+      color: var(--navy);
+    }
+    .contact-card h3 a:hover {
+      color: var(--accent);
+    }
+    .contact-card p {
+      margin: 4px 0;
+      font-size: 0.92rem;
+      color: var(--text);
+    }
+    .contact-card .c-role {
+      font-weight: 600;
+      color: var(--blue);
+      margin-bottom: 8px;
+    }
+    .addr-box {
+      background: var(--grey);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: 6px;
+      padding: 20px 24px;
+      margin-top: 16px;
+    }
+  </style>
+</head>
+<body>
+<main>
+  <h2>Contact Us</h2>
+  <div class="addr-box">
+    <strong style="font-size:1.08rem;color:var(--navy)">Broadband Seismology Laboratory</strong><br>
+    Department of Geology and Geophysics<br>
+    Indian Institute of Technology Kharagpur<br>
+    Kharagpur – 721302, West Bengal, India
+  </div>
+
+  <h2>Principal Investigators</h2>
+  <div class="contact-grid" id="pi-contacts"></div>
+</main>
+<script src="data.js?v=1793256737"></script>
+<script src="scholar_cache.js?v=1793256737"></script>
+<script src="app.js?v=1793256737"></script>
+<script>
+  layout('contact.html');
+  (async()=>{
+    await syncLiveSheet();
+    const phones = {
+      'chandrani-singh': '+91-3222-283390',
+      'arun-singh': '+91-3222-283364'
+    };
+    const pis = PEOPLE.filter(p => p.group === 'pi');
+    $('#pi-contacts').innerHTML = pis.map(p => {
+      const l = p.links || {};
+      const ph = phones[p.id] || '';
+      return `<div class="contact-card">
+        <a href="person.html?id=${p.id}">${avatar(p)}</a>
+        <div>
+          <h3><a href="person.html?id=${p.id}">${p.name}</a></h3>
+          <p class="c-role">${p.role} · Professor</p>
+          <p>${LAB.department}<br>${LAB.institution}</p>
+          ${p.email ? `<p><strong>Email:</strong> <a href="mailto:${p.email}">${p.email}</a></p>` : ''}
+          ${ph ? `<p><strong>Phone:</strong> ${ph}</p>` : ''}
+          <p style="margin-top:8px;font-size:0.86rem;color:var(--muted)"><strong>Research Areas:</strong> ${(p.interests||[]).join(', ')}</p>
+          <div class="exts" style="margin-top:10px">
+            <a class="ext ext-verified" href="person.html?id=${p.id}">Lab Profile</a>
+            ${l.web ? `<a class="ext" href="${l.web}" target="_blank" rel="noopener">IIT KGP Webpage ↗</a>` : ''}
+            ${l.scholar ? `<a class="ext" href="${l.scholar}" target="_blank" rel="noopener">Google Scholar ↗</a>` : ''}
+          </div>
+        </div>
+      </div>`;
+    }).join('');
+  })();
+</script>
+</body>
+</html>
