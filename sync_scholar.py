@@ -245,7 +245,7 @@ def main():
         hp = ROOT / fn
         if hp.exists():
             s = hp.read_text(encoding="utf-8")
-            for asset in ["style.css", "data.js", "scholar_cache.js", "app.js"]:
+            for asset in ["style.css", "data.js", "scholar_cache.js", "world_map_data.js", "app.js"]:
                 s = re.sub(re.escape(asset) + r"(\?v=\d+)?", f"{asset}?v={v}", s)
             hp.write_text(s, encoding="utf-8")
     print("Successfully updated scholar_cache.js and busted HTML cache!")

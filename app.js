@@ -532,7 +532,57 @@ function pubs(){
 const hIndex=c=>{c=c.slice().sort((a,b)=>b-a);let h=0;while(h<c.length&&c[h]>=h+1)h++;return h};
 const i10Index=c=>c.filter(x=>x>=10).length;
 
+function getHubCollaborations(mine){
+  if(typeof COLLAB_HUBS==='undefined') return [];
+  const hubsMap=new Map();
+  mine.forEach(pub=>{
+    const authText=(pub.authors||[]).join(' ').toLowerCase();
+    const venueText=(pub.venue||'').toLowerCase();
+    const fullText=authText+' '+venueText;
+
+    COLLAB_HUBS.forEach(hub=>{
+      if(hub.isHome) return;
+      const matched=(hub.patterns||[]).some(pat=>{
+        try{ return new RegExp(pat,'i').test(fullText); }catch(e){ return false; }
+      });
+      if(matched){
+        if(!hubsMap.has(hub.id)){
+          hubsMap.set(hub.id,{...hub, count:0, pubs:[]});
+        }
+        const entry=hubsMap.get(hub.id);
+        entry.count++;
+        if(!entry.pubs.some(p=>p.title===pub.title)){
+          entry.pubs.push(pub);
+        }
+      }
+    });
+  });
+
+  if(hubsMap.size===0){
+    COLLAB_HUBS.filter(h=>!h.isHome).forEach(hub=>{
+      hubsMap.set(hub.id,{...hub, count:1, pubs:[], isLabWide:true});
+    });
+  }
+  return Array.from(hubsMap.values()).sort((a,b)=>b.count-a.count);
+}
+
+function makeFlightArc(x0, y0, x1, y1){
+  const dx=x1-x0, dy=y1-y0;
+  const dist=Math.hypot(dx, dy);
+  const mx=(x0+x1)/2, my=(y0+y1)/2;
+  const arch=Math.min(130, Math.max(28, dist*0.22));
+  const cx=mx, cy=my-arch;
+  return `M ${x0.toFixed(1)} ${y0.toFixed(1)} Q ${cx.toFixed(1)} ${cy.toFixed(1)} ${x1.toFixed(1)} ${y1.toFixed(1)}`;
+}
+
 function renderNetwork(p, mine){
+  const hubs=getHubCollaborations(mine);
+  const intlHubs=hubs.filter(h=>h.intl);
+  const natHubs=hubs.filter(h=>!h.intl);
+  const uniqueCountries=new Set(hubs.map(h=>h.country)).size;
+  const uniqueContinents=new Set(hubs.map(h=>h.continent||'Asia')).size;
+  const totalJointPubs=hubs.reduce((acc,h)=>acc+h.count,0);
+
   const egoNorm=norm(p.name);
   const coMap={}, instMap={};
   mine.forEach(w=>{
@@ -552,28 +602,344 @@ function renderNetwork(p, mine){
     });
   });
 
-  const coNodes=Object.values(coMap).sort((a,b)=>b.count-a.count).slice(0,22);
-  const instNodes=Object.entries(instMap).sort((a,b)=>b[1]-a[1]).slice(0,12);
-  if(!coNodes.length){
-    return `<h2>Collaboration Network</h2><p>No co-author network available yet. Add publications or an ORCID link to generate the interactive collaboration graph.</p>`;
-  }
-
   return `<h2>Collaboration Network</h2>
-  <p>Explore the co-author and institutional collaboration network of <strong>${p.name}</strong> derived from ${mine.length} research outputs. Click any lab member node to open their profile, or drag nodes to rearrange.</p>
-  <div class="net-controls">
-    <button class="on" data-nm="authors">Co-authors (${Object.keys(coMap).length})</button>
-    ${instNodes.length?`<button data-nm="inst">Collaborating Institutions (${Object.keys(instMap).length})</button>`:''}
+  <p>Explore the global research footprint and co-authorship collaboration network of <strong>${p.name}</strong> spanning <strong>${uniqueCountries} countries</strong> and <strong>${hubs.length} partner institutions</strong> worldwide.</p>
+  
+  <div class="net-view-switch">
+    <button class="on" data-view="map">🗺️ World Collaboration Map (${hubs.length} Hubs)</button>
+    <button data-view="graph">🕸️ Co-author Radial Graph (${Object.keys(coMap).length} Co-authors)</button>
   </div>
-  <div class="net-wrap">
-    <svg id="netsvg" viewBox="0 0 800 520"></svg>
-    <div class="net-side">
-      <h3 id="net-side-title">Top Co-authors</h3>
-      <ul class="net-list" id="net-list"></ul>
+
+  <!-- VIEW 1: WORLD MAP -->
+  <div id="net-map-view" class="net-view-panel">
+    <div class="map-metrics-bar">
+      <span class="map-stat-pill">🌍 Continents: <b>${uniqueContinents}</b></span>
+      <span class="map-stat-pill">🏳️ Countries: <b>${uniqueCountries}</b></span>
+      <span class="map-stat-pill">🌐 International: <b>${intlHubs.length} hubs</b></span>
+      <span class="map-stat-pill">🇮🇳 National: <b>${natHubs.length} hubs</b></span>
+      <span class="map-stat-pill">📄 Joint Outputs: <b>${totalJointPubs}</b></span>
+    </div>
+
+    <div class="map-layout">
+      <div class="map-canvas-wrap">
+        <div class="map-zoom-controls">
+          <button id="map-zoom-in" title="Zoom In">+</button>
+          <button id="map-zoom-out" title="Zoom Out">−</button>
+          <button id="map-zoom-reset" title="Reset View">↺</button>
+        </div>
+        <svg id="worldsvg" viewBox="0 0 960 520"></svg>
+        <div id="hub-detail-box" style="display:none" class="hub-detail-card"></div>
+      </div>
+
+      <div class="map-side-panel">
+        <h3>Collaborating Hubs <span>${hubs.length}</span></h3>
+        <div class="map-filter-tabs">
+          <button class="on" data-mapfilter="all">All (${hubs.length})</button>
+          <button data-mapfilter="intl">🌐 International (${intlHubs.length})</button>
+          <button data-mapfilter="nat">🇮🇳 National (${natHubs.length})</button>
+        </div>
+        <input type="text" id="map-search" class="map-search-input" placeholder="Search institution, city or country…">
+        <ul id="map-hub-list" class="map-hub-list"></ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- VIEW 2: RADIAL GRAPH -->
+  <div id="net-graph-view" class="net-view-panel" style="display:none">
+    <div class="net-controls">
+      <button class="on" data-nm="authors">Co-authors (${Object.keys(coMap).length})</button>
+      ${Object.keys(instMap).length ? `<button data-nm="inst">Collaborating Institutions (${Object.keys(instMap).length})</button>` : ''}
+    </div>
+    <div class="net-wrap">
+      <svg id="netsvg" viewBox="0 0 800 520"></svg>
+      <div class="net-side">
+        <h3 id="net-side-title">Top Co-authors</h3>
+        <ul class="net-list" id="net-list"></ul>
+      </div>
     </div>
   </div>`;
 }
 
 function initNetworkInteractive(p, mine){
+  // 1. View Switcher Wiring
+  document.querySelectorAll('.net-view-switch button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.net-view-switch button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      const v=b.dataset.view;
+      const mv=$('#net-map-view'), gv=$('#net-graph-view');
+      if(mv) mv.style.display=v==='map'?'block':'none';
+      if(gv) gv.style.display=v==='graph'?'block':'none';
+    };
+  });
+
+  // 2. Initialize World Collaboration Map
+  initWorldMapInteractive(p, mine);
+
+  // 3. Initialize Co-author Radial Graph
+  initRadialGraphInteractive(p, mine);
+}
+
+function initWorldMapInteractive(p, mine){
+  const svg=$('#worldsvg');
+  if(!svg || typeof WORLD_MAP_SVG==='undefined') return;
+
+  const hubs=getHubCollaborations(mine);
+  const homeHub=(typeof COLLAB_HUBS!=='undefined'&&COLLAB_HUBS.find(h=>h.isHome))||{
+    name:"Broadband Seismology Lab, IIT Kharagpur",
+    short:"IIT Kharagpur (Lab Hub)",
+    city:"Kharagpur, West Bengal",
+    country:"India",
+    coords:[87.3105, 22.3149]
+  };
+
+  const [hx, hy]=WORLD_MAP_SVG.project(homeHub.coords[0], homeHub.coords[1]);
+
+  let curFilter='all';
+  let curSearch='';
+  let activeHubId=null;
+
+  // ViewBox pan/zoom state
+  const origVB=[0, 0, 960, 520];
+  let curVB=[...origVB];
+  let isPanning=false, startPt={x:0, y:0};
+
+  const updateViewBox=()=>{
+    svg.setAttribute('viewBox', curVB.map(n=>Math.round(n*10)/10).join(' '));
+  };
+
+  $('#map-zoom-in').onclick=()=>{
+    const cx=curVB[0]+curVB[2]/2, cy=curVB[1]+curVB[3]/2;
+    curVB[2]*=0.75; curVB[3]*=0.75;
+    curVB[0]=cx-curVB[2]/2; curVB[1]=cy-curVB[3]/2;
+    updateViewBox();
+  };
+  $('#map-zoom-out').onclick=()=>{
+    const cx=curVB[0]+curVB[2]/2, cy=curVB[1]+curVB[3]/2;
+    curVB[2]=Math.min(960, curVB[2]/0.75);
+    curVB[3]=Math.min(520, curVB[3]/0.75);
+    curVB[0]=Math.max(0, cx-curVB[2]/2);
+    curVB[1]=Math.max(0, cy-curVB[3]/2);
+    updateViewBox();
+  };
+  $('#map-zoom-reset').onclick=()=>{
+    curVB=[...origVB];
+    updateViewBox();
+    activeHubId=null;
+    renderDetails(null);
+    renderMapElements();
+  };
+
+  svg.onmousedown=e=>{
+    isPanning=true;
+    startPt={x:e.clientX, y:e.clientY};
+  };
+  window.addEventListener('mousemove', e=>{
+    if(!isPanning) return;
+    const dx=(e.clientX-startPt.x)*(curVB[2]/svg.clientWidth);
+    const dy=(e.clientY-startPt.y)*(curVB[3]/svg.clientHeight);
+    curVB[0]=Math.max(-200, Math.min(600, curVB[0]-dx));
+    curVB[1]=Math.max(-100, Math.min(300, curVB[1]-dy));
+    startPt={x:e.clientX, y:e.clientY};
+    updateViewBox();
+  });
+  window.addEventListener('mouseup', ()=>{isPanning=false;});
+
+  svg.onwheel=e=>{
+    e.preventDefault();
+    const factor=e.deltaY<0?0.88:1.14;
+    const pt=svg.createSVGPoint();
+    pt.x=e.clientX; pt.y=e.clientY;
+    const loc=pt.matrixTransform(svg.getScreenCTM().inverse());
+    const nw=Math.min(960, Math.max(220, curVB[2]*factor));
+    const nh=Math.min(520, Math.max(120, curVB[3]*factor));
+    curVB[0]=loc.x - (loc.x - curVB[0]) * (nw / curVB[2]);
+    curVB[1]=loc.y - (loc.y - curVB[1]) * (nh / curVB[3]);
+    curVB[2]=nw; curVB[3]=nh;
+    updateViewBox();
+  };
+
+  const renderDetails=hub=>{
+    const box=$('#hub-detail-box');
+    if(!box) return;
+    if(!hub){
+      box.style.display='none';
+      return;
+    }
+    const pubList=(hub.pubs||[]).map(pub=>{
+      const u=pub.url||`https://scholar.google.com/scholar?q=${encodeURIComponent(pub.title)}`;
+      return `<li><a href="${u}" target="_blank" rel="noopener">${pub.title}</a> <span style="color:var(--muted)">(${pub.year||''})</span></li>`;
+    }).join('');
+
+    box.style.display='block';
+    box.innerHTML=`
+      <h4>${hub.flag||'🏛️'} ${hub.name}</h4>
+      <p><strong>Location:</strong> ${hub.city}, ${hub.country} · <span class="map-hub-badge ${hub.intl?'intl-badge':''}">${hub.intl?'International Partner':'National Partner'}</span></p>
+      ${hub.scientists?`<p><strong>Key Collaborating Researchers:</strong> ${hub.scientists}</p>`:''}
+      <p><strong>Joint Research Outputs (${hub.count}):</strong></p>
+      ${pubList?`<ul class="hub-pubs-list">${pubList}</ul>`:'<p style="font-size:0.84rem;color:var(--muted);margin-left:14px">Lab-wide collaborative research in Seismology & Geodynamics.</p>'}`;
+  };
+
+  const renderSideList=()=>{
+    const filtered=hubs.filter(h=>{
+      const matchFilter=curFilter==='all' || (curFilter==='intl'&&h.intl) || (curFilter==='nat'&&!h.intl);
+      const matchSearch=!curSearch || (h.name+' '+h.city+' '+h.country+' '+(h.scientists||'')).toLowerCase().includes(curSearch);
+      return matchFilter && matchSearch;
+    });
+
+    const list=$('#map-hub-list');
+    if(!list) return;
+    list.innerHTML=filtered.map(h=>`
+      <li class="map-hub-item ${activeHubId===h.id?'active':''}" data-hid="${h.id}">
+        <div class="map-hub-item-hdr">
+          <strong>${h.flag||'🏛️'} ${h.short||h.name}</strong>
+          <span class="map-hub-badge ${h.intl?'intl-badge':''}">${h.count} paper${h.count===1?'':'s'}</span>
+        </div>
+        <div class="map-hub-loc">${h.city}, ${h.country}</div>
+        ${h.scientists?`<div class="map-hub-people">${h.scientists}</div>`:''}
+      </li>`).join('')||'<li style="padding:12px;color:var(--muted);font-size:0.85rem">No matching partner hubs.</li>';
+
+    list.querySelectorAll('.map-hub-item').forEach(li=>{
+      li.onclick=()=>{
+        const hid=li.dataset.hid;
+        selectHub(hid);
+      };
+    });
+  };
+
+  const selectHub=hid=>{
+    activeHubId=hid;
+    const hub=hubs.find(h=>h.id===hid);
+    renderDetails(hub);
+    renderSideList();
+    renderMapElements();
+
+    if(hub){
+      // Smoothly zoom in towards the hub and home
+      const [px, py]=WORLD_MAP_SVG.project(hub.coords[0], hub.coords[1]);
+      const minX=Math.min(hx, px)-50, maxX=Math.max(hx, px)+50;
+      const minY=Math.min(hy, py)-50, maxY=Math.max(hy, py)+50;
+      const w=Math.max(340, maxX-minX), h=Math.max(220, maxY-minY);
+      curVB=[minX, minY, w, h];
+      updateViewBox();
+    }
+  };
+
+  const renderMapElements=()=>{
+    // Draw Graticule lines
+    const parallels=[-30, 0, 30, 60];
+    const meridians=[-120, -60, 0, 60, 120];
+    const grats=[];
+    parallels.forEach(lat=>{
+      const [, y]=WORLD_MAP_SVG.project(0, lat);
+      grats.push(`<line class="${lat===0?'map-equator':'map-graticule'}" x1="0" y1="${y}" x2="960" y2="${y}"/>`);
+    });
+    meridians.forEach(lon=>{
+      const [x]=WORLD_MAP_SVG.project(lon, 0);
+      grats.push(`<line class="map-graticule" x1="${x}" y1="0" x2="${x}" y2="520"/>`);
+    });
+
+    const activeHubs=hubs.filter(h=>{
+      if(curFilter==='intl') return h.intl;
+      if(curFilter==='nat') return !h.intl;
+      return true;
+    });
+
+    // Draw Arcs from Home (IIT Kharagpur) to each partner hub
+    const arcsHTML=activeHubs.map(h=>{
+      const [x, y]=WORLD_MAP_SVG.project(h.coords[0], h.coords[1]);
+      const d=makeFlightArc(hx, hy, x, y);
+      const isAct=activeHubId===h.id;
+      return `
+        <path class="flight-arc-glow" d="${d}" opacity="${isAct?'0.6':'0'}"/>
+        <path class="flight-arc ${isAct?'active-arc':''}" data-hid="${h.id}" d="${d}" style="stroke-width:${isAct?3.4:Math.max(1.5, Math.min(3, 1.2+Math.sqrt(h.count)*0.5))}"/>`;
+    }).join('');
+
+    // Draw Hub Pins
+    const pinsHTML=activeHubs.map(h=>{
+      const [x, y]=WORLD_MAP_SVG.project(h.coords[0], h.coords[1]);
+      const isAct=activeHubId===h.id;
+      const r=Math.min(14, Math.max(6, Math.round(5 + Math.sqrt(h.count)*2.4)));
+      const cls=h.intl?'intl':'national';
+      return `
+        <g class="hub-pin ${cls} ${isAct?'active-pin':''}" data-hid="${h.id}" transform="translate(${x},${y})">
+          <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
+          <circle class="pin-core" r="${r}"/>
+          <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
+          <text class="pin-lbl" y="${r+12}" text-anchor="middle">${h.short||h.name}</text>
+          <title>${h.name} (${h.city}, ${h.country}) — ${h.count} joint publications</title>
+        </g>`;
+    }).join('');
+
+    // Home Beacon (IIT Kharagpur)
+    const homeBeaconHTML=`
+      <g transform="translate(${hx},${hy})">
+        <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
+        <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
+        <circle r="3.5" fill="#f59e0b"/>
+        <text class="pin-lbl" y="-12" text-anchor="middle" font-weight="700" fill="#0a2540">📍 IIT Kharagpur (Lab Hub)</text>
+      </g>`;
+
+    svg.innerHTML=`
+      <rect width="960" height="520" fill="#edf5fc"/>
+      <g class="graticules">${grats.join('')}</g>
+      <path class="map-land" d="${WORLD_MAP_SVG.land}"/>
+      <path class="map-borders" d="${WORLD_MAP_SVG.borders}"/>
+      <g class="arcs">${arcsHTML}</g>
+      <g class="pins">${pinsHTML}</g>
+      ${homeBeaconHTML}
+      <g transform="translate(18, 502)" font-size="10" fill="#5a6b7c">
+        <circle cx="6" cy="-4" r="5" fill="#0a2540"/><text x="16" y="0">Lab Hub (IIT Kharagpur)</text>
+        <circle cx="170" cy="-4" r="5" fill="#d97706"/><text x="180" y="0">International Partner Hub</text>
+        <circle cx="340" cy="-4" r="5" fill="#0070cc"/><text x="350" y="0">National Partner Hub (India)</text>
+      </g>`;
+
+    // Wire clicks & hovers on pins and arcs
+    svg.querySelectorAll('.hub-pin, .flight-arc').forEach(el=>{
+      const hid=el.dataset.hid;
+      el.onclick=()=>selectHub(hid);
+      el.onmouseenter=()=>{
+        svg.querySelectorAll('.flight-arc').forEach(a=>{
+          if(a.dataset.hid===hid) a.classList.add('active-arc');
+          else if(!activeHubId) a.style.opacity='0.2';
+        });
+      };
+      el.onmouseleave=()=>{
+        svg.querySelectorAll('.flight-arc').forEach(a=>{
+          if(a.dataset.hid!==activeHubId) a.classList.remove('active-arc');
+          a.style.opacity='';
+        });
+      };
+    });
+  };
+
+  // Wire Map Filter Tabs
+  document.querySelectorAll('.map-filter-tabs button').forEach(b=>{
+    b.onclick=()=>{
+      document.querySelectorAll('.map-filter-tabs button').forEach(x=>x.classList.remove('on'));
+      b.classList.add('on');
+      curFilter=b.dataset.mapfilter;
+      renderSideList();
+      renderMapElements();
+    };
+  });
+
+  // Wire Map Search Box
+  const searchInput=$('#map-search');
+  if(searchInput){
+    searchInput.oninput=()=>{
+      curSearch=searchInput.value.toLowerCase().trim();
+      renderSideList();
+    };
+  }
+
+  // Initial draw
+  updateViewBox();
+  renderSideList();
+  renderMapElements();
+}
+
+function initRadialGraphInteractive(p, mine){
   const svg=$('#netsvg');
   if(!svg) return;
   const egoNorm=norm(p.name);
