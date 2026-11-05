@@ -628,6 +628,11 @@ function renderNetwork(p, mine){
           <button id="map-zoom-reset" title="Reset View">↺</button>
         </div>
         <svg id="worldsvg" viewBox="0 0 960 520"></svg>
+        <div class="map-legend-overlay">
+          <span class="map-legend-item"><span class="legend-dot home-dot"></span> Lab Hub (IIT KGP)</span>
+          <span class="map-legend-item"><span class="legend-dot intl-dot"></span> International Partner</span>
+          <span class="map-legend-item"><span class="legend-dot nat-dot"></span> National Partner</span>
+        </div>
         <div id="hub-detail-box" style="display:none" class="hub-detail-card"></div>
       </div>
 
@@ -699,63 +704,135 @@ function initWorldMapInteractive(p, mine){
   let curSearch='';
   let activeHubId=null;
 
-  // ViewBox pan/zoom state
+  // ViewBox pan/zoom state strictly keeping 960:520 (ratio 1.846)
   const origVB=[0, 0, 960, 520];
   let curVB=[...origVB];
-  let isPanning=false, startPt={x:0, y:0};
+  let isPanning=false, startPt={x:0, y:0}, totalDragDist=0;
+
+  const clampViewBox=()=>{
+    const maxW=960, maxH=520;
+    // Allow zoom between 220px (4.3x zoom) and 960px (full world)
+    curVB[2]=Math.max(220, Math.min(maxW, curVB[2]));
+    curVB[3]=curVB[2]*(maxH/maxW);
+    // Allow smooth margins around world borders
+    const minX=-50, maxX=maxW - curVB[2] + 50;
+    const minY=-30, maxY=maxH - curVB[3] + 30;
+    curVB[0]=Math.max(minX, Math.min(maxX, curVB[0]));
+    curVB[1]=Math.max(minY, Math.min(maxY, curVB[1]));
+  };
 
   const updateViewBox=()=>{
-    svg.setAttribute('viewBox', curVB.map(n=>Math.round(n*10)/10).join(' '));
+    clampViewBox();
+    svg.setAttribute('viewBox', `${curVB[0].toFixed(1)} ${curVB[1].toFixed(1)} ${curVB[2].toFixed(1)} ${curVB[3].toFixed(1)}`);
+    // Inversely scale pins and labels so they stay crisp, neat, and non-overlapping at any zoom level
+    const zoomRatio = 960 / curVB[2]; // 1.0 to ~4.3
+    const pinScale = Math.max(0.42, Math.min(1.0, 1 / Math.pow(zoomRatio, 0.52)));
+    svg.querySelectorAll('.hub-pin-inner').forEach(el=>{
+      el.setAttribute('transform', `scale(${pinScale.toFixed(3)})`);
+    });
+    const beaconInner = svg.querySelector('.home-beacon-inner');
+    if(beaconInner) beaconInner.setAttribute('transform', `scale(${pinScale.toFixed(3)})`);
   };
 
-  $('#map-zoom-in').onclick=()=>{
-    const cx=curVB[0]+curVB[2]/2, cy=curVB[1]+curVB[3]/2;
-    curVB[2]*=0.75; curVB[3]*=0.75;
-    curVB[0]=cx-curVB[2]/2; curVB[1]=cy-curVB[3]/2;
+  // Center-anchored zoom buttons
+  const zoomAtCenter=(factor)=>{
+    const cx=curVB[0]+curVB[2]/2;
+    const cy=curVB[1]+curVB[3]/2;
+    const targetW=curVB[2]*factor;
+    const targetH=targetW*(520/960);
+    curVB[0]=cx - targetW/2;
+    curVB[1]=cy - targetH/2;
+    curVB[2]=targetW;
+    curVB[3]=targetH;
     updateViewBox();
   };
-  $('#map-zoom-out').onclick=()=>{
-    const cx=curVB[0]+curVB[2]/2, cy=curVB[1]+curVB[3]/2;
-    curVB[2]=Math.min(960, curVB[2]/0.75);
-    curVB[3]=Math.min(520, curVB[3]/0.75);
-    curVB[0]=Math.max(0, cx-curVB[2]/2);
-    curVB[1]=Math.max(0, cy-curVB[3]/2);
-    updateViewBox();
-  };
-  $('#map-zoom-reset').onclick=()=>{
+
+  const zoomBtnIn=$('#map-zoom-in');
+  if(zoomBtnIn) zoomBtnIn.onclick=()=>zoomAtCenter(0.72);
+
+  const zoomBtnOut=$('#map-zoom-out');
+  if(zoomBtnOut) zoomBtnOut.onclick=()=>zoomAtCenter(1.38);
+
+  const zoomBtnReset=$('#map-zoom-reset');
+  if(zoomBtnReset) zoomBtnReset.onclick=()=>{
     curVB=[...origVB];
-    updateViewBox();
     activeHubId=null;
+    updateViewBox();
     renderDetails(null);
-    renderMapElements();
+    renderSideList();
+    applyActiveHighlights();
   };
 
-  svg.onmousedown=e=>{
+  // Pointer Events for smooth dragging on Desktop and Touch devices without window listener leaks
+  svg.onpointerdown=e=>{
+    if(e.button!==0) return;
     isPanning=true;
+    totalDragDist=0;
     startPt={x:e.clientX, y:e.clientY};
+    svg.classList.add('is-panning');
+    try { svg.setPointerCapture(e.pointerId); } catch(err){}
   };
-  window.addEventListener('mousemove', e=>{
+
+  svg.onpointermove=e=>{
     if(!isPanning) return;
-    const dx=(e.clientX-startPt.x)*(curVB[2]/svg.clientWidth);
-    const dy=(e.clientY-startPt.y)*(curVB[3]/svg.clientHeight);
-    curVB[0]=Math.max(-200, Math.min(600, curVB[0]-dx));
-    curVB[1]=Math.max(-100, Math.min(300, curVB[1]-dy));
+    const rect=svg.getBoundingClientRect();
+    if(!rect.width || !rect.height) return;
+    const dx=(e.clientX-startPt.x)*(curVB[2]/rect.width);
+    const dy=(e.clientY-startPt.y)*(curVB[3]/rect.height);
+    totalDragDist+=Math.hypot(e.clientX-startPt.x, e.clientY-startPt.y);
+    curVB[0]-=dx;
+    curVB[1]-=dy;
     startPt={x:e.clientX, y:e.clientY};
     updateViewBox();
-  });
-  window.addEventListener('mouseup', ()=>{isPanning=false;});
+  };
 
+  svg.onpointerup=svg.onpointercancel=e=>{
+    if(isPanning){
+      isPanning=false;
+      svg.classList.remove('is-panning');
+      try { svg.releasePointerCapture(e.pointerId); } catch(err){}
+    }
+  };
+
+  // Smooth wheel zoom centered on cursor coordinates
   svg.onwheel=e=>{
     e.preventDefault();
-    const factor=e.deltaY<0?0.88:1.14;
-    const pt=svg.createSVGPoint();
-    pt.x=e.clientX; pt.y=e.clientY;
-    const loc=pt.matrixTransform(svg.getScreenCTM().inverse());
-    const nw=Math.min(960, Math.max(220, curVB[2]*factor));
-    const nh=Math.min(520, Math.max(120, curVB[3]*factor));
-    curVB[0]=loc.x - (loc.x - curVB[0]) * (nw / curVB[2]);
-    curVB[1]=loc.y - (loc.y - curVB[1]) * (nh / curVB[3]);
-    curVB[2]=nw; curVB[3]=nh;
+    const rect=svg.getBoundingClientRect();
+    if(!rect.width || !rect.height) return;
+
+    const mx=Math.max(0, Math.min(1, (e.clientX-rect.left)/rect.width));
+    const my=Math.max(0, Math.min(1, (e.clientY-rect.top)/rect.height));
+
+    const worldX=curVB[0] + mx*curVB[2];
+    const worldY=curVB[1] + my*curVB[3];
+
+    const factor=e.deltaY<0 ? 0.88 : 1.15;
+    const targetW=Math.max(220, Math.min(960, curVB[2]*factor));
+    const targetH=targetW*(520/960);
+
+    curVB[0]=worldX - mx*targetW;
+    curVB[1]=worldY - my*targetH;
+    curVB[2]=targetW;
+    curVB[3]=targetH;
+
+    updateViewBox();
+  };
+
+  // Double click to zoom in
+  svg.ondblclick=e=>{
+    e.preventDefault();
+    const rect=svg.getBoundingClientRect();
+    if(!rect.width || !rect.height) return;
+    const mx=Math.max(0, Math.min(1, (e.clientX-rect.left)/rect.width));
+    const my=Math.max(0, Math.min(1, (e.clientY-rect.top)/rect.height));
+    const worldX=curVB[0] + mx*curVB[2];
+    const worldY=curVB[1] + my*curVB[3];
+    const targetW=Math.max(220, curVB[2]*0.65);
+    const targetH=targetW*(520/960);
+    curVB[0]=worldX - mx*targetW;
+    curVB[1]=worldY - my*targetH;
+    curVB[2]=targetW;
+    curVB[3]=targetH;
     updateViewBox();
   };
 
@@ -807,20 +884,42 @@ function initWorldMapInteractive(p, mine){
     });
   };
 
+  const applyActiveHighlights=()=>{
+    svg.querySelectorAll('.flight-arc').forEach(a=>{
+      const isAct=a.dataset.hid===activeHubId;
+      a.classList.toggle('active-arc', isAct);
+      a.style.opacity=isAct ? '1' : (activeHubId ? '0.22' : '');
+    });
+    svg.querySelectorAll('.flight-arc-glow').forEach(g=>{
+      g.setAttribute('opacity', g.dataset.hid===activeHubId ? '0.6' : '0');
+    });
+    svg.querySelectorAll('.hub-pin').forEach(p=>{
+      p.classList.toggle('active-pin', p.dataset.hid===activeHubId);
+    });
+  };
+
   const selectHub=hid=>{
     activeHubId=hid;
     const hub=hubs.find(h=>h.id===hid);
     renderDetails(hub);
     renderSideList();
-    renderMapElements();
+    applyActiveHighlights();
 
     if(hub){
-      // Smoothly zoom in towards the hub and home
       const [px, py]=WORLD_MAP_SVG.project(hub.coords[0], hub.coords[1]);
-      const minX=Math.min(hx, px)-50, maxX=Math.max(hx, px)+50;
-      const minY=Math.min(hy, py)-50, maxY=Math.max(hy, py)+50;
-      const w=Math.max(340, maxX-minX), h=Math.max(220, maxY-minY);
-      curVB=[minX, minY, w, h];
+      const midX=(hx+px)/2;
+      const midY=(hy+py)/2;
+      const spanX=Math.abs(px-hx);
+      const spanY=Math.abs(py-hy);
+      // Ensure aspect ratio is strictly preserved with comfortable padding
+      const targetW=Math.max(340, Math.min(960, Math.max(spanX+180, (spanY+120)*(960/520))));
+      const targetH=targetW*(520/960);
+      curVB=[
+        midX - targetW/2,
+        midY - targetH/2,
+        targetW,
+        targetH
+      ];
       updateViewBox();
     }
   };
@@ -851,22 +950,24 @@ function initWorldMapInteractive(p, mine){
       const d=makeFlightArc(hx, hy, x, y);
       const isAct=activeHubId===h.id;
       return `
-        <path class="flight-arc-glow" d="${d}" opacity="${isAct?'0.6':'0'}"/>
+        <path class="flight-arc-glow" data-hid="${h.id}" d="${d}" opacity="${isAct?'0.6':'0'}"/>
         <path class="flight-arc ${isAct?'active-arc':''}" data-hid="${h.id}" d="${d}" style="stroke-width:${isAct?3.4:Math.max(1.5, Math.min(3, 1.2+Math.sqrt(h.count)*0.5))}"/>`;
     }).join('');
 
-    // Draw Hub Pins
+    // Draw Hub Pins with .hub-pin-inner for zoom scale compensation
     const pinsHTML=activeHubs.map(h=>{
       const [x, y]=WORLD_MAP_SVG.project(h.coords[0], h.coords[1]);
       const isAct=activeHubId===h.id;
-      const r=Math.min(14, Math.max(6, Math.round(5 + Math.sqrt(h.count)*2.4)));
+      const r=Math.min(13, Math.max(6, Math.round(5 + Math.sqrt(h.count)*2.2)));
       const cls=h.intl?'intl':'national';
       return `
         <g class="hub-pin ${cls} ${isAct?'active-pin':''}" data-hid="${h.id}" transform="translate(${x},${y})">
-          <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
-          <circle class="pin-core" r="${r}"/>
-          <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
-          <text class="pin-lbl" y="${r+12}" text-anchor="middle">${h.short||h.name}</text>
+          <g class="hub-pin-inner">
+            <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
+            <circle class="pin-core" r="${r}"/>
+            <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
+            <text class="pin-lbl" y="${r+12}" text-anchor="middle">${h.short||h.name}</text>
+          </g>
           <title>${h.name} (${h.city}, ${h.country}) — ${h.count} joint publications</title>
         </g>`;
     }).join('');
@@ -874,10 +975,12 @@ function initWorldMapInteractive(p, mine){
     // Home Beacon (IIT Kharagpur)
     const homeBeaconHTML=`
       <g transform="translate(${hx},${hy})">
-        <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
-        <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
-        <circle r="3.5" fill="#f59e0b"/>
-        <text class="pin-lbl" y="-12" text-anchor="middle" font-weight="700" fill="#0a2540">📍 IIT Kharagpur (Lab Hub)</text>
+        <g class="home-beacon-inner">
+          <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
+          <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
+          <circle r="3.5" fill="#f59e0b"/>
+          <text class="pin-lbl" y="-12" text-anchor="middle" font-weight="700" fill="#0a2540">📍 IIT Kharagpur (Lab Hub)</text>
+        </g>
       </g>`;
 
     svg.innerHTML=`
@@ -887,17 +990,15 @@ function initWorldMapInteractive(p, mine){
       <path class="map-borders" d="${WORLD_MAP_SVG.borders}"/>
       <g class="arcs">${arcsHTML}</g>
       <g class="pins">${pinsHTML}</g>
-      ${homeBeaconHTML}
-      <g transform="translate(18, 502)" font-size="10" fill="#5a6b7c">
-        <circle cx="6" cy="-4" r="5" fill="#0a2540"/><text x="16" y="0">Lab Hub (IIT Kharagpur)</text>
-        <circle cx="170" cy="-4" r="5" fill="#d97706"/><text x="180" y="0">International Partner Hub</text>
-        <circle cx="340" cy="-4" r="5" fill="#0070cc"/><text x="350" y="0">National Partner Hub (India)</text>
-      </g>`;
+      ${homeBeaconHTML}`;
 
     // Wire clicks & hovers on pins and arcs
     svg.querySelectorAll('.hub-pin, .flight-arc').forEach(el=>{
       const hid=el.dataset.hid;
-      el.onclick=()=>selectHub(hid);
+      el.onclick=()=>{
+        if(totalDragDist>6) return; // Ignore if user was panning/dragging
+        selectHub(hid);
+      };
       el.onmouseenter=()=>{
         svg.querySelectorAll('.flight-arc').forEach(a=>{
           if(a.dataset.hid===hid) a.classList.add('active-arc');
@@ -907,7 +1008,7 @@ function initWorldMapInteractive(p, mine){
       el.onmouseleave=()=>{
         svg.querySelectorAll('.flight-arc').forEach(a=>{
           if(a.dataset.hid!==activeHubId) a.classList.remove('active-arc');
-          a.style.opacity='';
+          a.style.opacity=activeHubId ? (a.dataset.hid===activeHubId?'1':'0.22') : '';
         });
       };
     });
@@ -921,6 +1022,7 @@ function initWorldMapInteractive(p, mine){
       curFilter=b.dataset.mapfilter;
       renderSideList();
       renderMapElements();
+      updateViewBox();
     };
   });
 
@@ -934,9 +1036,9 @@ function initWorldMapInteractive(p, mine){
   }
 
   // Initial draw
-  updateViewBox();
   renderSideList();
   renderMapElements();
+  updateViewBox();
 }
 
 function initRadialGraphInteractive(p, mine){
