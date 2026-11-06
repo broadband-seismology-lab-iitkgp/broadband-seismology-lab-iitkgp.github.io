@@ -724,14 +724,6 @@ function initWorldMapInteractive(p, mine){
   const updateViewBox=()=>{
     clampViewBox();
     svg.setAttribute('viewBox', `${curVB[0].toFixed(1)} ${curVB[1].toFixed(1)} ${curVB[2].toFixed(1)} ${curVB[3].toFixed(1)}`);
-    // Inversely scale pins and labels so they stay crisp, neat, and non-overlapping at any zoom level
-    const zoomRatio = 960 / curVB[2]; // 1.0 to ~4.3
-    const pinScale = Math.max(0.42, Math.min(1.0, 1 / Math.pow(zoomRatio, 0.52)));
-    svg.querySelectorAll('.hub-pin-inner').forEach(el=>{
-      el.setAttribute('transform', `scale(${pinScale.toFixed(3)})`);
-    });
-    const beaconInner = svg.querySelector('.home-beacon-inner');
-    if(beaconInner) beaconInner.setAttribute('transform', `scale(${pinScale.toFixed(3)})`);
   };
 
   // Center-anchored zoom buttons
@@ -954,7 +946,7 @@ function initWorldMapInteractive(p, mine){
         <path class="flight-arc ${isAct?'active-arc':''}" data-hid="${h.id}" d="${d}" style="stroke-width:${isAct?3.4:Math.max(1.5, Math.min(3, 1.2+Math.sqrt(h.count)*0.5))}"/>`;
     }).join('');
 
-    // Draw Hub Pins with .hub-pin-inner for zoom scale compensation
+    // Draw Hub Pins directly positioned at (x, y)
     const pinsHTML=activeHubs.map(h=>{
       const [x, y]=WORLD_MAP_SVG.project(h.coords[0], h.coords[1]);
       const isAct=activeHubId===h.id;
@@ -962,25 +954,21 @@ function initWorldMapInteractive(p, mine){
       const cls=h.intl?'intl':'national';
       return `
         <g class="hub-pin ${cls} ${isAct?'active-pin':''}" data-hid="${h.id}" transform="translate(${x},${y})">
-          <g class="hub-pin-inner">
-            <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
-            <circle class="pin-core" r="${r}"/>
-            <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
-            <text class="pin-lbl" y="${r+12}" text-anchor="middle">${h.short||h.name}</text>
-          </g>
+          <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
+          <circle class="pin-core" r="${r}"/>
+          <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
+          <text class="pin-lbl" y="${r+12}" text-anchor="middle">${h.short||h.name}</text>
           <title>${h.name} (${h.city}, ${h.country}) — ${h.count} joint publications</title>
         </g>`;
     }).join('');
 
     // Home Beacon (IIT Kharagpur)
     const homeBeaconHTML=`
-      <g transform="translate(${hx},${hy})">
-        <g class="home-beacon-inner">
-          <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
-          <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
-          <circle r="3.5" fill="#f59e0b"/>
-          <text class="pin-lbl" y="-12" text-anchor="middle" font-weight="700" fill="#0a2540">📍 IIT Kharagpur (Lab Hub)</text>
-        </g>
+      <g class="home-beacon" transform="translate(${hx},${hy})">
+        <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
+        <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
+        <circle r="3.5" fill="#f59e0b"/>
+        <text class="pin-lbl" y="-12" text-anchor="middle" font-weight="700" fill="#0a2540">📍 IIT Kharagpur (Lab Hub)</text>
       </g>`;
 
     svg.innerHTML=`

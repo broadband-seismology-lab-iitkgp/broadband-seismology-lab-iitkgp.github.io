@@ -738,23 +738,21 @@ ul.pubs li.pub-row {
   cursor: pointer;
   transition: opacity 0.2s;
 }
-.hub-pin:hover .hub-pin-inner, .hub-pin.active-pin .hub-pin-inner {
-  filter: drop-shadow(0 2px 8px rgba(0, 112, 204, 0.45));
+.hub-pin:hover circle.pin-core, .hub-pin.active-pin circle.pin-core {
+  filter: drop-shadow(0 0 7px rgba(0, 112, 204, 0.75));
+  stroke-width: 2.6;
 }
 .hub-pin circle.pin-core {
   stroke: #ffffff;
   stroke-width: 1.8;
   vector-effect: non-scaling-stroke;
+  transition: stroke-width 0.15s ease, filter 0.15s ease;
 }
 .hub-pin.intl circle.pin-core {
   fill: #d97706;
 }
 .hub-pin.national circle.pin-core {
   fill: #0070cc;
-}
-.hub-pin-inner, .home-beacon-inner {
-  transition: transform 0.12s ease-out;
-  transform-origin: center;
 }
 .hub-pin text.pin-lbl {
   font-size: 10px;
