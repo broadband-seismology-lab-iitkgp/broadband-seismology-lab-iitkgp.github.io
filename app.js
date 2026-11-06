@@ -724,6 +724,21 @@ function initWorldMapInteractive(p, mine){
   const updateViewBox=()=>{
     clampViewBox();
     svg.setAttribute('viewBox', `${curVB[0].toFixed(1)} ${curVB[1].toFixed(1)} ${curVB[2].toFixed(1)} ${curVB[3].toFixed(1)}`);
+    // Scale circles down smoothly into a point as user zooms in, down to a minimum point dimension threshold
+    const s = Math.max(0.24, Math.min(1.0, Math.pow(curVB[2] / 960, 1.15)));
+    svg.querySelectorAll('.hub-pin').forEach(el=>{
+      const x=el.dataset.x, y=el.dataset.y;
+      if(x!=null && y!=null){
+        el.setAttribute('transform', `translate(${x},${y}) scale(${s.toFixed(3)})`);
+      }
+    });
+    const homeBeacon=svg.querySelector('.home-beacon');
+    if(homeBeacon){
+      const x=homeBeacon.dataset.x, y=homeBeacon.dataset.y;
+      if(x!=null && y!=null){
+        homeBeacon.setAttribute('transform', `translate(${x},${y}) scale(${s.toFixed(3)})`);
+      }
+    }
   };
 
   // Center-anchored zoom buttons
@@ -953,7 +968,7 @@ function initWorldMapInteractive(p, mine){
       const r=Math.min(13, Math.max(6, Math.round(5 + Math.sqrt(h.count)*2.2)));
       const cls=h.intl?'intl':'national';
       return `
-        <g class="hub-pin ${cls} ${isAct?'active-pin':''}" data-hid="${h.id}" transform="translate(${x},${y})">
+        <g class="hub-pin ${cls} ${isAct?'active-pin':''}" data-hid="${h.id}" data-x="${x}" data-y="${y}" transform="translate(${x},${y})">
           <circle r="${r+3}" fill="${h.intl?'#d97706':'#0070cc'}" opacity="0.18"/>
           <circle class="pin-core" r="${r}"/>
           <text y="3" text-anchor="middle" font-size="9" font-weight="700" fill="#fff">${h.count}</text>
@@ -964,7 +979,7 @@ function initWorldMapInteractive(p, mine){
 
     // Home Beacon (IIT Kharagpur)
     const homeBeaconHTML=`
-      <g class="home-beacon" transform="translate(${hx},${hy})">
+      <g class="home-beacon" data-x="${hx}" data-y="${hy}" transform="translate(${hx},${hy})">
         <circle class="beacon-pulse" r="10" fill="#f59e0b"/>
         <circle r="8" fill="#0a2540" stroke="#ffffff" stroke-width="2.5"/>
         <circle r="3.5" fill="#f59e0b"/>
